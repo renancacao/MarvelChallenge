@@ -7,6 +7,13 @@ android {
     compileSdkVersion 29
     buildToolsVersion "30.0.0"
 
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
     defaultConfig {
         applicationId "com.rcacao.marvelchallenge"
         minSdkVersion 22
@@ -16,8 +23,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        //adicione sua chave da api Marvel em um arquivo apikey.cfg na pasta app, em uma única linha
-        buildConfigField("String", "apiKey", '"' + new File('app/apikey.cfg').text + '"')
+        //adicione sua chave publica da api Marvel no arquivo gradle.properties como public_api_key=<chave publica>
+        buildConfigField("String", "APIKEY", '"' + getPublicApiKey() + '"')
+
+        //adicione sua chave privada da api Marvel no arquivo gradle.properties como private_api_key=<chave privada>
+        buildConfigField("String", "PRIVATE_APIKEY", '"' + getPrivateApiKey() + '"')
+
     }
 
     buildTypes {
@@ -38,4 +49,17 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //retrofit, okhttp, gson converter
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
+
+}
+
+def getPublicApiKey() {
+    return project.findProperty("public_api_key")
+}
+
+def getPrivateApiKey() {
+    return project.findProperty("private_api_key")
 }

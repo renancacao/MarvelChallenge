@@ -15,8 +15,14 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [ ] Testes unitários e interface.
 
 ## Outras libs usadas e bônus
+- Kotlin Extensions Functions
 - Detekt
+- Retrofit2
+
 
 ## Como executar
-Adicione sua chave da [API MARVEL](https://developer.marvel.com/docs) em um arquivo **apikey.cfg** na pasta **app** do projeto. (O arquivo deve possuir uma única linha, contendo apenas a chave da api)
+Adicione suas chaves pública e privada da [API MARVEL](https://developer.marvel.com/docs) no arquivo gradle.properties:
+public_api_key=<chave publica>
+private_api_key=<chave privada>
 
+Essas configurações podem ser adicionadas no arquivo <user>/.gradle/gradle.properties para que fiquem apartadas do projeto.
