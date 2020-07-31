@@ -17,3 +17,6 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 ## Outras libs usadas e bônus
 - Detekt
 
+## Como executar
+Adicione sua chave da [API MARVEL](https://developer.marvel.com/docs) em um arquivo **apikey.cfg** na pasta **app** do projeto. (O arquivo deve possuir uma única linha, contendo apenas a chave da api)
+
