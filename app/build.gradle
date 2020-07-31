@@ -16,6 +16,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        //adicione sua chave da api Marvel em um arquivo apikey.cfg na pasta app, em uma única linha
         buildConfigField("String", "apiKey", '"' + new File('app/apikey.cfg').text + '"')
     }
 
