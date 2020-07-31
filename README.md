@@ -7,7 +7,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 [Descrição original](https://github.com/jjfernandes87/Challenge/blob/master/README_Android_Senior.md)
 
 ## Requisitos Essenciais
-- [ ] Usar Kotlin.
+- [X] Usar Kotlin.
 - [ ] App universal, desenvolva uma interface que se adapte a telas maiores.
 - [ ] Tratamento para falha de conexão.
 - [ ] Desenvolver o App em uma arquitetura robusta.
@@ -15,5 +15,5 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [ ] Testes unitários e interface.
 
 ## Outras libs usadas e bônus
-
+- Detekt
 
