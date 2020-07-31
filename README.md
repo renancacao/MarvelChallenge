@@ -1,10 +1,10 @@
 # Desafio Android com API Marvel.
 
 ## Resumo
-Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e que tenha a funcionalidade de salvar os personagens favoritos, seguindo as regras propostas
+Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e que tenha a funcionalidade de salvar os personagens favoritos, seguindo as regras propostas.
 
 ## Regras do Desafio
-[Descrição original] (https://github.com/jjfernandes87/Challenge/blob/master/README_Android_Senior.md)
+[Descrição original](https://github.com/jjfernandes87/Challenge/blob/master/README_Android_Senior.md)
 
 ## Requisitos Essenciais
 - [ ] Usar Kotlin.
@@ -14,6 +14,6 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [ ] O teste não pode apresenter crash.
 - [ ] Testes unitários e interface.
 
-## Outras libs e bônus usados
+## Outras libs usadas e bônus
 
 
