@@ -1,6 +1,6 @@
-package com.rcacao.marvelchallenge.data.utils
+package com.rcacao.marvelchallenge.utils
 
-class MarvelApiHelper {
+class TimeStampHelper {
     fun timeStamp(): String {
         val tsLong: Long = System.currentTimeMillis() / 1000
         return tsLong.toString()

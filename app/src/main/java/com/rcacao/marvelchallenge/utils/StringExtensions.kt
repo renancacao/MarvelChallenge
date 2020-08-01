@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.utils.extensions
+package com.rcacao.marvelchallenge.utils
 
 import java.security.MessageDigest
 
