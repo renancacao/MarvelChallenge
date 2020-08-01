@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MarvelService {
+interface MarvelWebService {
 
     @GET("/v1/public/characters")
     fun loadCharacters(
@@ -25,7 +25,7 @@ interface MarvelService {
     companion object {
         private const val BASE_URL = "https://gateway.marvel.com/"
 
-        fun create(): MarvelService {
+        fun create(): MarvelWebService {
             val logger: HttpLoggingInterceptor =
                 HttpLoggingInterceptor().apply { level = Level.BODY }
 
@@ -38,7 +38,7 @@ interface MarvelService {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(MarvelService::class.java)
+                .create(MarvelWebService::class.java)
         }
     }
 }

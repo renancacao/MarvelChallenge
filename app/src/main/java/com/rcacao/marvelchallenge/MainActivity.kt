@@ -3,7 +3,7 @@ package com.rcacao.marvelchallenge
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.rcacao.marvelchallenge.data.CharactersResponse
-import com.rcacao.marvelchallenge.data.api.MarvelService
+import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.utils.TimeStampHelper
 import com.rcacao.marvelchallenge.utils.toMD5
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var service: MarvelService
+    lateinit var webService: MarvelWebService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val helper = TimeStampHelper()
         val ts: String = helper.timeStamp()
         val hash: String = (ts + BuildConfig.PRIVATE_APIKEY + BuildConfig.APIKEY).toMD5()
-        service.loadCharacters(ts, hash).enqueue(MyCallBack())
+        webService.loadCharacters(ts, hash).enqueue(MyCallBack())
 
     }
 }

@@ -1,6 +1,6 @@
 package com.rcacao.marvelchallenge.di
 
-import com.rcacao.marvelchallenge.data.api.MarvelService
+import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,6 +11,6 @@ import dagger.hilt.android.components.ApplicationComponent
 object ServiceModule {
 
     @Provides
-    fun provideMarvelService(): MarvelService = MarvelService.create()
+    fun provideMarvelService(): MarvelWebService = MarvelWebService.create()
 
 }
