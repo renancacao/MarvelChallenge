@@ -19,6 +19,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - Detekt
 - Retrofit2
 - Hilt
+- Paging Library
 
 ## Como executar
 Adicione suas chaves pública e privada da [API MARVEL](https://developer.marvel.com/docs) no arquivo gradle.properties:

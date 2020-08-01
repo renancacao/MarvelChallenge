@@ -2,14 +2,14 @@ package com.rcacao.marvelchallenge
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.rcacao.marvelchallenge.data.CharactersResponse
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.rcacao.marvelchallenge.data.CharactersRepository
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
-import com.rcacao.marvelchallenge.utils.TimeStampHelper
-import com.rcacao.marvelchallenge.utils.toMD5
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -18,28 +18,16 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var webService: MarvelWebService
 
+    @Inject
+    lateinit var repository: CharactersRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val helper = TimeStampHelper()
-        val ts: String = helper.timeStamp()
-        val hash: String = (ts + BuildConfig.PRIVATE_APIKEY + BuildConfig.APIKEY).toMD5()
-        webService.loadCharacters(ts, hash).enqueue(MyCallBack())
+        lifecycleScope
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.getCharacters()
+        }
 
     }
-}
-
-class MyCallBack : Callback<CharactersResponse> {
-    override fun onFailure(call: Call<CharactersResponse>, t: Throwable) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onResponse(
-        call: Call<CharactersResponse>,
-        response: Response<CharactersResponse>
-    ) {
-        //TODO("Not yet implemented")
-    }
-
 }
