@@ -10,4 +10,7 @@ class CharactersListResponse {
     @SerializedName("results")
     var characters: List<CharacterResponse> = emptyList()
 
+    @SerializedName("code")
+    var testCode: Int = 0
+
 }

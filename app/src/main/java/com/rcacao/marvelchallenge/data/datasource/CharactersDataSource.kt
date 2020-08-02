@@ -2,7 +2,7 @@ package com.rcacao.marvelchallenge.data.datasource
 
 import androidx.paging.PositionalDataSource
 import com.rcacao.marvelchallenge.data.CharacterResponse
-import com.rcacao.marvelchallenge.data.CharactersListResponse
+import com.rcacao.marvelchallenge.data.CharactersDataResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import kotlinx.coroutines.CoroutineScope
@@ -23,9 +23,9 @@ class CharactersDataSource @Inject constructor(
         callback: LoadRangeCallback<CharacterResponse>
     ) {
         coroutineScope.launch {
-            val response: CharactersListResponse =
+            val response: CharactersDataResponse =
                 getCharactersResponse(params.startPosition, params.loadSize)
-            callback.onResult(response.characters)
+            callback.onResult(response.data?.characters ?: emptyList())
         }
     }
 
@@ -34,18 +34,22 @@ class CharactersDataSource @Inject constructor(
         callback: LoadInitialCallback<CharacterResponse>
     ) {
         coroutineScope.launch {
-            val response: CharactersListResponse =
+            val response: CharactersDataResponse =
                 getCharactersResponse(params.requestedStartPosition, params.requestedLoadSize)
-            callback.onResult(response.characters, 0, response.total)
+            callback.onResult(
+                response.data?.characters ?: emptyList(),
+                0,
+                response.data?.total ?: 0
+            )
         }
     }
 
     private suspend fun getCharactersResponse(
         startPosition: Int,
         loadCount: Int
-    ): CharactersListResponse {
-        val ts = apiHelper.getTimeStamp()
-        val hash = apiHelper.getHash(ts)
+    ): CharactersDataResponse {
+        val ts: String = apiHelper.getTimeStamp()
+        val hash: String = apiHelper.getHash(ts)
         return webService.loadCharacters(
             ts,
             hash,
