@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun search(query: String) {
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
-            viewModel.searchRepo(query).collectLatest {
+            viewModel.searchCharacter(query).collectLatest {
                 Timber.d("Novos Dados de API")
                 adapter.submitData(it)
             }

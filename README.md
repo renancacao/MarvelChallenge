@@ -14,12 +14,34 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [ ] O teste não pode apresenter crash.
 - [ ] Testes unitários e interface.
 
+## Requisitos Tela Personagens
+- [X] Listagem dos personagens ordenados por nome.
+- [ ] Botão para favoritar nas células.
+- [ ] Barra de busca para filtrar lista de jogos por nome.
+- [ ] Pull-to-refresh para atualizar a lista.
+- [X] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
+- [ ] Interface de lista vazia, erro ou sem internet.
+
+## Requisitos Tela Detalhes
+- [ ] Botão de favorito.
+- [ ] Foto em tamanho maior
+- [ ] Nome do personagem na barra de navegação
+- [ ] Descrição (se houver).
+- [ ] Lista horizontal de Comics (se houver).
+- [ ] Lista horizontal de Series (se houver).
+
+## Requisitos Tela Favoritos
+- [ ] Listagem dos personagens favoritados pelo usuário.
+- [ ] Favoritos devem ser persistidos para serem acessados offline.
+- [ ] Interface de lista vazia, erro ou sem internet.
+
 ## Outras libs usadas e bônus
 - Kotlin Extensions Functions
 - Detekt
 - Retrofit2
 - Hilt
 - Coroutines
+- Flow
 - Paging 3 Library
 - ViewModel KTX
 - DataBinding

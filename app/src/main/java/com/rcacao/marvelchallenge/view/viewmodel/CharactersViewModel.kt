@@ -16,7 +16,7 @@ class CharactersViewModel @ViewModelInject @Inject constructor(private val repos
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<CharacterResponse>>? = null
 
-    fun searchRepo(queryString: String): Flow<PagingData<CharacterResponse>> {
+    fun searchCharacter(queryString: String): Flow<PagingData<CharacterResponse>> {
         val lastResult: Flow<PagingData<CharacterResponse>>? = currentSearchResult
         if (queryString == currentQueryValue && lastResult != null) {
             return lastResult

@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.rcacao.marvelchallenge.data.CharacterResponse
-import com.rcacao.marvelchallenge.data.MarvelPagingSource
+import com.rcacao.marvelchallenge.data.paging.MarvelPagingSource
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,12 @@ class CharactersRepository @Inject constructor(
                 enablePlaceholders = false,
                 initialLoadSize = 20
             ),
-            pagingSourceFactory = { MarvelPagingSource(webService, apiHelper) }
+            pagingSourceFactory = {
+                MarvelPagingSource(
+                    webService,
+                    apiHelper
+                )
+            }
         ).flow
     }
 

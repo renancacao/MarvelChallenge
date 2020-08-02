@@ -1,7 +1,9 @@
-package com.rcacao.marvelchallenge.data
+package com.rcacao.marvelchallenge.data.paging
 
 import androidx.paging.PagingSource
 import com.bumptech.glide.load.HttpException
+import com.rcacao.marvelchallenge.data.CharacterResponse
+import com.rcacao.marvelchallenge.data.CharactersDataResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import timber.log.Timber
@@ -15,6 +17,7 @@ class MarvelPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterResponse> {
 
+        //TODO: verificar se dispara apenas uma chamada ao iniciar o app
         val offset: Int = (params.key ?: 0)
         val limit: Int = params.loadSize
         val ts: String = apiHelper.getTimeStamp()
