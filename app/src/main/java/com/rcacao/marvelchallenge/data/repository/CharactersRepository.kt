@@ -1,6 +1,7 @@
-package com.rcacao.marvelchallenge.data
+package com.rcacao.marvelchallenge.data.repository
 
 import androidx.paging.PositionalDataSource
+import com.rcacao.marvelchallenge.data.CharacterResponse
 import com.rcacao.marvelchallenge.data.datasource.CharactersDataSource
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import javax.inject.Inject
