@@ -10,4 +10,7 @@ class CharacterResponse {
     @SerializedName("name")
     val name: String = ""
 
+    @SerializedName("thumbnail")
+    val thumbnail: ThumbnailResponse = ThumbnailResponse()
+
 }

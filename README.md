@@ -21,6 +21,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - Hilt
 - Paging Library
 - ViewModel KTX
+- Glide
 
 ## Como executar
 Adicione suas chaves pública e privada da [API MARVEL](https://developer.marvel.com/docs) no arquivo gradle.properties:
