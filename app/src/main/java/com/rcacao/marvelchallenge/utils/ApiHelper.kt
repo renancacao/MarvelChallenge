@@ -5,5 +5,4 @@ interface ApiHelper {
     fun getHash(ts: String): String
     fun getPublicKey(): String
     fun getOrderBy(): String
-    fun getLimit(): Int
 }

@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.GlideApp
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.data.CharacterResponse
-import kotlinx.android.synthetic.main.item_character.view.*
+import kotlinx.android.synthetic.main.character_item.view.*
 
 class CharactersAdapter() :
-    PagedListAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(DiffUtilCallBack()) {
+    PagingDataAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.character_item, parent, false)
         return CharacterViewHolder(view, parent.context)
     }
 

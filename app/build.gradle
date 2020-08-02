@@ -20,6 +20,10 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.rcacao.marvelchallenge"
         minSdkVersion 22
@@ -67,7 +71,7 @@ dependencies {
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
 
     //paging
-    def paging_version = "2.1.2"
+    def paging_version = "3.0.0-alpha03"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     testImplementation "androidx.paging:paging-common-ktx:$paging_version"
 

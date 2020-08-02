@@ -1,25 +1,31 @@
 package com.rcacao.marvelchallenge.view.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.rcacao.marvelchallenge.data.CharacterResponse
-import com.rcacao.marvelchallenge.data.datasource.CharactersDataSourceFactory
+import com.rcacao.marvelchallenge.data.repository.CharactersRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CharactersViewModel @ViewModelInject @Inject constructor(dataSourceFactory: CharactersDataSourceFactory) :
+class CharactersViewModel @ViewModelInject @Inject constructor(private val repository: CharactersRepository) :
     ViewModel() {
 
-    var charactersLiveData: LiveData<PagedList<CharacterResponse>>
+    private var currentQueryValue: String? = null
+    private var currentSearchResult: Flow<PagingData<CharacterResponse>>? = null
 
-    init {
-        val config: PagedList.Config = PagedList.Config.Builder()
-            .setPageSize(20)
-            .setEnablePlaceholders(true)
-            .build()
-        charactersLiveData = LivePagedListBuilder(dataSourceFactory, config).build()
+    fun searchRepo(queryString: String): Flow<PagingData<CharacterResponse>> {
+        val lastResult: Flow<PagingData<CharacterResponse>>? = currentSearchResult
+        if (queryString == currentQueryValue && lastResult != null) {
+            return lastResult
+        }
+        currentQueryValue = queryString
+        val newResult: Flow<PagingData<CharacterResponse>> =
+            repository.getCharacters().cachedIn(viewModelScope)
+        currentSearchResult = newResult
+        return newResult
     }
 
 }

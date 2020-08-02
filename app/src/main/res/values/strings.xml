@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MarvelChallenge</string>
+    <string name="retry">Tentar Novamente</string>
 </resources>

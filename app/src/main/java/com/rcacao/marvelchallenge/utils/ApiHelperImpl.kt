@@ -21,8 +21,6 @@ class ApiHelperImpl @Inject constructor() : ApiHelper {
 
     override fun getOrderBy(): String = "name"
 
-    override fun getLimit(): Int = 20
-
     private fun md5(text: String): String {
         val bytes: ByteArray = MessageDigest.getInstance("MD5").digest(text.toByteArray())
         return bytes.joinToString("") { "%02x".format(it) }
