@@ -13,7 +13,7 @@ import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.data.CharacterResponse
 import kotlinx.android.synthetic.main.character_item.view.*
 
-class CharactersAdapter() :
+class CharactersAdapter :
     PagingDataAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {

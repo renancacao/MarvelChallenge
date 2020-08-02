@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import com.bumptech.glide.load.HttpException
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.utils.ApiHelper
+import timber.log.Timber
 import java.io.IOException
 
 class MarvelPagingSource(
@@ -22,6 +23,7 @@ class MarvelPagingSource(
         val orderBy: String = apiHelper.getOrderBy()
 
         return try {
+            Timber.d("Chamada de API")
             val response: CharactersDataResponse =
                 webService.loadCharacters(ts, hash, offset, limit, orderBy, key)
             val characters: List<CharacterResponse> = response.data?.characters ?: emptyList()
