@@ -36,7 +36,7 @@ class CharactersAdapter :
             with(character) {
                 txtName.text = this.name
             }
-            GlideApp.with(context)
+            GlideApp.with(itemView.context)
                 .load(character.thumbnail.path + "/portrait_xlarge" + "." + character.thumbnail.extension)
                 .into(imgChar)
         }

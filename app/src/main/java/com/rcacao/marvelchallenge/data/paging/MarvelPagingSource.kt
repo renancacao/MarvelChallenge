@@ -10,6 +10,7 @@ import timber.log.Timber
 import java.io.IOException
 
 class MarvelPagingSource(
+    private val query: String,
     private val webService: MarvelWebService,
     private val apiHelper: ApiHelper
 ) :
@@ -28,7 +29,7 @@ class MarvelPagingSource(
         return try {
             Timber.d("Chamada de API")
             val response: CharactersDataResponse =
-                webService.loadCharacters(ts, hash, offset, limit, orderBy, key)
+                loadCharacters(ts, hash, offset, limit, orderBy, key, query)
             val characters: List<CharacterResponse> = response.data?.characters ?: emptyList()
             LoadResult.Page(
                 data = characters,
@@ -41,6 +42,23 @@ class MarvelPagingSource(
             return LoadResult.Error(exception)
         }
 
+    }
+
+    private suspend fun loadCharacters(
+        ts: String,
+        hash: String,
+        offset: Int,
+        limit: Int,
+        orderBy: String,
+        key: String,
+        query: String
+    ): CharactersDataResponse {
+        val trimQuery: String = query.trim()
+        return if (trimQuery.isNotEmpty()) {
+            webService.loadCharactersByName(ts, hash, offset, limit, orderBy, key, trimQuery)
+        } else {
+            webService.loadCharacters(ts, hash, offset, limit, orderBy, key)
+        }
     }
 
 }

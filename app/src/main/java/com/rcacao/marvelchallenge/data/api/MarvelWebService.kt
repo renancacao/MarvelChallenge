@@ -21,6 +21,17 @@ interface MarvelWebService {
         @Query("apikey") apikey: String
     ): CharactersDataResponse
 
+    @GET("/v1/public/characters")
+    suspend fun loadCharactersByName(
+        @Query("ts") ts: String,
+        @Query("hash") hash: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
+        @Query("orderBy") orderBy: String,
+        @Query("apikey") apikey: String,
+        @Query("nameStartsWith") nameStartWith: String = ""
+    ): CharactersDataResponse
+
     companion object {
         private const val BASE_URL = "https://gateway.marvel.com/"
 

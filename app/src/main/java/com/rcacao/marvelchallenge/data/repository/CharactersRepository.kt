@@ -15,9 +15,7 @@ class CharactersRepository @Inject constructor(
     private val apiHelper: ApiHelper
 ) {
 
-
-    //TODO: adicionar logica de busca
-    fun getCharacters(): Flow<PagingData<CharacterResponse>> {
+    fun getCharacters(query: String): Flow<PagingData<CharacterResponse>> {
         return Pager(
             PagingConfig(
                 pageSize = 20,
@@ -26,6 +24,7 @@ class CharactersRepository @Inject constructor(
             ),
             pagingSourceFactory = {
                 MarvelPagingSource(
+                    query,
                     webService,
                     apiHelper
                 )

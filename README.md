@@ -17,7 +17,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 ## Requisitos Tela Personagens
 - [X] Listagem dos personagens ordenados por nome.
 - [ ] Botão para favoritar nas células.
-- [ ] Barra de busca para filtrar lista de jogos por nome.
+- [X] Barra de busca para filtrar lista por nome.
 - [ ] Pull-to-refresh para atualizar a lista.
 - [X] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
 - [ ] Interface de lista vazia, erro ou sem internet.
@@ -46,6 +46,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - ViewModel KTX
 - DataBinding
 - Glide
+- TextInputLayout
 
 
 ## Como executar

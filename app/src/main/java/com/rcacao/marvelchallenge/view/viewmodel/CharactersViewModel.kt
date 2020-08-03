@@ -23,7 +23,7 @@ class CharactersViewModel @ViewModelInject @Inject constructor(private val repos
         }
         currentQueryValue = queryString
         val newResult: Flow<PagingData<CharacterResponse>> =
-            repository.getCharacters().cachedIn(viewModelScope)
+            repository.getCharacters(currentQueryValue ?: "").cachedIn(viewModelScope)
         currentSearchResult = newResult
         return newResult
     }
