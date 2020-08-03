@@ -13,19 +13,8 @@ import javax.inject.Inject
 class CharactersViewModel @ViewModelInject @Inject constructor(private val repository: CharactersRepository) :
     ViewModel() {
 
-    private var currentQueryValue: String? = null
-    private var currentSearchResult: Flow<PagingData<CharacterResponse>>? = null
-
     fun searchCharacter(queryString: String): Flow<PagingData<CharacterResponse>> {
-        val lastResult: Flow<PagingData<CharacterResponse>>? = currentSearchResult
-        if (queryString == currentQueryValue && lastResult != null) {
-            return lastResult
-        }
-        currentQueryValue = queryString
-        val newResult: Flow<PagingData<CharacterResponse>> =
-            repository.getCharacters(currentQueryValue ?: "").cachedIn(viewModelScope)
-        currentSearchResult = newResult
-        return newResult
+        return repository.getCharacters(queryString).cachedIn(viewModelScope)
     }
 
 }
