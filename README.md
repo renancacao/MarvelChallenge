@@ -18,7 +18,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [X] Listagem dos personagens ordenados por nome.
 - [ ] Botão para favoritar nas células.
 - [X] Barra de busca para filtrar lista por nome.
-- [ ] Pull-to-refresh para atualizar a lista.
+- [X] Pull-to-refresh para atualizar a lista.
 - [X] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
 - [ ] Interface de lista vazia, erro ou sem internet.
 
@@ -47,7 +47,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - DataBinding
 - Glide
 - TextInputLayout
-
+- Swipe Refresh
 
 ## Como executar
 Adicione suas chaves pública e privada da [API MARVEL](https://developer.marvel.com/docs) no arquivo gradle.properties:

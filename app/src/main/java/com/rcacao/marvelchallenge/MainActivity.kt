@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -40,7 +41,20 @@ class MainActivity : AppCompatActivity() {
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: ""
         search(query)
         initSearch(query)
+        initSwipe()
+    }
 
+    private fun initSwipe() {
+        swipeWrapper.setOnRefreshListener {
+            swipeWrapper.isRefreshing = false
+            updateRepoListFromInput()
+        }
+        swipeWrapper.setColorSchemeResources(
+            R.color.colorPrimary,
+            R.color.colorPrimaryDark,
+            R.color.colorPrimary,
+            R.color.colorPrimaryDark
+        )
     }
 
     private fun initSearch(query: String) {
