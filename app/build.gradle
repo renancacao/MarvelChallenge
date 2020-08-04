@@ -38,6 +38,7 @@ android {
 
         //adicione sua chave privada da api Marvel no arquivo gradle.properties como private_api_key=<chave privada>
         buildConfigField("String", "PRIVATE_APIKEY", '"' + getPrivateApiKey() + '"')
+        buildConfigField("Integer", "PAGE_SIZE", '20')
 
     }
 

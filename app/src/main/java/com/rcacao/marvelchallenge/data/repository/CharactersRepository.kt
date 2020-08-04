@@ -4,32 +4,28 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.rcacao.marvelchallenge.data.CharacterResponse
-import com.rcacao.marvelchallenge.data.paging.MarvelPagingSource
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
+import com.rcacao.marvelchallenge.data.mapper.Mapper
+import com.rcacao.marvelchallenge.data.paging.MarvelPagingSource
+import com.rcacao.marvelchallenge.domain.model.CharacterModel
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CharactersRepository @Inject constructor(
     private val webService: MarvelWebService,
-    private val apiHelper: ApiHelper
+    private val apiHelper: ApiHelper,
+    private val pagingConfig: PagingConfig,
+    private val characterMapper:
+    Mapper<Flow<PagingData<CharacterResponse>>, Flow<PagingData<CharacterModel>>>
 ) {
 
-    fun getCharacters(query: String): Flow<PagingData<CharacterResponse>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                initialLoadSize = 20
-            ),
+    fun getCharacters(query: String): Flow<PagingData<CharacterModel>> {
+        return characterMapper.map(Pager(pagingConfig,
             pagingSourceFactory = {
-                MarvelPagingSource(
-                    query,
-                    webService,
-                    apiHelper
-                )
+                MarvelPagingSource(query, webService, apiHelper)
             }
-        ).flow
+        ).flow)
     }
 
 }

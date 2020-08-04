@@ -1,21 +1,22 @@
 package com.rcacao.marvelchallenge.view.ui.list
 
 import androidx.recyclerview.widget.DiffUtil
-import com.rcacao.marvelchallenge.data.CharacterResponse
+import com.rcacao.marvelchallenge.domain.model.CharacterModel
 import javax.inject.Inject
 
-class DiffUtilCallBack @Inject constructor(): DiffUtil.ItemCallback<CharacterResponse>() {
+class DiffUtilCallBack @Inject constructor() : DiffUtil.ItemCallback<CharacterModel>() {
 
-    override fun areItemsTheSame(oldItem: CharacterResponse, newItem: CharacterResponse): Boolean {
+    override fun areItemsTheSame(oldItem: CharacterModel, newItem: CharacterModel): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: CharacterResponse,
-        newItem: CharacterResponse
+        oldItem: CharacterModel,
+        newItem: CharacterModel
     ): Boolean {
         //TODO: adicinar parametros do objeto no futuro
         return oldItem.name == newItem.name
+                && oldItem.listImageUrl == newItem.listImageUrl
     }
 
 }

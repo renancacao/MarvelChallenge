@@ -9,19 +9,17 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.GlideApp
 import com.rcacao.marvelchallenge.R
-import com.rcacao.marvelchallenge.data.CharacterResponse
+import com.rcacao.marvelchallenge.domain.model.CharacterModel
 import kotlinx.android.synthetic.main.character_item.view.*
 import javax.inject.Inject
 
 class CharactersAdapter @Inject constructor(diffUtilCallBack: DiffUtilCallBack) :
-    PagingDataAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
+    PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.character_item, parent, false)
-        return CharacterViewHolder(
-            view
-        )
+        return CharacterViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
@@ -34,12 +32,12 @@ class CharactersAdapter @Inject constructor(diffUtilCallBack: DiffUtilCallBack) 
         private val txtName: TextView = itemView.txtName
         private val imgChar: ImageView = itemView.imgChar
 
-        fun bindPost(character: CharacterResponse) {
+        fun bindPost(character: CharacterModel) {
             with(character) {
                 txtName.text = this.name
             }
             GlideApp.with(itemView.context)
-                .load(character.thumbnail.path + "/portrait_xlarge" + "." + character.thumbnail.extension)
+                .load(character.listImageUrl)
                 .into(imgChar)
         }
     }
