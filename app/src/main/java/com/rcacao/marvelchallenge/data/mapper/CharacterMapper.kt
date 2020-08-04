@@ -24,14 +24,14 @@ class CharacterMapper @Inject constructor() :
     }
 
     private fun getListImage(thumbnail: ThumbnailResponse): String =
-        getImageUrl(thumbnail, CharacterMapperImageSize.MEDIUM_SQUARE)
+        getImageUrl(thumbnail, CharacterMapperImageSize.X_LARGE_SQUARE)
 
     private fun getImageUrl(thumbnail: ThumbnailResponse, size: CharacterMapperImageSize): String =
         "${thumbnail.path}/${size.path}.${thumbnail.extension}"
 
 
     enum class CharacterMapperImageSize(val path: String) {
-        MEDIUM_SQUARE("standard_medium")
+        X_LARGE_SQUARE("standard_xlarge")
     }
 
 }
