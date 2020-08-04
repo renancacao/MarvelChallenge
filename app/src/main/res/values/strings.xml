@@ -2,4 +2,6 @@
     <string name="app_name">MarvelChallenge</string>
     <string name="retry">Tentar Novamente</string>
     <string name="search_hint">Nome do personagem</string>
+    <string name="comics">Comics</string>
+    <string name="series">Séries</string>
 </resources>
