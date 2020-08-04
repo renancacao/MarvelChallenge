@@ -2,8 +2,9 @@ package com.rcacao.marvelchallenge.view.ui.list
 
 import androidx.recyclerview.widget.DiffUtil
 import com.rcacao.marvelchallenge.data.CharacterResponse
+import javax.inject.Inject
 
-class DiffUtilCallBack : DiffUtil.ItemCallback<CharacterResponse>() {
+class DiffUtilCallBack @Inject constructor(): DiffUtil.ItemCallback<CharacterResponse>() {
 
     override fun areItemsTheSame(oldItem: CharacterResponse, newItem: CharacterResponse): Boolean {
         return oldItem.id == newItem.id

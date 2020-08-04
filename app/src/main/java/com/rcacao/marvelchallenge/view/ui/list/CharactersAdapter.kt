@@ -11,11 +11,10 @@ import com.rcacao.marvelchallenge.GlideApp
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.data.CharacterResponse
 import kotlinx.android.synthetic.main.character_item.view.*
+import javax.inject.Inject
 
-class CharactersAdapter :
-    PagingDataAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(
-        DiffUtilCallBack()
-    ) {
+class CharactersAdapter @Inject constructor(diffUtilCallBack: DiffUtilCallBack) :
+    PagingDataAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view: View =

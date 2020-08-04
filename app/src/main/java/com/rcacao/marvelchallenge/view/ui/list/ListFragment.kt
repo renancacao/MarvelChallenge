@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ListFragment : Fragment() {
@@ -31,8 +32,8 @@ class ListFragment : Fragment() {
     private val viewModel: CharactersViewModel by activityViewModels()
     private var searchJob: Job? = null
 
-    private val adapter: CharactersAdapter =
-        CharactersAdapter()
+    @Inject
+    lateinit var adapter: CharactersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,6 +104,7 @@ class ListFragment : Fragment() {
     }
 
     private fun search(query: String) {
+        //TODO: Este job deveria estar aqui?
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
             viewModel.searchCharacter(query).collectLatest {
