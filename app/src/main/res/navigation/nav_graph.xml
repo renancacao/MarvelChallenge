@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.rcacao.marvelchallenge.view.ui.ListFragment"
+        android:name="com.rcacao.marvelchallenge.view.ui.list.ListFragment"
         android:label="ListFragment" >
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.rcacao.marvelchallenge.view.ui.DetailFragment"
+        android:name="com.rcacao.marvelchallenge.view.ui.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.view.ui
+package com.rcacao.marvelchallenge.view.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
