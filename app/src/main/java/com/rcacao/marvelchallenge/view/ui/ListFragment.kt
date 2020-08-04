@@ -1,20 +1,23 @@
-package com.rcacao.marvelchallenge
+package com.rcacao.marvelchallenge.view.ui
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import com.rcacao.marvelchallenge.view.CharactersAdapter
+import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -22,18 +25,24 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class ListFragment : Fragment() {
 
-    private val viewModel: CharactersViewModel by viewModels()
-
-    private val adapter: CharactersAdapter = CharactersAdapter()
+    private val viewModel: CharactersViewModel by activityViewModels()
     private var searchJob: Job? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    private val adapter: CharactersAdapter =
+        CharactersAdapter()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
         buttonRetry.setOnClickListener { adapter.retry() }
@@ -103,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         adapter.addLoadStateListener { loadState: CombinedLoadStates ->
             recyclerView.isVisible = isSuccess(loadState) && !isError(loadState)
             progressBar.isVisible = isLoading(loadState)
@@ -114,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                 ?: loadState.append as? LoadState.Error
                 ?: loadState.prepend as? LoadState.Error
             errorState?.let {
-                Toast.makeText(this, "\uD83D\uDE28 Wooops ${it.error}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "\uD83D\uDE28 Wooops ${it.error}", Toast.LENGTH_LONG).show()
             }
         }
         recyclerView.adapter = adapter
@@ -134,6 +143,4 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val LAST_SEARCH_QUERY: String = "last_search_query"
     }
-
 }
-

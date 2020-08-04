@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.view
+package com.rcacao.marvelchallenge.view.ui
 
 import androidx.recyclerview.widget.DiffUtil
 import com.rcacao.marvelchallenge.data.CharacterResponse

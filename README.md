@@ -43,6 +43,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - Coroutines
 - Flow
 - Paging 3 Library
+- Navigation
 - ViewModel KTX
 - DataBinding
 - Glide

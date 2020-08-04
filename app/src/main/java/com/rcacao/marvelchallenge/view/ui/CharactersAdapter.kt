@@ -1,6 +1,5 @@
-package com.rcacao.marvelchallenge.view
+package com.rcacao.marvelchallenge.view.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,19 +13,23 @@ import com.rcacao.marvelchallenge.data.CharacterResponse
 import kotlinx.android.synthetic.main.character_item.view.*
 
 class CharactersAdapter :
-    PagingDataAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(DiffUtilCallBack()) {
+    PagingDataAdapter<CharacterResponse, CharactersAdapter.CharacterViewHolder>(
+        DiffUtilCallBack()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.character_item, parent, false)
-        return CharacterViewHolder(view, parent.context)
+        return CharacterViewHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         getItem(position)?.let { holder.bindPost(it) }
     }
 
-    class CharacterViewHolder(itemView: View, private val context: Context) :
+    class CharacterViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         private val txtName: TextView = itemView.txtName
