@@ -10,12 +10,16 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
+import com.rcacao.marvelchallenge.domain.model.NavigationEvent
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,14 +56,32 @@ class ListFragment : Fragment() {
         initAdapter()
         buttonRetry.setOnClickListener { adapter.retry() }
 
-        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: ""
-        search(query)
-        initSearch(query)
-        initSwipe()
+        val query: String = charactersViewModel.currentQuery
+        val position: Int = charactersViewModel.currentPosition
 
-        sharedViewModel.selectedCharacter.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context, it.name, Toast.LENGTH_LONG).show()
-        })
+        search(query)
+        initSearchAndPosition(query, position)
+        initSwipe()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        sharedViewModel.navigationEvent.observe(
+            viewLifecycleOwner,
+            Observer { event -> event.getContentIfNotHandled()?.let { handleNavigationEvent(it) } })
+    }
+
+
+    private fun handleNavigationEvent(navigationEvent: NavigationEvent) {
+        when (navigationEvent) {
+            NavigationEvent.NavigateToDetails -> navigateToDetails()
+        }
+    }
+
+    private fun navigateToDetails() {
+        val action: NavDirections =
+            ListFragmentDirections.actionListFragmentToDetailFragment()
+        findNavController().navigate(action)
     }
 
     private fun initSwipe() {
@@ -75,14 +97,16 @@ class ListFragment : Fragment() {
         )
     }
 
-    private fun initSearch(query: String) {
+    private fun initSearchAndPosition(query: String, currentPosition: Int) {
         txtSearch.setText(query)
         setSearchTextListeners()
         lifecycleScope.launch {
             adapter.loadStateFlow
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
-                .collect { recyclerView.scrollToPosition(0) }
+                .collect {
+                    recyclerView.scrollToPosition(currentPosition)
+                }
         }
     }
 

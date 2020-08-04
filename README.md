@@ -36,19 +36,32 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [ ] Interface de lista vazia, erro ou sem internet.
 
 ## Outras libs usadas e bônus
+
 - Kotlin Extensions Functions
+
 - Detekt
+
 - Retrofit2
+
 - Hilt
+
 - Coroutines
 - Flow
+
 - Paging 3 Library
+
 - Navigation
+- SafeArgs
+
 - ViewModel KTX
+
 - DataBinding
 - BindingAdapter
+
 - Glide
+
 - TextInputLayout
+
 - Swipe Refresh
 
 ## Como executar

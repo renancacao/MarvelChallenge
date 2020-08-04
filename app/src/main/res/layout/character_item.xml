@@ -2,13 +2,22 @@
 <layout>
 
     <data>
+
         <variable
             name="character"
             type="com.rcacao.marvelchallenge.domain.model.CharacterModel" />
 
         <variable
-            name="viewModel"
+            name="sharedViewModel"
             type="com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel" />
+
+        <variable
+            name="charactersViewModel"
+            type="com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel" />
+
+        <variable
+            name="position"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,12 +30,15 @@
             android:id="@+id/imgChar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:character="@{character}"
             app:glideSrc="@{character.listImageUrl}"
+            app:itemPosition="@{position}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:onClickItem="@{charactersViewModel}"
+            app:onSelectChar="@{sharedViewModel}"
             tools:layout_height="160dp"
-            android:onClick="@{() -> viewModel.selectCharacter(character)}"
             tools:src="@mipmap/ic_launcher" />
 
         <TextView

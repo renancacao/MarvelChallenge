@@ -4,13 +4,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.rcacao.marvelchallenge.data.repository.CharactersRepository
 import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.domain.model.Event
 import com.rcacao.marvelchallenge.domain.model.NavigationEvent
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SharedViewModel @ViewModelInject @Inject constructor(private val repository: CharactersRepository) :
@@ -20,12 +17,13 @@ class SharedViewModel @ViewModelInject @Inject constructor(private val repositor
     val selectedCharacter: LiveData<CharacterModel>
         get() = mutableSelectedCharacter
 
-    private val mutableNavigationEvent = MutableLiveData<NavigationEvent>()
-    val navigationEvent: LiveData<NavigationEvent>
+    private val mutableNavigationEvent = MutableLiveData<Event<NavigationEvent>>()
+    val navigationEvent: LiveData<Event<NavigationEvent>>
         get() = mutableNavigationEvent
 
     fun selectCharacter(characterModel: CharacterModel) {
         mutableSelectedCharacter.value = characterModel
+        mutableNavigationEvent.value = Event(NavigationEvent.NavigateToDetails)
     }
 
 }

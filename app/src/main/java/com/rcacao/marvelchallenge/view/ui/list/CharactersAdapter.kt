@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.R
@@ -23,12 +21,12 @@ import javax.inject.Inject
 @ActivityScoped
 class CharactersAdapter @Inject constructor(
     @ActivityContext private val context: Context,
-    diffUtilCallBack: DiffUtilCallBack
-) :
+    diffUtilCallBack: DiffUtilCallBack) :
     PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
 
     var itemSize: Int
-    private val viewModel: SharedViewModel by (context as ComponentActivity).viewModels()
+    private val sharedViewModel: SharedViewModel by (context as ComponentActivity).viewModels()
+    private val charactersViewModel: CharactersViewModel by (context as ComponentActivity).viewModels()
 
     init {
         val displayMetrics = DisplayMetrics()
@@ -43,17 +41,19 @@ class CharactersAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        getItem(position)?.let { holder.bindPost(it) }
+        getItem(position)?.let { holder.bindPost(it, position) }
     }
 
     inner class CharacterViewHolder(private val binding: CharacterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindPost(character: CharacterModel) {
+        fun bindPost(character: CharacterModel, position: Int) {
             binding.imgChar.layoutParams.height = itemSize
             binding.imgChar.layoutParams.width = itemSize
+            binding.sharedViewModel = sharedViewModel
+            binding.charactersViewModel = charactersViewModel
+            binding.position = position
             binding.character = character
-            binding.viewModel = viewModel
         }
     }
 
