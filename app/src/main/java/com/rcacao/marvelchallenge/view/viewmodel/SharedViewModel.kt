@@ -13,11 +13,19 @@ import com.rcacao.marvelchallenge.domain.model.NavigationEvent
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CharactersViewModel @ViewModelInject @Inject constructor(private val repository: CharactersRepository) :
+class SharedViewModel @ViewModelInject @Inject constructor(private val repository: CharactersRepository) :
     ViewModel() {
 
-    fun searchCharacter(queryString: String): Flow<PagingData<CharacterModel>> {
-        return repository.getCharacters(queryString).cachedIn(viewModelScope)
+    private val mutableSelectedCharacter = MutableLiveData<CharacterModel>()
+    val selectedCharacter: LiveData<CharacterModel>
+        get() = mutableSelectedCharacter
+
+    private val mutableNavigationEvent = MutableLiveData<NavigationEvent>()
+    val navigationEvent: LiveData<NavigationEvent>
+        get() = mutableNavigationEvent
+
+    fun selectCharacter(characterModel: CharacterModel) {
+        mutableSelectedCharacter.value = characterModel
     }
 
 }

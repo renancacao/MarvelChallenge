@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel" />
+            type="com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

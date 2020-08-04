@@ -15,6 +15,7 @@ import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.CharacterItemBinding
 import com.rcacao.marvelchallenge.domain.model.CharacterModel
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
+import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
@@ -27,7 +28,7 @@ class CharactersAdapter @Inject constructor(
     PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
 
     var itemSize: Int
-    private val viewModel: CharactersViewModel by (context as ComponentActivity).viewModels()
+    private val viewModel: SharedViewModel by (context as ComponentActivity).viewModels()
 
     init {
         val displayMetrics = DisplayMetrics()

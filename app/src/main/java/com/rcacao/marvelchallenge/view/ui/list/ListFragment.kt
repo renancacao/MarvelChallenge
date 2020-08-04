@@ -17,6 +17,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
+import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.coroutines.Job
@@ -30,7 +31,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ListFragment : Fragment() {
 
-    private val viewModel: CharactersViewModel by activityViewModels()
+    private val charactersViewModel: CharactersViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
     private var searchJob: Job? = null
 
     @Inject
@@ -54,7 +57,7 @@ class ListFragment : Fragment() {
         initSearch(query)
         initSwipe()
 
-        viewModel.selectedCharacter.observe(viewLifecycleOwner, Observer {
+        sharedViewModel.selectedCharacter.observe(viewLifecycleOwner, Observer {
             Toast.makeText(context, it.name, Toast.LENGTH_LONG).show()
         })
     }
@@ -112,7 +115,7 @@ class ListFragment : Fragment() {
         //TODO: Este job deveria estar aqui?
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
-            viewModel.searchCharacter(query).collectLatest {
+            charactersViewModel.searchCharacter(query).collectLatest {
                 adapter.submitData(it)
             }
         }
