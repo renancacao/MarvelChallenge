@@ -46,6 +46,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - Navigation
 - ViewModel KTX
 - DataBinding
+- BindingAdapter
 - Glide
 - TextInputLayout
 - Swipe Refresh

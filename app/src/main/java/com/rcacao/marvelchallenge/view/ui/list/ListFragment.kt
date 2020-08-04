@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
@@ -52,6 +53,10 @@ class ListFragment : Fragment() {
         search(query)
         initSearch(query)
         initSwipe()
+
+        viewModel.selectedCharacter.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, it.name, Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun initSwipe() {
