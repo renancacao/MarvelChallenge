@@ -18,6 +18,10 @@
         <variable
             name="position"
             type="Integer" />
+
+        <variable
+            name="listener"
+            type="com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,13 +35,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:character="@{character}"
+            app:charactersViewModel="@{charactersViewModel}"
             app:glideSrc="@{character.listImageUrl}"
             app:itemPosition="@{position}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:onClickItem="@{charactersViewModel}"
-            app:onSelectChar="@{sharedViewModel}"
+            app:onItemClickListener="@{listener}"
+            app:sharedViewModel="@{sharedViewModel}"
+            android:transitionName="@{@string/item_transition  + position}"
             tools:layout_height="160dp"
             tools:src="@mipmap/ic_launcher" />
 

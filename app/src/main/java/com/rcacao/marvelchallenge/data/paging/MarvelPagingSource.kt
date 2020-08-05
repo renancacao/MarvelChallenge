@@ -1,11 +1,11 @@
 package com.rcacao.marvelchallenge.data.paging
 
 import androidx.paging.PagingSource
-import com.bumptech.glide.load.HttpException
 import com.rcacao.marvelchallenge.data.CharacterResponse
 import com.rcacao.marvelchallenge.data.CharactersDataResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.utils.ApiHelper
+import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 

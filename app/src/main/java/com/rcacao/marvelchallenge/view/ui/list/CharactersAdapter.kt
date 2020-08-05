@@ -4,9 +4,16 @@ import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.R
@@ -21,8 +28,10 @@ import javax.inject.Inject
 @ActivityScoped
 class CharactersAdapter @Inject constructor(
     @ActivityContext private val context: Context,
-    diffUtilCallBack: DiffUtilCallBack) :
-    PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
+    diffUtilCallBack: DiffUtilCallBack
+) :
+    PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack),
+    OnRecyclerItemClickListener {
 
     var itemSize: Int
     private val sharedViewModel: SharedViewModel by (context as ComponentActivity).viewModels()
@@ -41,20 +50,41 @@ class CharactersAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        getItem(position)?.let { holder.bindPost(it, position) }
+        getItem(position)?.let { holder.bindPost(it, position, this) }
     }
 
     inner class CharacterViewHolder(private val binding: CharacterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindPost(character: CharacterModel, position: Int) {
+        fun bindPost(
+            character: CharacterModel,
+            position: Int,
+            listener: OnRecyclerItemClickListener
+        ) {
             binding.imgChar.layoutParams.height = itemSize
             binding.imgChar.layoutParams.width = itemSize
             binding.sharedViewModel = sharedViewModel
             binding.charactersViewModel = charactersViewModel
             binding.position = position
             binding.character = character
+            binding.listener = listener
         }
     }
 
+    override fun onClickItem(view: View) {
+        navigateToDetails(view)
+    }
+
+    private fun navigateToDetails(view: View) {
+        val navController: NavController = view.findNavController()
+        if (navController.currentDestination?.id == R.id.listFragment) {
+            val extras =
+                FragmentNavigator.Extras.Builder()
+                    .addSharedElement(view, view.transitionName).build()
+            val action: NavDirections =
+                ListFragmentDirections.actionListFragmentToDetailFragment()
+
+            navController.navigate(action, extras)
+        }
+    }
 }

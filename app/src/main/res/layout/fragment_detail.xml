@@ -29,12 +29,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                app:onImageLoad="@{onImageLoadListener}"
                 app:glideSrc="@{viewModel.selectedCharacter.detailImageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:alpha=".7"
+                app:onImageLoad="@{onImageLoadListener}"
+                tools:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imgFace"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="24dp"
+                android:adjustViewBounds="true"
+                android:elevation="10dp"
+                android:background="@color/colorPrimary"
+                android:transitionName="@{viewModel.transitionName}"
+                app:glideSrc="@{viewModel.selectedCharacter.listImageUrl}"
+                app:layout_constraintBottom_toBottomOf="@+id/imgDetails"
+                app:layout_constraintStart_toStartOf="@id/imgDetails"
+                app:layout_constraintTop_toBottomOf="@id/imgDetails"
                 tools:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -47,7 +63,7 @@
                 android:text="@{viewModel.selectedCharacter.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgDetails"
+                app:layout_constraintTop_toBottomOf="@+id/imgFace"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate, nibh dui convallis mauris, in sollicitudin lacus ipsum non eros. Proin cursus iaculis mauris. Nam mauris quam, scelerisque nec placerat rutrum, ultricies nec justo. Duis dictum convallis ante sit amet rhoncus. Cras pharetra diam felis, eu dictum libero pharetra in. Nulla sed erat et eros facilisis eleifend. Vivamus nec varius tellus. Nam justo mauris, rhoncus nec risus quis, imperdiet auctor metus. Donec feugiat urna ut lectus lacinia dictum. Vivamus ultrices id dolor sit amet pretium. Duis auctor, nunc et tempus ornare, est leo cursus lorem, sit amet rhoncus ante tellus sed orci. Aenean aliquet tempor dictum." />
 
             <TextView

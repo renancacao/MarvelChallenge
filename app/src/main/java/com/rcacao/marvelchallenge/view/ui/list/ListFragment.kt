@@ -10,16 +10,12 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.FragmentListBinding
-import com.rcacao.marvelchallenge.domain.model.NavigationEvent
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,28 +59,6 @@ class ListFragment : Fragment() {
         search(query)
         initSearchAndPosition(query, position)
         initSwipe()
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
-        sharedViewModel.navigationEvent.observe(
-            viewLifecycleOwner,
-            Observer { event -> event.getContentIfNotHandled()?.let { handleNavigationEvent(it) } })
-    }
-
-
-    private fun handleNavigationEvent(navigationEvent: NavigationEvent) {
-        when (navigationEvent) {
-            NavigationEvent.NavigateToDetails -> navigateToDetails()
-        }
-    }
-
-    private fun navigateToDetails() {
-        if (findNavController().currentDestination?.id == R.id.listFragment) {
-            val action: NavDirections =
-                ListFragmentDirections.actionListFragmentToDetailFragment()
-            findNavController().navigate(action)
-        }
     }
 
     private fun initSwipe() {
