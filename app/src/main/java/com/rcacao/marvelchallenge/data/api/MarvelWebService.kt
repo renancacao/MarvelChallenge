@@ -1,6 +1,6 @@
 package com.rcacao.marvelchallenge.data.api
 
-import com.rcacao.marvelchallenge.data.DataResponse
+import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -19,7 +19,7 @@ interface MarvelWebService {
         @Query("limit") limit: Int,
         @Query("orderBy") orderBy: String,
         @Query("apikey") apikey: String
-    ): DataResponse
+    ): CharactersDataResponse
 
     @GET("/v1/public/characters")
     suspend fun loadCharactersByName(
@@ -30,7 +30,7 @@ interface MarvelWebService {
         @Query("orderBy") orderBy: String,
         @Query("apikey") apikey: String,
         @Query("nameStartsWith") nameStartWith: String = ""
-    ): DataResponse
+    ): CharactersDataResponse
 
     companion object {
         private const val BASE_URL = "https://gateway.marvel.com/"
