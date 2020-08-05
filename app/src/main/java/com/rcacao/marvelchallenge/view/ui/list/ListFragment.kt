@@ -18,11 +18,11 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
+import com.rcacao.marvelchallenge.databinding.FragmentListBinding
 import com.rcacao.marvelchallenge.domain.model.NavigationEvent
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -38,6 +38,7 @@ class ListFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private var searchJob: Job? = null
+    private lateinit var binding: FragmentListBinding
 
     @Inject
     lateinit var adapter: CharactersAdapter
@@ -46,14 +47,15 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
-        buttonRetry.setOnClickListener { adapter.retry() }
+        binding.buttonRetry.setOnClickListener { adapter.retry() }
 
         val query: String = charactersViewModel.currentQuery
         val position: Int = charactersViewModel.currentPosition
@@ -86,11 +88,11 @@ class ListFragment : Fragment() {
     }
 
     private fun initSwipe() {
-        swipeWrapper.setOnRefreshListener {
-            swipeWrapper.isRefreshing = false
+        binding.swipeWrapper.setOnRefreshListener {
+            binding.swipeWrapper.isRefreshing = false
             updateRepoListFromInput()
         }
-        swipeWrapper.setColorSchemeResources(
+        binding.swipeWrapper.setColorSchemeResources(
             R.color.colorPrimary,
             R.color.colorPrimaryDark,
             R.color.colorPrimary,
@@ -99,20 +101,20 @@ class ListFragment : Fragment() {
     }
 
     private fun initSearchAndPosition(query: String, currentPosition: Int) {
-        txtSearch.setText(query)
+        binding.txtSearch.setText(query)
         setSearchTextListeners()
         lifecycleScope.launch {
             adapter.loadStateFlow
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect {
-                    recyclerView.scrollToPosition(currentPosition)
+                    binding.recyclerView.scrollToPosition(currentPosition)
                 }
         }
     }
 
     private fun setSearchTextListeners() {
-        txtSearch.setOnEditorActionListener { _, actionId, _ ->
+        binding.txtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
                 updateRepoListFromInput()
                 true
@@ -120,7 +122,7 @@ class ListFragment : Fragment() {
                 false
             }
         }
-        txtSearch.setOnKeyListener { _, keyCode, event ->
+        binding.txtSearch.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 updateRepoListFromInput()
                 true
@@ -131,7 +133,7 @@ class ListFragment : Fragment() {
     }
 
     private fun updateRepoListFromInput() {
-        txtSearch.text.trim().let {
+        binding.txtSearch.text.trim().let {
             search(it.toString())
         }
     }
@@ -147,11 +149,11 @@ class ListFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
         adapter.addLoadStateListener { loadState: CombinedLoadStates ->
-            recyclerView.isVisible = isSuccess(loadState) && !isError(loadState)
-            progressBar.isVisible = isLoading(loadState)
-            buttonRetry.isVisible = isError(loadState)
+            binding.recyclerView.isVisible = isSuccess(loadState) && !isError(loadState)
+            binding.progressBar.isVisible = isLoading(loadState)
+            binding.buttonRetry.isVisible = isError(loadState)
 
             val errorState: LoadState.Error? = loadState.source.append as? LoadState.Error
                 ?: loadState.source.prepend as? LoadState.Error
@@ -161,7 +163,7 @@ class ListFragment : Fragment() {
                 Toast.makeText(context, "\uD83D\uDE28 Wooops ${it.error}", Toast.LENGTH_LONG).show()
             }
         }
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
     }
 
     private fun isSuccess(loadState: CombinedLoadStates) =
