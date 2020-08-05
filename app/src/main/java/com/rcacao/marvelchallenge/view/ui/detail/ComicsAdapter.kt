@@ -1,20 +1,19 @@
 package com.rcacao.marvelchallenge.view.ui.detail
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.databinding.ComicsItemBinding
 import com.rcacao.marvelchallenge.view.viewmodel.ComicsViewModel
+import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
-class ComicsAdapter @Inject constructor() : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
+class ComicsAdapter @Inject constructor(@ActivityContext private val context: Context) :
+    RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
-    private var viewModel: ComicsViewModel? = null
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
+    var viewModel: ComicsViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicsViewHolder {
         val binding: ComicsItemBinding =
