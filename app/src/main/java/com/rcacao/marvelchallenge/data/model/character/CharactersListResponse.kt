@@ -1,6 +1,7 @@
-package com.rcacao.marvelchallenge.data
+package com.rcacao.marvelchallenge.data.model.character
 
 import com.google.gson.annotations.SerializedName
+import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 
 class CharactersListResponse {
 

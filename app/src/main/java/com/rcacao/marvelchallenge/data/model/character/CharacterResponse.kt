@@ -1,6 +1,7 @@
-package com.rcacao.marvelchallenge.data
+package com.rcacao.marvelchallenge.data.model.character
 
 import com.google.gson.annotations.SerializedName
+import com.rcacao.marvelchallenge.data.model.thumbnail.ThumbnailResponse
 
 class CharacterResponse {
 
@@ -11,7 +12,8 @@ class CharacterResponse {
     val name: String = ""
 
     @SerializedName("thumbnail")
-    val thumbnail: ThumbnailResponse = ThumbnailResponse()
+    val thumbnail: ThumbnailResponse =
+        ThumbnailResponse()
 
     @SerializedName("description")
     val description: String = ""

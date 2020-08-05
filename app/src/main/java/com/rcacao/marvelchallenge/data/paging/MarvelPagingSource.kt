@@ -1,8 +1,8 @@
 package com.rcacao.marvelchallenge.data.paging
 
 import androidx.paging.PagingSource
-import com.rcacao.marvelchallenge.data.CharacterResponse
-import com.rcacao.marvelchallenge.data.CharactersDataResponse
+import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
+import com.rcacao.marvelchallenge.data.DataResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import retrofit2.HttpException
@@ -28,7 +28,7 @@ class MarvelPagingSource(
 
         return try {
             Timber.d("Chamada de API")
-            val response: CharactersDataResponse =
+            val response: DataResponse =
                 loadCharacters(ts, hash, offset, limit, orderBy, key, query)
             val characters: List<CharacterResponse> = response.data?.characters ?: emptyList()
             LoadResult.Page(
@@ -52,7 +52,7 @@ class MarvelPagingSource(
         orderBy: String,
         key: String,
         query: String
-    ): CharactersDataResponse {
+    ): DataResponse {
         val trimQuery: String = query.trim()
         return if (trimQuery.isNotEmpty()) {
             webService.loadCharactersByName(ts, hash, offset, limit, orderBy, key, trimQuery)

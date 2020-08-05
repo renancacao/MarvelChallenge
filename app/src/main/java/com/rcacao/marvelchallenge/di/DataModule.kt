@@ -3,7 +3,7 @@ package com.rcacao.marvelchallenge.di
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.rcacao.marvelchallenge.BuildConfig
-import com.rcacao.marvelchallenge.data.CharacterResponse
+import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.mapper.CharacterMapper
 import com.rcacao.marvelchallenge.data.mapper.Mapper
