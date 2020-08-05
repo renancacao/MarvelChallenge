@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.rcacao.marvelchallenge.databinding.FragmentDetailBinding
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
+import com.rcacao.marvelchallenge.view.viewmodel.ComicsViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
 
@@ -16,6 +19,7 @@ class DetailFragment : Fragment(), OnImageLoadListener {
 
     private lateinit var binding: FragmentDetailBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val comicsViewModel: ComicsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +43,12 @@ class DetailFragment : Fragment(), OnImageLoadListener {
     override fun onImageLoad() {
         startPostponedEnterTransition()
         sharedViewModel.configureDetailsToolbar()
+        val character: CharacterModel? = sharedViewModel.selectedCharacter.value
+
+        character?.let{
+            comicsViewModel.getComics(character.id)
+        }
+
     }
 
 
