@@ -10,15 +10,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.CharacterItemBinding
-import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.qualifiers.ActivityContext

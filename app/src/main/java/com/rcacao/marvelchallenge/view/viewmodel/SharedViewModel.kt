@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rcacao.marvelchallenge.data.repository.CharactersRepository
-import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.model.ToolbarState
 import javax.inject.Inject
 

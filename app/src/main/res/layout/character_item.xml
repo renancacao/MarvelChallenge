@@ -5,7 +5,7 @@
 
         <variable
             name="character"
-            type="com.rcacao.marvelchallenge.domain.model.CharacterModel" />
+            type="com.rcacao.marvelchallenge.domain.model.character.CharacterModel" />
 
         <variable
             name="sharedViewModel"

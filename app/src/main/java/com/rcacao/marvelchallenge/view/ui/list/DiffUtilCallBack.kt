@@ -1,7 +1,7 @@
 package com.rcacao.marvelchallenge.view.ui.list
 
 import androidx.recyclerview.widget.DiffUtil
-import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import javax.inject.Inject
 
 class DiffUtilCallBack @Inject constructor() : DiffUtil.ItemCallback<CharacterModel>() {

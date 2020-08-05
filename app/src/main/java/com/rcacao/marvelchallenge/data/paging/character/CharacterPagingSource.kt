@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.data.paging
+package com.rcacao.marvelchallenge.data.paging.character
 
 import androidx.paging.PagingSource
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
@@ -9,7 +9,7 @@ import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 
-class MarvelPagingSource(
+class CharacterPagingSource(
     private val query: String,
     private val webService: MarvelWebService,
     private val apiHelper: ApiHelper

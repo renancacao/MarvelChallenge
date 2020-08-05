@@ -7,7 +7,7 @@ import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.mapper.CharacterMapper
 import com.rcacao.marvelchallenge.data.mapper.Mapper
-import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

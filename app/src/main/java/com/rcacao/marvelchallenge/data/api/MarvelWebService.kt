@@ -1,12 +1,14 @@
 package com.rcacao.marvelchallenge.data.api
 
 import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
+import com.rcacao.marvelchallenge.data.model.comic.ComicsDataResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MarvelWebService {
@@ -31,6 +33,9 @@ interface MarvelWebService {
         @Query("apikey") apikey: String,
         @Query("nameStartsWith") nameStartWith: String = ""
     ): CharactersDataResponse
+
+    @GET("/v1/public/characters/{charId}/comics")
+    suspend fun loadComics(@Path("charId") charId: String): ComicsDataResponse
 
     companion object {
         private const val BASE_URL = "https://gateway.marvel.com/"

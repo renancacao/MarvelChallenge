@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.mapper.Mapper
-import com.rcacao.marvelchallenge.data.paging.MarvelPagingSource
-import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.data.paging.character.CharacterPagingSource
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -23,7 +23,11 @@ class CharactersRepository @Inject constructor(
     fun getCharacters(query: String): Flow<PagingData<CharacterModel>> {
         return characterMapper.map(Pager(pagingConfig,
             pagingSourceFactory = {
-                MarvelPagingSource(query, webService, apiHelper)
+                CharacterPagingSource(
+                    query,
+                    webService,
+                    apiHelper
+                )
             }
         ).flow)
     }

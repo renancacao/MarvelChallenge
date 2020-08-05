@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.domain.model
+package com.rcacao.marvelchallenge.domain.model.character
 
 data class CharacterModel(
     val id: String,

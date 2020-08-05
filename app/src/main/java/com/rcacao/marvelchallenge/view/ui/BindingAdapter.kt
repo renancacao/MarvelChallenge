@@ -10,8 +10,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.rcacao.marvelchallenge.GlideApp
-import com.rcacao.marvelchallenge.R
-import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.ui.detail.OnImageLoadListener
 import com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
