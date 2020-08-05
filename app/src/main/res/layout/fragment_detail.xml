@@ -1,77 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.ui.detail.DetailFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <variable
+            name="viewModel"
+            type="com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel" />
+
+        <variable
+            name="onImageLoadListener"
+            type="com.rcacao.marvelchallenge.view.ui.detail.OnImageLoadListener" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:context=".view.ui.detail.DetailFragment">
 
-        <ImageView
-            android:id="@+id/imgDetails"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txtDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgDetails"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate, nibh dui convallis mauris, in sollicitudin lacus ipsum non eros. Proin cursus iaculis mauris. Nam mauris quam, scelerisque nec placerat rutrum, ultricies nec justo. Duis dictum convallis ante sit amet rhoncus. Cras pharetra diam felis, eu dictum libero pharetra in. Nulla sed erat et eros facilisis eleifend. Vivamus nec varius tellus. Nam justo mauris, rhoncus nec risus quis, imperdiet auctor metus. Donec feugiat urna ut lectus lacinia dictum. Vivamus ultrices id dolor sit amet pretium. Duis auctor, nunc et tempus ornare, est leo cursus lorem, sit amet rhoncus ante tellus sed orci. Aenean aliquet tempor dictum." />
+            <ImageView
+                android:id="@+id/imgDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:onImageLoad="@{onImageLoadListener}"
+                app:glideSrc="@{viewModel.selectedCharacter.detailImageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/txtComics"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/comics"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txtDetails"
-            app:layout_constraintTop_toBottomOf="@+id/txtDetails" />
+            <TextView
+                android:id="@+id/txtDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{viewModel.selectedCharacter.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgDetails"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate, nibh dui convallis mauris, in sollicitudin lacus ipsum non eros. Proin cursus iaculis mauris. Nam mauris quam, scelerisque nec placerat rutrum, ultricies nec justo. Duis dictum convallis ante sit amet rhoncus. Cras pharetra diam felis, eu dictum libero pharetra in. Nulla sed erat et eros facilisis eleifend. Vivamus nec varius tellus. Nam justo mauris, rhoncus nec risus quis, imperdiet auctor metus. Donec feugiat urna ut lectus lacinia dictum. Vivamus ultrices id dolor sit amet pretium. Duis auctor, nunc et tempus ornare, est leo cursus lorem, sit amet rhoncus ante tellus sed orci. Aenean aliquet tempor dictum." />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerComics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtComics"
-            tools:layout_height="100dp" />
+            <TextView
+                android:id="@+id/txtComics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/comics"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/txtDetails"
+                app:layout_constraintTop_toBottomOf="@+id/txtDetails" />
 
-        <TextView
-            android:id="@+id/txtSeries"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/series"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txtComics"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerComics" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerComics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtComics"
+                tools:layout_height="100dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtSeries"
-            tools:layout_height="100dp" />
+            <TextView
+                android:id="@+id/txtSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/series"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/txtComics"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerComics" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSeries"
+                tools:layout_height="100dp" />
 
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </ScrollView>
 
+</layout>
