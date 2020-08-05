@@ -35,7 +35,12 @@ interface MarvelWebService {
     ): CharactersDataResponse
 
     @GET("/v1/public/characters/{charId}/comics")
-    suspend fun loadComics(@Path("charId") charId: String): ComicsDataResponse
+    suspend fun loadComics(
+        @Path("charId") charId: String,
+        @Query("ts") ts: String,
+        @Query("hash") hash: String,
+        @Query("apikey") apikey: String
+    ): ComicsDataResponse
 
     companion object {
         private const val BASE_URL = "https://gateway.marvel.com/"
