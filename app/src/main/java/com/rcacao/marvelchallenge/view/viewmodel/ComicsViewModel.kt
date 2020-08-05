@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.comics.ComicsModel
 import com.rcacao.marvelchallenge.domain.usecases.GetComicsUseCase
-import com.rcacao.marvelchallenge.view.model.ComicsStateUi
+import com.rcacao.marvelchallenge.view.model.details.comics.ComicsStateUi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,11 +24,25 @@ class ComicsViewModel @ViewModelInject @Inject constructor(private val getComics
         get() = mutableComicsList
 
     fun getComics(charId: String) {
+        mutableComicsStateUi.value = ComicsStateUi.Loading
         viewModelScope.launch {
-            when(val result: DataResult<List<ComicsModel>> = getComicsUseCase(charId)){
-                is DataResult.Success -> mutableComicsList.value = result.data
-                is DataResult.Error -> mutableComicsList.value = emptyList()
+            when (val result: DataResult<List<ComicsModel>> = getComicsUseCase(charId)) {
+                is DataResult.Success -> handleComicsListData(result.data)
+                is DataResult.Error -> handleComicListError(result.exception.localizedMessage)
             }
+        }
+    }
+
+    private fun handleComicListError(error: String?) {
+        mutableComicsList.value = emptyList()
+        mutableComicsStateUi.value = ComicsStateUi.Error(error ?: "Error loading list")
+    }
+
+    private fun handleComicsListData(data: List<ComicsModel>) {
+        mutableComicsStateUi.value = ComicsStateUi.Loaded
+        mutableComicsList.value = data
+        if (data.isEmpty()) {
+            mutableComicsStateUi.value = ComicsStateUi.Empty
         }
     }
 
