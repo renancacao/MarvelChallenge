@@ -1,7 +1,7 @@
 package com.rcacao.marvelchallenge.data.api
 
 import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
-import com.rcacao.marvelchallenge.data.model.comic.ComicsDataResponse
+import com.rcacao.marvelchallenge.data.model.comics.ComicsDataResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level

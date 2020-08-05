@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.data.model.comic
+package com.rcacao.marvelchallenge.data.model.comics
 
 import com.google.gson.annotations.SerializedName
 

@@ -13,8 +13,9 @@ import com.rcacao.marvelchallenge.databinding.FragmentDetailBinding
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.viewmodel.ComicsViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DetailFragment : Fragment(), OnImageLoadListener {
 
     private lateinit var binding: FragmentDetailBinding
@@ -38,16 +39,16 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         postponeEnterTransition()
         binding.viewModel = sharedViewModel
         binding.onImageLoadListener = this
+        sharedViewModel.configureDetailsToolbar()
+        val character: CharacterModel? = sharedViewModel.selectedCharacter.value
+        character?.let{
+            comicsViewModel.getComics(character.id)
+        }
     }
 
     override fun onImageLoad() {
         startPostponedEnterTransition()
-        sharedViewModel.configureDetailsToolbar()
-        val character: CharacterModel? = sharedViewModel.selectedCharacter.value
 
-        character?.let{
-            comicsViewModel.getComics(character.id)
-        }
 
     }
 
