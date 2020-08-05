@@ -9,20 +9,17 @@ class ComicsMapper @Inject constructor() :
     Mapper<ComicsDataResponse, List<ComicsModel>> {
 
     override fun map(input: ComicsDataResponse): List<ComicsModel> {
-        TODO("Not yet implemented")
+        return input.data?.comics?.map { ComicsModel(getListImageUrl(it.thumbnail), it.title) }
+            ?: emptyList()
     }
 
     private fun getListImageUrl(thumbnail: ThumbnailResponse): String =
-        getImageUrl(thumbnail, CharacterMapperImageSize.X_LARGE_SQUARE)
+        getImageUrl(thumbnail, ComicsMapperImageSize.X_LARGE_PORTRAIT)
 
-    private fun getDetailImageUrl(thumbnail: ThumbnailResponse): String =
-        getImageUrl(thumbnail, CharacterMapperImageSize.AMAZING_LANDSCAPE)
-
-    private fun getImageUrl(thumbnail: ThumbnailResponse, size: CharacterMapperImageSize): String =
+    private fun getImageUrl(thumbnail: ThumbnailResponse, size: ComicsMapperImageSize): String =
         "${thumbnail.path}/${size.path}.${thumbnail.extension}"
 
-    enum class CharacterMapperImageSize(val path: String) {
-        X_LARGE_SQUARE("standard_xlarge"),
-        AMAZING_LANDSCAPE("landscape_amazing")
+    enum class ComicsMapperImageSize(val path: String) {
+        X_LARGE_PORTRAIT("portrait_xlarge"),
     }
 }
