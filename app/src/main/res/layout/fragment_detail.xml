@@ -11,14 +11,14 @@
 
         <variable
             name="onImageLoadListener"
-            type="com.rcacao.marvelchallenge.view.ui.detail.OnImageLoadListener" />
+            type="com.rcacao.marvelchallenge.view.ui.details.OnImageLoadListener" />
 
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.detail.DetailFragment">
+        tools:context=".view.ui.details.DetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

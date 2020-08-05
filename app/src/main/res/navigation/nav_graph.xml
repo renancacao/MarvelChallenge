@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.rcacao.marvelchallenge.view.ui.detail.DetailFragment"
+        android:name="com.rcacao.marvelchallenge.view.ui.details.DetailFragment"
         android:label=""
         tools:layout="@layout/fragment_detail" />
 </navigation>

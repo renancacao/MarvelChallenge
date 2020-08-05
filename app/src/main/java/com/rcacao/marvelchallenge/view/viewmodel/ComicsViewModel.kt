@@ -8,11 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.comics.ComicsModel
 import com.rcacao.marvelchallenge.domain.usecases.GetComicsUseCase
+import com.rcacao.marvelchallenge.view.model.ComicsStateUi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ComicsViewModel @ViewModelInject @Inject constructor(private val getComicsUseCase: GetComicsUseCase) :
     ViewModel() {
+
+    private val mutableComicsStateUi = MutableLiveData<ComicsStateUi>()
+    val comicsStateUi: LiveData<ComicsStateUi>
+        get() = mutableComicsStateUi
 
     private val mutableComicsList = MutableLiveData<List<ComicsModel>>()
     val comicsList: LiveData<List<ComicsModel>>

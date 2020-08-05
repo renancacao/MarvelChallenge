@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.view.ui.detail
+package com.rcacao.marvelchallenge.view.ui.details
 
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -62,7 +62,7 @@ class DetailFragment : Fragment(), OnImageLoadListener {
     }
 
     private fun observeListUpdate() {
-        comicsViewModel.comicsList.observe(
+        comicsViewModel.comicsStateUi.observe(
             viewLifecycleOwner,
             Observer { comicsAdapter.notifyDataSetChanged() })
     }

@@ -1,9 +1,8 @@
-package com.rcacao.marvelchallenge.view.ui.detail
+package com.rcacao.marvelchallenge.view.ui.details
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.databinding.ComicsItemBinding
 import com.rcacao.marvelchallenge.view.viewmodel.ComicsViewModel
