@@ -6,10 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rcacao.marvelchallenge.data.repository.CharactersRepository
 import com.rcacao.marvelchallenge.domain.model.CharacterModel
+import com.rcacao.marvelchallenge.view.model.ToolbarState
 import javax.inject.Inject
 
 class SharedViewModel @ViewModelInject @Inject constructor(private val repository: CharactersRepository) :
     ViewModel() {
+
+    private val mutableToolbarState = MutableLiveData<ToolbarState>()
+    val toolbarState: LiveData<ToolbarState>
+        get() = mutableToolbarState
 
     private val mutableTransitionName = MutableLiveData<String>()
     val transitionName: LiveData<String>
@@ -23,5 +28,15 @@ class SharedViewModel @ViewModelInject @Inject constructor(private val repositor
         mutableTransitionName.value = transitionName
         mutableSelectedCharacter.value = characterModel
     }
+
+    fun configureDefaultToolbar() {
+        mutableToolbarState.value = ToolbarState.DefaultToolbar
+    }
+
+    fun configureDetailsToolbar() {
+        mutableToolbarState.value =
+            ToolbarState.DetailsToolbar(mutableSelectedCharacter.value?.name ?: "")
+    }
+
 
 }

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.rcacao.marvelchallenge.R
+import androidx.navigation.fragment.findNavController
 import com.rcacao.marvelchallenge.databinding.FragmentDetailBinding
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
@@ -22,8 +22,10 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
     }
 
@@ -34,8 +36,9 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         binding.onImageLoadListener = this
     }
 
-    override fun onImageLoad(){
+    override fun onImageLoad() {
         startPostponedEnterTransition()
+        sharedViewModel.configureDetailsToolbar()
     }
 
 

@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
+    android:label=" "
     app:startDestination="@id/listFragment">
 
     <fragment
         android:id="@+id/listFragment"
         android:name="com.rcacao.marvelchallenge.view.ui.list.ListFragment"
-        android:label="ListFragment" >
+        android:label="Characters">
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -16,6 +17,6 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.rcacao.marvelchallenge.view.ui.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label=""
         tools:layout="@layout/fragment_detail" />
 </navigation>

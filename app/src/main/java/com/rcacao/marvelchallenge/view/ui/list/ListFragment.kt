@@ -50,6 +50,8 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedViewModel.configureDefaultToolbar()
+
         initAdapter()
         binding.buttonRetry.setOnClickListener { adapter.retry() }
 
@@ -107,7 +109,7 @@ class ListFragment : Fragment() {
     }
 
     private fun updateRepoListFromInput() {
-        binding.txtSearch.text.trim().let {
+        binding.txtSearch.text?.trim().let {
             search(it.toString())
         }
     }

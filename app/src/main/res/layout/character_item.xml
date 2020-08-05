@@ -57,7 +57,7 @@
             android:paddingTop="24dp"
             android:paddingBottom="4dp"
             android:text="@{character.name}"
-            android:textColor="@color/char_text_color"
+            android:textColor="@color/charTextColor"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imgChar"
