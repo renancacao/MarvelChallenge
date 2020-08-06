@@ -7,7 +7,6 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.rcacao.marvelchallenge.GlideApp
 import com.rcacao.marvelchallenge.R
@@ -19,11 +18,10 @@ import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
 @BindingAdapter("glideSrc")
 fun imageRes(view: ImageView, url: String) {
-    val requestOptions: RequestOptions = RequestOptions.noAnimation().dontTransform()
     GlideApp.with(view.context)
         .load(url)
+        .fitCenter()
         .error(R.drawable.ic_baseline_broken_image_24)
-        .apply(requestOptions)
         .into(view)
 }
 
@@ -48,11 +46,10 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
             return false
         }
     }
-    val requestOptions: RequestOptions = RequestOptions.noAnimation().dontTransform()
     GlideApp.with(view.context)
         .load(url)
         .error(R.drawable.ic_baseline_broken_image_24)
-        .apply(requestOptions)
+        .fitCenter()
         .listener(requestListener)
         .into(view)
 

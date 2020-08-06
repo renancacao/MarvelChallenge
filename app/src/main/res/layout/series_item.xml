@@ -13,14 +13,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/series_height"
+        android:layout_height="wrap_content"
         android:layout_margin="2dp">
 
         <ImageView
             android:id="@+id/imgSeries"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/series_width"
             android:layout_height="@dimen/series_height"
-            android:adjustViewBounds="true"
             app:glideSrc="@{series.imageUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

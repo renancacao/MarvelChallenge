@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="comics_height">220dp</dimen>
+    <dimen name="comics_width">146dp</dimen>
     <dimen name="series_height">160dp</dimen>
+    <dimen name="series_width">106dp</dimen>
 </resources>
