@@ -82,7 +82,7 @@
                     android:text="@string/comics"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerComics"
@@ -99,17 +99,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="@+id/recyclerComics"
-                    app:layout_constraintEnd_toStartOf="@+id/recyclerComics"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerComics"
                     app:layout_constraintStart_toStartOf="@+id/recyclerComics"
                     app:layout_constraintTop_toTopOf="@+id/recyclerComics" />
 
                 <Button
-                    android:id="@+id/retryButtonComics"
+                    android:id="@+id/buttonRetryComics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/recyclerComics"
-                    app:layout_constraintEnd_toStartOf="@+id/recyclerComics"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerComics"
                     app:layout_constraintStart_toStartOf="@+id/recyclerComics"
                     app:layout_constraintTop_toTopOf="@+id/recyclerComics" />
 
@@ -128,11 +128,10 @@
                     android:id="@+id/txtSeries"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@string/series"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerSeries"
@@ -149,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="@+id/recyclerSeries"
-                    app:layout_constraintEnd_toStartOf="@+id/recyclerSeries"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerSeries"
                     app:layout_constraintStart_toStartOf="@+id/recyclerSeries"
                     app:layout_constraintTop_toTopOf="@+id/recyclerSeries" />
 

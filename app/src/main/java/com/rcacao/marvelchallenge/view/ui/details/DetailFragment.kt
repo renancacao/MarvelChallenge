@@ -5,13 +5,15 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rcacao.marvelchallenge.databinding.FragmentDetailBinding
-import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
+import com.rcacao.marvelchallenge.view.model.details.comics.ComicsStateUi
 import com.rcacao.marvelchallenge.view.viewmodel.ComicsViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,25 +48,39 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         postponeEnterTransition()
         binding()
         sharedViewModel.configureDetailsToolbar()
-        initAdapter()
+        val charId: String? = sharedViewModel.selectedCharacter.value?.id
+        initComicsList(charId)
+        observeViewModel()
     }
 
-    private fun initAdapter() {
-        val character: CharacterModel? = sharedViewModel.selectedCharacter.value
-        character?.let {
-            comicsViewModel.getComics(character.id)
-            comicsAdapter.viewModel = comicsViewModel
+    private fun initComicsList(charId: String?) {
+        charId?.let {
+            comicsViewModel.getComics(charId)
         }
-        observeListUpdate()
+        comicsAdapter.viewModel = comicsViewModel
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerComics.layoutManager = layoutManager
         recyclerComics.adapter = comicsAdapter
     }
 
-    private fun observeListUpdate() {
+    private fun observeViewModel() {
         comicsViewModel.comicsStateUi.observe(
             viewLifecycleOwner,
-            Observer { comicsAdapter.notifyDataSetChanged() })
+            Observer { handleComicsUiState(it) })
+    }
+
+    private fun handleComicsUiState(state: ComicsStateUi) {
+        progressComics.isVisible = state is ComicsStateUi.Loading
+        recyclerComics.isVisible = state is ComicsStateUi.Loading || state is ComicsStateUi.Loaded
+        layoutComics.isGone = state is ComicsStateUi.Empty
+        if (state is ComicsStateUi.Error) {
+            buttonRetryComics.isVisible = true
+            //TODO: texto
+        }
+    }
+
+    private fun handleComicsStateLoading() {
+        TODO("Not yet implemented")
     }
 
     private fun binding() {
