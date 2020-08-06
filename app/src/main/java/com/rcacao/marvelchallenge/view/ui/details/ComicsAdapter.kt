@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.databinding.ComicsItemBinding
-import com.rcacao.marvelchallenge.view.viewmodel.ComicsViewModel
+import com.rcacao.marvelchallenge.view.viewmodel.DetailsViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 class ComicsAdapter @Inject constructor(@ActivityContext private val context: Context) :
     RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
-    var viewModel: ComicsViewModel? = null
+    var viewModel: DetailsViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicsViewHolder {
         val binding: ComicsItemBinding =

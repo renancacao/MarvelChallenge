@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rcacao.marvelchallenge.databinding.FragmentDetailBinding
 import com.rcacao.marvelchallenge.view.model.details.comics.ComicsStateUi
-import com.rcacao.marvelchallenge.view.viewmodel.ComicsViewModel
+import com.rcacao.marvelchallenge.view.viewmodel.DetailsViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -27,7 +27,7 @@ class DetailFragment : Fragment(), OnImageLoadListener {
 
     private lateinit var binding: FragmentDetailBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private val comicsViewModel: ComicsViewModel by viewModels()
+    private val detailsViewModel: DetailsViewModel by viewModels()
 
     private lateinit var charId: String
 
@@ -58,19 +58,19 @@ class DetailFragment : Fragment(), OnImageLoadListener {
     }
 
     private fun setListeners() {
-        buttonRetryComics.setOnClickListener { comicsViewModel.getComics(charId) }
+        buttonRetryComics.setOnClickListener { detailsViewModel.getComics(charId) }
     }
 
     private fun initComicsList() {
-        comicsViewModel.getComics(charId)
-        comicsAdapter.viewModel = comicsViewModel
+        detailsViewModel.getComics(charId)
+        comicsAdapter.viewModel = detailsViewModel
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerComics.layoutManager = layoutManager
         recyclerComics.adapter = comicsAdapter
     }
 
     private fun observeViewModel() {
-        comicsViewModel.comicsStateUi.observe(
+        detailsViewModel.comicsStateUi.observe(
             viewLifecycleOwner,
             Observer { handleComicsUiState(it) })
     }
