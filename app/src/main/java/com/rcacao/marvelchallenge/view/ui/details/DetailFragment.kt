@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -71,16 +72,13 @@ class DetailFragment : Fragment(), OnImageLoadListener {
 
     private fun handleComicsUiState(state: ComicsStateUi) {
         progressComics.isVisible = state is ComicsStateUi.Loading
-        recyclerComics.isVisible = state is ComicsStateUi.Loading || state is ComicsStateUi.Loaded
+        recyclerComics.isInvisible =
+            state !is ComicsStateUi.Loading && state !is ComicsStateUi.Loaded
         layoutComics.isGone = state is ComicsStateUi.Empty
         if (state is ComicsStateUi.Error) {
             buttonRetryComics.isVisible = true
             //TODO: texto
         }
-    }
-
-    private fun handleComicsStateLoading() {
-        TODO("Not yet implemented")
     }
 
     private fun binding() {

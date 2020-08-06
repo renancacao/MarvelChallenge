@@ -10,6 +10,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.rcacao.marvelchallenge.GlideApp
+import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.ui.details.OnImageLoadListener
 import com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener
@@ -21,6 +22,7 @@ fun imageRes(view: ImageView, url: String) {
     val requestOptions: RequestOptions = RequestOptions.noAnimation().dontTransform()
     GlideApp.with(view.context)
         .load(url)
+        .placeholder(R.drawable.ic_baseline_broken_image_24)
         .apply(requestOptions)
         .into(view)
 }
@@ -49,6 +51,7 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
     val requestOptions: RequestOptions = RequestOptions.noAnimation().dontTransform()
     GlideApp.with(view.context)
         .load(url)
+        .placeholder(R.drawable.ic_baseline_broken_image_24)
         .apply(requestOptions)
         .listener(requestListener)
         .into(view)
