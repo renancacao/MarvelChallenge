@@ -19,6 +19,8 @@ import com.rcacao.marvelchallenge.databinding.FragmentListBinding
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -27,6 +29,8 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ListFragment : Fragment() {
 
@@ -115,7 +119,6 @@ class ListFragment : Fragment() {
     }
 
     private fun search(query: String) {
-        //TODO: Este job deveria estar aqui?
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
             charactersViewModel.searchCharacter(query).collectLatest {
@@ -153,7 +156,4 @@ class ListFragment : Fragment() {
         loadState.append is LoadState.Loading
                 || loadState.source.refresh is LoadState.Loading
 
-    companion object {
-        private const val LAST_SEARCH_QUERY: String = "last_search_query"
-    }
 }

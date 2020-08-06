@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,45 +26,67 @@
             type="com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imgChar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:transitionName="@{@string/item_transition + position}"
             app:character="@{character}"
             app:charactersViewModel="@{charactersViewModel}"
             app:glideSrc="@{character.listImageUrl}"
             app:itemPosition="@{position}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:onItemClickListener="@{listener}"
             app:sharedViewModel="@{sharedViewModel}"
-            android:transitionName="@{@string/item_transition  + position}"
             tools:layout_height="160dp"
+            tools:layout_width="160dp"
             tools:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/txtName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/background_name"
-            android:maxLines="3"
-            android:paddingStart="4dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="4dp"
-            android:text="@{character.name}"
-            android:textColor="@color/charTextColor"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/imgChar"
             app:layout_constraintEnd_toEndOf="@+id/imgChar"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Capitão América" />
+            app:layout_constraintStart_toStartOf="@+id/imgChar">
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:paddingStart="4dp"
+                android:paddingTop="24dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="4dp"
+                android:text="@{character.name}"
+                android:textColor="@color/charTextColor"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgStar"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Capitão América" />
+
+            <ImageView
+                android:id="@+id/imgStar"
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                app:isFavorite="@{character.favorite}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:src="@drawable/ic_baseline_star_border_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

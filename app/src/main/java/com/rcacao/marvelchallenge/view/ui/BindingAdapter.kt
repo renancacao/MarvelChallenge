@@ -16,6 +16,19 @@ import com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
+@BindingAdapter("isFavorite")
+fun isFavorite(view: ImageView, isFavorite: Boolean) {
+    view.setImageDrawable(
+        view.context.getDrawable(
+            if (isFavorite) {
+                R.drawable.ic_baseline_star_24
+            } else {
+                R.drawable.ic_baseline_star_border_24
+            }
+        )
+    )
+}
+
 @BindingAdapter("glideSrc")
 fun imageRes(view: ImageView, url: String) {
     GlideApp.with(view.context)
@@ -55,7 +68,13 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
 
 }
 
-@BindingAdapter("sharedViewModel", "character", "charactersViewModel", "itemPosition", "onItemClickListener")
+@BindingAdapter(
+    "sharedViewModel",
+    "character",
+    "charactersViewModel",
+    "itemPosition",
+    "onItemClickListener"
+)
 fun setCallbacks(
     view: View,
     sharedViewModel: SharedViewModel,

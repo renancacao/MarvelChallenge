@@ -7,11 +7,11 @@ import androidx.room.Query
 @Dao
 interface CharacterDao {
     @Query("SELECT id FROM Character order by id")
-    fun getIds(): List<String>
+    suspend fun getIds(): List<String>
 
     @Insert
-    fun insert(character: Character)
+    suspend fun insert(character: Character)
 
     @Query("DELETE FROM character where id = :id")
-    fun deleteById(id: String)
+    suspend fun deleteById(id: String)
 }

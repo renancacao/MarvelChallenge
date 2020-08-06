@@ -21,14 +21,18 @@ class CharactersRepository @Inject constructor(
     Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>>
 ) {
 
-    private var ids: List<String> = getLocalIds()
+    private var ids: List<String>? = null
 
-    fun getCharacters(query: String): Flow<PagingData<CharacterModel>> {
+    suspend fun getCharacters(query: String): Flow<PagingData<CharacterModel>> {
+        if (ids == null) {
+            ids = getLocalIds()
+        }
         return characterMapper.mapAndMerge(getRemoteCharacters(query), ids)
     }
 
     private fun getRemoteCharacters(query: String): Flow<PagingData<CharacterResponse>> {
-        return Pager(pagingConfig,
+        return Pager(
+            pagingConfig,
             pagingSourceFactory = {
                 CharacterPagingSource(
                     query,
@@ -39,7 +43,5 @@ class CharactersRepository @Inject constructor(
         ).flow
     }
 
-    private fun getLocalIds(): List<String> = database.characterDao().getIds()
-
-
+    private suspend fun getLocalIds(): List<String> = database.characterDao().getIds()
 }

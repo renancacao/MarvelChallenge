@@ -14,7 +14,7 @@ class CharacterMerge @Inject constructor() :
 
     override fun mapAndMerge(
         input: Flow<PagingData<CharacterResponse>>,
-        favoriteList: List<String>
+        favoriteList: List<String>?
     ): Flow<PagingData<CharacterModel>> {
         return input.map { pagingData: PagingData<CharacterResponse> ->
             pagingData.map {
@@ -24,7 +24,7 @@ class CharacterMerge @Inject constructor() :
                     getListImageUrl(it.thumbnail),
                     getDetailImageUrl(it.thumbnail),
                     it.description,
-                    it.id in favoriteList
+                    favoriteList?.contains(it.id) ?: false
                 )
             }
         }

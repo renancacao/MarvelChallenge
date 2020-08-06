@@ -4,4 +4,5 @@
     <dimen name="comics_width">146dp</dimen>
     <dimen name="series_height">160dp</dimen>
     <dimen name="series_width">106dp</dimen>
+    <dimen name="star_size">30dp</dimen>
 </resources>
