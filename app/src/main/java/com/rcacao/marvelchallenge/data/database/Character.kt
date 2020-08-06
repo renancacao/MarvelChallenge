@@ -8,6 +8,6 @@ data class Character(
     @PrimaryKey val id: String,
     val name: String,
     val imageListUrl: String,
-    val imageDetailUrl: String,
+    val imageDetailsUrl: String,
     val description: String
 )

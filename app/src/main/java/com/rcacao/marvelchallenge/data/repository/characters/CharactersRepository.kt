@@ -5,6 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.database.AppDatabase
+import com.rcacao.marvelchallenge.data.database.Character
+import com.rcacao.marvelchallenge.data.mapper.Mapper
 import com.rcacao.marvelchallenge.data.mapper.Merger
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
@@ -17,7 +19,9 @@ class CharactersRepository @Inject constructor(
     private val apiHelper: ApiHelper,
     private val pagingConfig: PagingConfig,
     private val database: AppDatabase,
-    private val characterMapper:
+    private val characterModelMapper: Mapper<Character, CharacterModel>,
+    private val characterMapper: Mapper<CharacterModel, Character>,
+    private val pagingCharacterModelMapper:
     Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>>
 ) {
 
@@ -27,7 +31,7 @@ class CharactersRepository @Inject constructor(
         if (ids == null) {
             ids = getLocalIds()
         }
-        return characterMapper.mapAndMerge(getRemoteCharacters(query), ids)
+        return pagingCharacterModelMapper.mapAndMerge(getRemoteCharacters(query), ids)
     }
 
     private fun getRemoteCharacters(query: String): Flow<PagingData<CharacterResponse>> {
@@ -41,6 +45,11 @@ class CharactersRepository @Inject constructor(
                 )
             }
         ).flow
+    }
+
+    suspend fun saveFavorite(characterModel: CharacterModel) {
+        database.characterDao().insert(characterMapper.map(characterModel))
+        ids = getLocalIds()
     }
 
     private suspend fun getLocalIds(): List<String> = database.characterDao().getIds()

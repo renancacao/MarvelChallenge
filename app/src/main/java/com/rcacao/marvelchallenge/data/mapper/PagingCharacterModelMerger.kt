@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class CharacterMerge @Inject constructor() :
+class PagingCharacterModelMerger @Inject constructor() :
     Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>> {
 
     override fun mapAndMerge(
@@ -21,8 +21,8 @@ class CharacterMerge @Inject constructor() :
                 CharacterModel(
                     it.id,
                     it.name.trim(),
-                    getListImageUrl(it.thumbnail),
-                    getDetailImageUrl(it.thumbnail),
+                    getImageListUrl(it.thumbnail),
+                    getImageDetailUrl(it.thumbnail),
                     it.description,
                     favoriteList?.contains(it.id) ?: false
                 )
@@ -30,10 +30,10 @@ class CharacterMerge @Inject constructor() :
         }
     }
 
-    private fun getListImageUrl(thumbnail: ThumbnailResponse): String =
+    private fun getImageListUrl(thumbnail: ThumbnailResponse): String =
         getImageUrl(thumbnail, CharacterMapperImageSize.X_LARGE_SQUARE)
 
-    private fun getDetailImageUrl(thumbnail: ThumbnailResponse): String =
+    private fun getImageDetailUrl(thumbnail: ThumbnailResponse): String =
         getImageUrl(thumbnail, CharacterMapperImageSize.AMAZING_LANDSCAPE)
 
     private fun getImageUrl(thumbnail: ThumbnailResponse, size: CharacterMapperImageSize): String =

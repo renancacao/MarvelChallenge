@@ -37,7 +37,7 @@
             android:transitionName="@{@string/item_transition + position}"
             app:character="@{character}"
             app:charactersViewModel="@{charactersViewModel}"
-            app:glideSrc="@{character.listImageUrl}"
+            app:glideSrc="@{character.imageListUrl}"
             app:itemPosition="@{position}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

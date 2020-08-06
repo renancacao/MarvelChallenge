@@ -9,11 +9,11 @@ class SeriesMapper @Inject constructor() :
     Mapper<SeriesDataResponse, List<SeriesModel>> {
 
     override fun map(input: SeriesDataResponse): List<SeriesModel> {
-        return input.data?.comics?.map { SeriesModel(getListImageUrl(it.thumbnail), it.title) }
+        return input.data?.comics?.map { SeriesModel(getImageListUrl(it.thumbnail), it.title) }
             ?: emptyList()
     }
 
-    private fun getListImageUrl(thumbnail: ThumbnailResponse): String =
+    private fun getImageListUrl(thumbnail: ThumbnailResponse): String =
         getImageUrl(thumbnail, ComicsMapperImageSize.X_LARGE_PORTRAIT)
 
     private fun getImageUrl(thumbnail: ThumbnailResponse, size: ComicsMapperImageSize): String =
