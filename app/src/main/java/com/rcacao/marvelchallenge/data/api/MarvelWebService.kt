@@ -40,7 +40,8 @@ interface MarvelWebService {
         @Path("charId") charId: String,
         @Query("ts") ts: String,
         @Query("hash") hash: String,
-        @Query("apikey") apikey: String
+        @Query("apikey") apikey: String,
+        @Query("limit") limit: Int = 100
     ): ComicsDataResponse
 
     @GET("/v1/public/characters/{charId}/series")
@@ -48,7 +49,8 @@ interface MarvelWebService {
         @Path("charId") charId: String,
         @Query("ts") ts: String,
         @Query("hash") hash: String,
-        @Query("apikey") apikey: String
+        @Query("apikey") apikey: String,
+        @Query("limit") limit: Int = 100
     ): SeriesDataResponse
 
     companion object {
