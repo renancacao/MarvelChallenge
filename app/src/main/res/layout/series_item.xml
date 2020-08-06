@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="comics"
-            type="com.rcacao.marvelchallenge.domain.model.comics.ComicsModel" />
+            name="series"
+            type="com.rcacao.marvelchallenge.domain.model.series.SeriesModel" />
 
     </data>
 
@@ -13,15 +13,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/series_height"
         android:layout_margin="2dp">
 
         <ImageView
-            android:id="@+id/imgComics"
+            android:id="@+id/imgSeries"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/comics_height"
+            android:layout_height="@dimen/series_height"
             android:adjustViewBounds="true"
-            app:glideSrc="@{comics.imageUrl}"
+            app:glideSrc="@{series.imageUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,11 +37,11 @@
             android:paddingStart="4dp"
             android:paddingTop="24dp"
             android:paddingBottom="4dp"
-            android:text="@{comics.title}"
+            android:text="@{series.title}"
             android:textColor="@color/charTextColor"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imgComics"
+            app:layout_constraintEnd_toEndOf="@+id/imgSeries"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Capitão América" />
 

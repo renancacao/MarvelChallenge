@@ -1,15 +1,13 @@
 package com.rcacao.marvelchallenge.view.ui.details
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.databinding.ComicsItemBinding
 import com.rcacao.marvelchallenge.view.viewmodel.DetailsViewModel
-import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
-class ComicsAdapter @Inject constructor(@ActivityContext private val context: Context) :
+class ComicsAdapter @Inject constructor() :
     RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
     var viewModel: DetailsViewModel? = null

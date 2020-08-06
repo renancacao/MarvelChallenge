@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rcacao.marvelchallenge.databinding.FragmentDetailBinding
 import com.rcacao.marvelchallenge.view.model.details.comics.ComicsStateUi
+import com.rcacao.marvelchallenge.view.model.details.series.SeriesStateUi
 import com.rcacao.marvelchallenge.view.viewmodel.DetailsViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,14 +35,15 @@ class DetailFragment : Fragment(), OnImageLoadListener {
     @Inject
     lateinit var comicsAdapter: ComicsAdapter
 
+    @Inject
+    lateinit var seriesAdapter: SeriesAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementReturnTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
     }
@@ -54,11 +56,13 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         sharedViewModel.configureDetailsToolbar()
         charId = sharedViewModel.selectedCharacter.value?.id ?: ""
         initComicsList()
+        initSeriesList()
         observeViewModel()
     }
 
     private fun setListeners() {
         buttonRetryComics.setOnClickListener { detailsViewModel.getComics(charId) }
+        buttonRetrySeries.setOnClickListener { detailsViewModel.getSeries(charId) }
     }
 
     private fun initComicsList() {
@@ -69,10 +73,19 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         recyclerComics.adapter = comicsAdapter
     }
 
+    private fun initSeriesList() {
+        detailsViewModel.getSeries(charId)
+        seriesAdapter.viewModel = detailsViewModel
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerSeries.layoutManager = layoutManager
+        recyclerSeries.adapter = seriesAdapter
+    }
+
     private fun observeViewModel() {
-        detailsViewModel.comicsStateUi.observe(
-            viewLifecycleOwner,
+        detailsViewModel.comicsStateUi.observe(viewLifecycleOwner,
             Observer { handleComicsUiState(it) })
+        detailsViewModel.seriesStateUi.observe(viewLifecycleOwner,
+            Observer { handleSeriesUiState(it) })
     }
 
     private fun handleComicsUiState(state: ComicsStateUi) {
@@ -82,6 +95,17 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         layoutComics.isGone = state is ComicsStateUi.Empty
         if (state is ComicsStateUi.Error) {
             buttonRetryComics.isVisible = true
+            //TODO: texto
+        }
+    }
+
+    private fun handleSeriesUiState(state: SeriesStateUi) {
+        progressSeries.isVisible = state is SeriesStateUi.Loading
+        recyclerSeries.isInvisible =
+            state !is SeriesStateUi.Loading && state !is SeriesStateUi.Loaded
+        layoutSeries.isGone = state is SeriesStateUi.Empty
+        if (state is SeriesStateUi.Error) {
+            buttonRetrySeries.isVisible = true
             //TODO: texto
         }
     }
