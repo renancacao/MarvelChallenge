@@ -1,12 +1,11 @@
-package com.rcacao.marvelchallenge.data.repository
+package com.rcacao.marvelchallenge.data.repository.characters
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.mapper.Mapper
-import com.rcacao.marvelchallenge.data.paging.character.CharacterPagingSource
+import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import kotlinx.coroutines.flow.Flow

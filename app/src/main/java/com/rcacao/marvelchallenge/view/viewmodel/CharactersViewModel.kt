@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.rcacao.marvelchallenge.data.repository.CharactersRepository
+import com.rcacao.marvelchallenge.data.repository.characters.CharactersRepository
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

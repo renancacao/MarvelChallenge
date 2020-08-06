@@ -2,6 +2,7 @@ package com.rcacao.marvelchallenge.data.api
 
 import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
 import com.rcacao.marvelchallenge.data.model.comics.ComicsDataResponse
+import com.rcacao.marvelchallenge.data.model.series.SeriesDataResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -41,6 +42,14 @@ interface MarvelWebService {
         @Query("hash") hash: String,
         @Query("apikey") apikey: String
     ): ComicsDataResponse
+
+    @GET("/v1/public/characters/{charId}/series")
+    suspend fun loadSeries(
+        @Path("charId") charId: String,
+        @Query("ts") ts: String,
+        @Query("hash") hash: String,
+        @Query("apikey") apikey: String
+    ): SeriesDataResponse
 
     companion object {
         private const val BASE_URL = "https://gateway.marvel.com/"

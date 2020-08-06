@@ -1,6 +1,6 @@
 package com.rcacao.marvelchallenge.domain.usecases
 
-import com.rcacao.marvelchallenge.data.repository.ComicsRepository
+import com.rcacao.marvelchallenge.data.repository.comics.ComicsRepository
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.comics.ComicsModel
 import javax.inject.Inject

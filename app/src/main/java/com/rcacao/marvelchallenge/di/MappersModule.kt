@@ -4,10 +4,13 @@ import androidx.paging.PagingData
 import com.rcacao.marvelchallenge.data.mapper.CharacterMapper
 import com.rcacao.marvelchallenge.data.mapper.ComicsMapper
 import com.rcacao.marvelchallenge.data.mapper.Mapper
+import com.rcacao.marvelchallenge.data.mapper.SeriesMapper
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.model.comics.ComicsDataResponse
+import com.rcacao.marvelchallenge.data.model.series.SeriesDataResponse
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.model.comics.ComicsModel
+import com.rcacao.marvelchallenge.domain.model.series.SeriesModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,5 +30,9 @@ object MappersModule {
     @Provides
     @Singleton
     fun providesComicsMapper(): Mapper<ComicsDataResponse, List<ComicsModel>> = ComicsMapper()
+
+    @Provides
+    @Singleton
+    fun seriesComicsMapper(): Mapper<SeriesDataResponse, List<SeriesModel>> = SeriesMapper()
 
 }

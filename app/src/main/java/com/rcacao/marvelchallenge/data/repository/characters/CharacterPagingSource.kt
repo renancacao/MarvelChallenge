@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.data.paging.character
+package com.rcacao.marvelchallenge.data.repository.characters
 
 import androidx.paging.PagingSource
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
