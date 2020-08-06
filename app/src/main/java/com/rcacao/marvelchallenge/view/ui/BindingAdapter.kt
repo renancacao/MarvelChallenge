@@ -22,7 +22,7 @@ fun imageRes(view: ImageView, url: String) {
     val requestOptions: RequestOptions = RequestOptions.noAnimation().dontTransform()
     GlideApp.with(view.context)
         .load(url)
-        .placeholder(R.drawable.ic_baseline_broken_image_24)
+        .error(R.drawable.ic_baseline_broken_image_24)
         .apply(requestOptions)
         .into(view)
 }
@@ -51,7 +51,7 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
     val requestOptions: RequestOptions = RequestOptions.noAnimation().dontTransform()
     GlideApp.with(view.context)
         .load(url)
-        .placeholder(R.drawable.ic_baseline_broken_image_24)
+        .error(R.drawable.ic_baseline_broken_image_24)
         .apply(requestOptions)
         .listener(requestListener)
         .into(view)
