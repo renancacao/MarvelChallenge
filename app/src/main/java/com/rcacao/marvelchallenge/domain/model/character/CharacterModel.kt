@@ -5,5 +5,6 @@ data class CharacterModel(
     val name: String,
     val listImageUrl: String,
     val detailImageUrl: String,
-    val description: String
+    val description: String,
+    val isFavorite: Boolean
 )

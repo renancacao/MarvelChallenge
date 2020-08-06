@@ -15,7 +15,7 @@ class CharactersViewModel @ViewModelInject @Inject constructor(private val repos
 
     var currentPosition: Int = 0
     var currentQuery: String = ""
-    var currentResult: Flow<PagingData<CharacterModel>>? = null
+    private var currentResult: Flow<PagingData<CharacterModel>>? = null
 
     fun searchCharacter(queryString: String): Flow<PagingData<CharacterModel>> {
         val lastResult: Flow<PagingData<CharacterModel>>? = currentResult

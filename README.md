@@ -40,31 +40,21 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - Kotlin Extensions Functions
 
 - Detekt
-
 - Retrofit2
-
 - Hilt
-
 - Coroutines
 - Flow
-
+- Room
 - Paging 3 Library
-
 - Navigation
 - SafeArgs
-
 - PostponedEnterTransition
 - SharedElementTransition
-
 - ViewModel KTX
-
 - DataBinding
 - BindingAdapter
-
 - Glide
-
 - TextInputLayout
-
 - Swipe Refresh
 
 ## Como executar

@@ -9,9 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class CharacterMapper @Inject constructor() :
-    Mapper<Flow<PagingData<CharacterResponse>>, Flow<PagingData<CharacterModel>>> {
-    override fun map(input: Flow<PagingData<CharacterResponse>>): Flow<PagingData<CharacterModel>> {
+class CharacterMerge @Inject constructor() :
+    Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>> {
+
+    override fun mapAndMerge(
+        input: Flow<PagingData<CharacterResponse>>,
+        favoriteList: List<String>
+    ): Flow<PagingData<CharacterModel>> {
         return input.map { pagingData: PagingData<CharacterResponse> ->
             pagingData.map {
                 CharacterModel(
@@ -19,7 +23,8 @@ class CharacterMapper @Inject constructor() :
                     it.name.trim(),
                     getListImageUrl(it.thumbnail),
                     getDetailImageUrl(it.thumbnail),
-                    it.description
+                    it.description,
+                    it.id in favoriteList
                 )
             }
         }

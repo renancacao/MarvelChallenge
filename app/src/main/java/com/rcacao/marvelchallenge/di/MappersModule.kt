@@ -1,10 +1,7 @@
 package com.rcacao.marvelchallenge.di
 
 import androidx.paging.PagingData
-import com.rcacao.marvelchallenge.data.mapper.CharacterMapper
-import com.rcacao.marvelchallenge.data.mapper.ComicsMapper
-import com.rcacao.marvelchallenge.data.mapper.Mapper
-import com.rcacao.marvelchallenge.data.mapper.SeriesMapper
+import com.rcacao.marvelchallenge.data.mapper.*
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.model.comics.ComicsDataResponse
 import com.rcacao.marvelchallenge.data.model.series.SeriesDataResponse
@@ -24,8 +21,8 @@ object MappersModule {
 
     @Provides
     @Singleton
-    fun providesCharacterMapper(): Mapper<Flow<PagingData<CharacterResponse>>,
-            Flow<PagingData<CharacterModel>>> = CharacterMapper()
+    fun providesCharacterMapper(): Merger<Flow<PagingData<CharacterResponse>>, String,
+            Flow<PagingData<CharacterModel>>> = CharacterMerge()
 
     @Provides
     @Singleton
