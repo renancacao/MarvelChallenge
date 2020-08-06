@@ -29,6 +29,8 @@ class DetailFragment : Fragment(), OnImageLoadListener {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val comicsViewModel: ComicsViewModel by viewModels()
 
+    private lateinit var charId: String
+
     @Inject
     lateinit var comicsAdapter: ComicsAdapter
 
@@ -48,16 +50,19 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         binding()
+        setListeners()
         sharedViewModel.configureDetailsToolbar()
-        val charId: String? = sharedViewModel.selectedCharacter.value?.id
-        initComicsList(charId)
+        charId = sharedViewModel.selectedCharacter.value?.id ?: ""
+        initComicsList()
         observeViewModel()
     }
 
-    private fun initComicsList(charId: String?) {
-        charId?.let {
-            comicsViewModel.getComics(charId)
-        }
+    private fun setListeners() {
+        buttonRetryComics.setOnClickListener { comicsViewModel.getComics(charId) }
+    }
+
+    private fun initComicsList() {
+        comicsViewModel.getComics(charId)
         comicsAdapter.viewModel = comicsViewModel
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerComics.layoutManager = layoutManager
