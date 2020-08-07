@@ -7,22 +7,25 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
-class GetCharactersPagingUseCase @Inject constructor(private val repository: CharactersRepository) {
+class GetCharactersPagingUseCase @Inject constructor(private val repository: CharactersRepository) :
+    UseCase<GetCharactersPagingUseCase.CharacterPagingRequest, Flow<PagingData<CharacterModel>>> {
+
 
     private var currentResult: Flow<PagingData<CharacterModel>>? = null
 
-    suspend operator fun invoke(
-        queryString: String,
-        sameQuery: Boolean
-    ): Flow<PagingData<CharacterModel>> {
+    override suspend operator fun invoke(requestData: CharacterPagingRequest): Flow<PagingData<CharacterModel>> {
         val lastResult: Flow<PagingData<CharacterModel>>? = currentResult
-        if (sameQuery && lastResult != null) {
+        if (requestData.sameQuery && lastResult != null) {
             return lastResult
         }
         val newResult: Flow<PagingData<CharacterModel>> =
-            repository.getCharacters(queryString)
+            repository.getCharacters(requestData.queryString)
         currentResult = newResult
         return newResult
     }
 
+    data class CharacterPagingRequest(
+        val queryString: String,
+        val sameQuery: Boolean
+    )
 }

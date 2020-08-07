@@ -9,6 +9,7 @@ import com.rcacao.marvelchallenge.data.database.Character
 import com.rcacao.marvelchallenge.data.mapper.Mapper
 import com.rcacao.marvelchallenge.data.mapper.Merger
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
+import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.utils.ApiHelper
 import kotlinx.coroutines.flow.Flow
@@ -47,10 +48,20 @@ class CharactersRepository @Inject constructor(
         ).flow
     }
 
-    suspend fun saveFavorite(characterModel: CharacterModel) {
-        database.characterDao().insert(characterMapper.map(characterModel))
-        ids = getLocalIds()
+    suspend fun saveFavorite(characterModel: CharacterModel): DataResult<Unit> {
+        return try {
+            val uid: Unit = database.characterDao().insert(characterMapper.map(characterModel))
+            ids = getLocalIds()
+            DataResult.Success(uid)
+        } catch (ex: Exception) {
+            DataResult.Error(ex)
+        }
+    }
+
+    suspend fun deleteFavorite(id: String): DataResult<Unit> {
+        TODO("Not yet implemented")
     }
 
     private suspend fun getLocalIds(): List<String> = database.characterDao().getIds()
+
 }
