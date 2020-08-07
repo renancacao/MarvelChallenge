@@ -12,9 +12,13 @@ import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.utils.ApiHelper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@ExperimentalCoroutinesApi
+@Singleton
 class CharactersRepository @Inject constructor(
     private val webService: MarvelWebService,
     private val apiHelper: ApiHelper,
@@ -27,12 +31,31 @@ class CharactersRepository @Inject constructor(
 ) {
 
     private var ids: List<String>? = null
+    private var currentResult: Flow<PagingData<CharacterResponse>>? = null
 
-    suspend fun getCharacters(query: String): Flow<PagingData<CharacterModel>> {
-        if (ids == null) {
+    suspend fun getCharacters(query: String, sameQuery: Boolean): Flow<PagingData<CharacterModel>> {
+        var reloadIds = false
+        if (currentResult == null || !sameQuery) {
+            currentResult = getRemoteCharacters(query)
+            reloadIds = ids == null
+        }
+        return mergeWithFavorites(currentResult!!, reloadIds)
+    }
+
+    private suspend fun mergeWithFavorites(
+        remoteResult: Flow<PagingData<CharacterResponse>>,
+        reloadIds: Boolean
+    ): Flow<PagingData<CharacterModel>> {
+
+        if (reloadIds) {
             ids = getLocalIds()
         }
-        return pagingCharacterModelMapper.mapAndMerge(getRemoteCharacters(query), ids)
+
+        return if (ids.isNullOrEmpty()) {
+            pagingCharacterModelMapper.map(remoteResult)
+        } else {
+            pagingCharacterModelMapper.mapAndMerge(remoteResult, ids!!)
+        }
     }
 
     private fun getRemoteCharacters(query: String): Flow<PagingData<CharacterResponse>> {
@@ -59,7 +82,13 @@ class CharactersRepository @Inject constructor(
     }
 
     suspend fun deleteFavorite(id: String): DataResult<Unit> {
-        TODO("Not yet implemented")
+        return try {
+            val uid: Unit = database.characterDao().deleteById(id)
+            ids = getLocalIds()
+            DataResult.Success(uid)
+        } catch (ex: Exception) {
+            DataResult.Error(ex)
+        }
     }
 
     private suspend fun getLocalIds(): List<String> = database.characterDao().getIds()
