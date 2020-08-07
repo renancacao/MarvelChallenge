@@ -69,6 +69,7 @@ class ListFragment : Fragment() {
 
     private fun initSwipe() {
         binding.swipeWrapper.setOnRefreshListener {
+            charactersViewModel.currentPosition = 0
             binding.swipeWrapper.isRefreshing = false
             updateRepoListFromInput()
         }
@@ -96,6 +97,7 @@ class ListFragment : Fragment() {
     private fun setSearchTextListeners() {
         binding.txtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
+                charactersViewModel.currentPosition = 0
                 updateRepoListFromInput()
                 true
             } else {
@@ -104,6 +106,7 @@ class ListFragment : Fragment() {
         }
         binding.txtSearch.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                charactersViewModel.currentPosition = 0
                 updateRepoListFromInput()
                 true
             } else {
@@ -114,7 +117,6 @@ class ListFragment : Fragment() {
 
     private fun updateRepoListFromInput() {
         binding.txtSearch.text?.trim().let {
-            charactersViewModel.currentPosition = 0
             search(it.toString())
         }
     }
