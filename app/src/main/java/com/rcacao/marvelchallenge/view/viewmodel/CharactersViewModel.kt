@@ -12,6 +12,7 @@ import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.usecases.GetCharactersPagingUseCase.CharacterPagingRequest
 import com.rcacao.marvelchallenge.domain.usecases.UseCase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharactersViewModel @ViewModelInject @Inject constructor(
@@ -32,8 +33,12 @@ class CharactersViewModel @ViewModelInject @Inject constructor(
         )
     }
 
-    fun savePosition(position: Int) {
-        currentPosition = position
+    fun starCharacter(characterModel: CharacterModel) {
+        val useCase: UseCase<CharacterModel, DataResult<Unit>> =
+            if (!characterModel.isFavorite) saveFavoriteUseCase else deleteFavoriteUseCase
+        viewModelScope.launch {
+            useCase(characterModel)
+            characterModel.isFavorite = !characterModel.isFavorite
+        }
     }
-
 }

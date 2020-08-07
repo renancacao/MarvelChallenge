@@ -114,6 +114,7 @@ class ListFragment : Fragment() {
 
     private fun updateRepoListFromInput() {
         binding.txtSearch.text?.trim().let {
+            charactersViewModel.currentPosition = 0
             search(it.toString())
         }
     }

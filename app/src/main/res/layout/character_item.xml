@@ -80,6 +80,7 @@
                 android:layout_height="@dimen/star_size"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
+                android:onClick="@{() -> charactersViewModel.starCharacter(character)}"
                 app:isFavorite="@{character.favorite}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -85,7 +85,7 @@ fun setCallbacks(
 ) {
     view.setOnClickListener {
         sharedViewModel.selectCharacter(character, it.transitionName)
-        charactersViewModel.savePosition(itemPosition)
+        charactersViewModel.currentPosition = itemPosition
         onRecyclerItemClickListener.onClickItem(it)
     }
 
