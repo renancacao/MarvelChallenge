@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
@@ -60,18 +61,25 @@ class ListFragment : Fragment() {
         binding.buttonRetry.setOnClickListener { adapter.retry() }
 
         val query: String = charactersViewModel.currentQuery
-        val position: Int = charactersViewModel.currentPosition
-
         search(query)
-        initSearchAndPosition(query, position)
+        initSearchAndPosition(query)
         initSwipe()
+        observeListItemUpdate()
+    }
+
+    private fun observeListItemUpdate() {
+        charactersViewModel.updateItem.observe(
+            viewLifecycleOwner,
+            Observer { event ->
+                event.getContentIfNotHandled()?.let { adapter.notifyItemChanged(it) }
+            })
     }
 
     private fun initSwipe() {
         binding.swipeWrapper.setOnRefreshListener {
             charactersViewModel.currentPosition = 0
             binding.swipeWrapper.isRefreshing = false
-            updateRepoListFromInput()
+            adapter.refresh()
         }
         binding.swipeWrapper.setColorSchemeResources(
             R.color.colorPrimary,
@@ -81,7 +89,7 @@ class ListFragment : Fragment() {
         )
     }
 
-    private fun initSearchAndPosition(query: String, currentPosition: Int) {
+    private fun initSearchAndPosition(query: String) {
         binding.txtSearch.setText(query)
         setSearchTextListeners()
         lifecycleScope.launch {
@@ -89,7 +97,7 @@ class ListFragment : Fragment() {
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect {
-                    binding.recyclerView.scrollToPosition(currentPosition)
+                    binding.recyclerView.scrollToPosition(0)
                 }
         }
     }

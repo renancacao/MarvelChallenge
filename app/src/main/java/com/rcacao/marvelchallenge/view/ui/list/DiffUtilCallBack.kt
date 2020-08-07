@@ -14,9 +14,9 @@ class DiffUtilCallBack @Inject constructor() : DiffUtil.ItemCallback<CharacterMo
         oldItem: CharacterModel,
         newItem: CharacterModel
     ): Boolean {
-        //TODO: adicinar parametros do objeto no futuro
         return oldItem.name == newItem.name
                 && oldItem.imageListUrl == newItem.imageListUrl
+                && oldItem.isFavorite == newItem.isFavorite
     }
 
 }

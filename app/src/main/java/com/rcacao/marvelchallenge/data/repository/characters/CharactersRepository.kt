@@ -33,13 +33,15 @@ class CharactersRepository @Inject constructor(
     private var ids: List<String>? = null
     private var currentResult: Flow<PagingData<CharacterResponse>>? = null
 
-    suspend fun getCharacters(query: String, sameQuery: Boolean): Flow<PagingData<CharacterModel>> {
-        var reloadIds = false
-        if (currentResult == null || !sameQuery) {
-            currentResult = getRemoteCharacters(query)
-            reloadIds = ids == null
+    suspend fun getCharacters(query: String, forceLast: Boolean): Flow<PagingData<CharacterModel>> {
+        val lastResult: Flow<PagingData<CharacterResponse>>? = currentResult
+        return if (forceLast && lastResult != null) {
+            mergeWithFavorites(lastResult, reloadIds = false)
+        } else {
+            val newResult: Flow<PagingData<CharacterResponse>> = getRemoteCharacters(query)
+            currentResult = newResult
+            mergeWithFavorites(newResult, reloadIds = ids == null)
         }
-        return mergeWithFavorites(currentResult!!, reloadIds)
     }
 
     private suspend fun mergeWithFavorites(
