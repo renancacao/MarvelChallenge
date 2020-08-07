@@ -13,20 +13,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.rcacao.marvelchallenge.databinding.FragmentDetailBinding
+import com.rcacao.marvelchallenge.databinding.FragmentDetailsBinding
 import com.rcacao.marvelchallenge.view.model.details.comics.ComicsStateUi
 import com.rcacao.marvelchallenge.view.model.details.series.SeriesStateUi
 import com.rcacao.marvelchallenge.view.viewmodel.DetailsViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(), OnImageLoadListener {
+class DetailsFragment : Fragment(), OnImageLoadListener {
 
-    private lateinit var binding: FragmentDetailBinding
+    private lateinit var binding: FragmentDetailsBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val detailsViewModel: DetailsViewModel by viewModels()
 
@@ -42,7 +42,7 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        binding = FragmentDetailsBinding.inflate(inflater, container, false)
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
@@ -93,10 +93,7 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         recyclerComics.isInvisible =
             state !is ComicsStateUi.Loading && state !is ComicsStateUi.Loaded
         layoutComics.isGone = state is ComicsStateUi.Empty
-        if (state is ComicsStateUi.Error) {
-            buttonRetryComics.isVisible = true
-            //TODO: texto
-        }
+        buttonRetryComics.isVisible = state is ComicsStateUi.Error
     }
 
     private fun handleSeriesUiState(state: SeriesStateUi) {
@@ -104,10 +101,7 @@ class DetailFragment : Fragment(), OnImageLoadListener {
         recyclerSeries.isInvisible =
             state !is SeriesStateUi.Loading && state !is SeriesStateUi.Loaded
         layoutSeries.isGone = state is SeriesStateUi.Empty
-        if (state is SeriesStateUi.Error) {
-            buttonRetrySeries.isVisible = true
-            //TODO: texto
-        }
+        buttonRetrySeries.isVisible = state is SeriesStateUi.Error
     }
 
     private fun binding() {
