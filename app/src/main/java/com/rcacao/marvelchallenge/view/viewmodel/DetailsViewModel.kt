@@ -8,16 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.comics.ComicsModel
 import com.rcacao.marvelchallenge.domain.model.series.SeriesModel
-import com.rcacao.marvelchallenge.domain.usecases.GetComicsUseCase
-import com.rcacao.marvelchallenge.domain.usecases.GetSeriesUseCase
+import com.rcacao.marvelchallenge.domain.usecases.UseCase
 import com.rcacao.marvelchallenge.view.model.details.comics.ComicsStateUi
 import com.rcacao.marvelchallenge.view.model.details.series.SeriesStateUi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailsViewModel @ViewModelInject @Inject constructor(
-    private val getComicsUseCase: GetComicsUseCase,
-    private val getSeriesUseCase: GetSeriesUseCase
+    private val getComicsUseCase: UseCase<String, DataResult<List<ComicsModel>>>,
+    private val getSeriesUseCase: UseCase<String, DataResult<List<SeriesModel>>>
 ) :
     ViewModel() {
 
