@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 
 class GetCharactersPagingUseCase @Inject constructor(private val repository: CharactersRepository) :
-    UseCase<GetCharactersPagingUseCase.CharacterPagingRequest, Flow<PagingData<CharacterModel>>> {
+    UseCase<GetCharactersPagingUseCase.CharacterPagingRequest, Flow<@JvmSuppressWildcards PagingData<CharacterModel>>> {
 
 
     private var currentResult: Flow<PagingData<CharacterModel>>? = null

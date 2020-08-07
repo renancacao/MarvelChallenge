@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 
 class DeleteFavoriteUseCase @Inject constructor(private val repository: CharactersRepository) :
-    UseCase<CharacterModel, DataResult<Unit>> {
+    UseCase<CharacterModel, DataResult<@JvmSuppressWildcards  Unit>> {
 
     override suspend operator fun invoke(requestData: CharacterModel) =
         repository.deleteFavorite(requestData.id)

@@ -11,5 +11,5 @@ import dagger.hilt.android.components.ApplicationComponent
 @InstallIn(ApplicationComponent::class)
 abstract class UtilsModule {
     @Binds
-    abstract fun bindApiHelperImpl(apiHelperImpl: ApiHelperImpl): ApiHelper
+    abstract fun bindApiHelper(apiHelperImpl: ApiHelperImpl): ApiHelper
 }

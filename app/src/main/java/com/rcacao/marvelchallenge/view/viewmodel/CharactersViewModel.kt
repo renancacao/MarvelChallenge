@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.rcacao.marvelchallenge.di.UseCasesModule.DeleteUseCase
+import com.rcacao.marvelchallenge.di.UseCasesModule.SaveUseCase
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.usecases.GetCharactersPagingUseCase.CharacterPagingRequest
@@ -14,8 +16,8 @@ import javax.inject.Inject
 
 class CharactersViewModel @ViewModelInject @Inject constructor(
     private val getCharactersPagingUseCase: UseCase<CharacterPagingRequest, Flow<PagingData<CharacterModel>>>,
-    private val saveFavoriteUseCase: UseCase<CharacterModel, DataResult<Unit>>,
-    private val deleteFavoriteUseCase: UseCase<CharacterModel, DataResult<Unit>>
+    @SaveUseCase private val saveFavoriteUseCase: UseCase<CharacterModel, DataResult<Unit>>,
+    @DeleteUseCase private val deleteFavoriteUseCase: UseCase<CharacterModel, DataResult<Unit>>
 ) :
     ViewModel() {
 
