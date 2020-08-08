@@ -19,7 +19,6 @@ import com.rcacao.marvelchallenge.view.model.details.series.SeriesStateUi
 import com.rcacao.marvelchallenge.view.viewmodel.DetailsViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
 
 
@@ -65,24 +64,24 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
     }
 
     private fun setListeners() {
-        buttonRetryComics.setOnClickListener { detailsViewModel.getComics(charId) }
-        buttonRetrySeries.setOnClickListener { detailsViewModel.getSeries(charId) }
+        binding.buttonRetryComics.setOnClickListener { detailsViewModel.getComics(charId) }
+        binding.buttonRetrySeries.setOnClickListener { detailsViewModel.getSeries(charId) }
     }
 
     private fun initComicsList() {
         detailsViewModel.getComics(charId)
         comicsAdapter.viewModel = detailsViewModel
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerComics.layoutManager = layoutManager
-        recyclerComics.adapter = comicsAdapter
+        binding.recyclerComics.layoutManager = layoutManager
+        binding.recyclerComics.adapter = comicsAdapter
     }
 
     private fun initSeriesList() {
         detailsViewModel.getSeries(charId)
         seriesAdapter.viewModel = detailsViewModel
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerSeries.layoutManager = layoutManager
-        recyclerSeries.adapter = seriesAdapter
+        binding.recyclerSeries.layoutManager = layoutManager
+        binding.recyclerSeries.adapter = seriesAdapter
     }
 
     private fun observeViewModel() {
@@ -93,19 +92,19 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
     }
 
     private fun handleComicsUiState(state: ComicsStateUi) {
-        progressComics.isVisible = state is ComicsStateUi.Loading
-        recyclerComics.isInvisible =
+        binding.progressComics.isVisible = state is ComicsStateUi.Loading
+        binding.recyclerComics.isInvisible =
             state !is ComicsStateUi.Loading && state !is ComicsStateUi.Loaded
-        layoutComics.isGone = state is ComicsStateUi.Empty
-        buttonRetryComics.isVisible = state is ComicsStateUi.Error
+        binding.layoutComics.isGone = state is ComicsStateUi.Empty
+        binding.buttonRetryComics.isVisible = state is ComicsStateUi.Error
     }
 
     private fun handleSeriesUiState(state: SeriesStateUi) {
-        progressSeries.isVisible = state is SeriesStateUi.Loading
-        recyclerSeries.isInvisible =
+        binding.progressSeries.isVisible = state is SeriesStateUi.Loading
+        binding.recyclerSeries.isInvisible =
             state !is SeriesStateUi.Loading && state !is SeriesStateUi.Loaded
-        layoutSeries.isGone = state is SeriesStateUi.Empty
-        buttonRetrySeries.isVisible = state is SeriesStateUi.Error
+        binding.layoutSeries.isGone = state is SeriesStateUi.Empty
+        binding.buttonRetrySeries.isVisible = state is SeriesStateUi.Error
     }
 
     private fun binding() {
