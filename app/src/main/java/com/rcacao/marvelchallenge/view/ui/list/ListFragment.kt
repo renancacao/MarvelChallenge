@@ -17,6 +17,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.FragmentListBinding
+import com.rcacao.marvelchallenge.view.model.UpdateItemEvent
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,18 +69,22 @@ class ListFragment : Fragment() {
     }
 
     private fun observeListItemUpdate() {
-        charactersViewModel.updateItem.observe(
+        sharedViewModel.updateItem.observe(
             viewLifecycleOwner,
             Observer { event ->
-                event.getContentIfNotHandled()?.let { adapter.notifyItemChanged(it) }
+                event.getContentIfNotHandled()?.let { handleListItemUpdate(it) }
             })
+    }
+
+    private fun handleListItemUpdate(updateData: UpdateItemEvent) {
+        adapter.changeFav(updateData.pos, updateData.value)
     }
 
     private fun initSwipe() {
         binding.swipeWrapper.setOnRefreshListener {
-            charactersViewModel.currentPosition = 0
+            sharedViewModel.currentPosition = 0
             binding.swipeWrapper.isRefreshing = false
-            adapter.refresh()
+            updateRepoListFromInput()
         }
         binding.swipeWrapper.setColorSchemeResources(
             R.color.colorPrimary,
@@ -105,7 +110,7 @@ class ListFragment : Fragment() {
     private fun setSearchTextListeners() {
         binding.txtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
-                charactersViewModel.currentPosition = 0
+                sharedViewModel.currentPosition = 0
                 updateRepoListFromInput()
                 true
             } else {
@@ -114,7 +119,7 @@ class ListFragment : Fragment() {
         }
         binding.txtSearch.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                charactersViewModel.currentPosition = 0
+                sharedViewModel.currentPosition = 0
                 updateRepoListFromInput()
                 true
             } else {

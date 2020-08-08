@@ -13,7 +13,6 @@ import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.ui.details.OnImageLoadListener
 import com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener
-import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
 @BindingAdapter("isFavorite")
@@ -71,7 +70,6 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
 @BindingAdapter(
     "sharedViewModel",
     "character",
-    "charactersViewModel",
     "itemPosition",
     "onItemClickListener"
 )
@@ -79,13 +77,12 @@ fun setCallbacks(
     view: View,
     sharedViewModel: SharedViewModel,
     character: CharacterModel,
-    charactersViewModel: CharactersViewModel,
     itemPosition: Int,
     onRecyclerItemClickListener: OnRecyclerItemClickListener
 ) {
     view.setOnClickListener {
         sharedViewModel.selectCharacter(character, it.transitionName)
-        charactersViewModel.currentPosition = itemPosition
+        sharedViewModel.currentPosition = itemPosition
         onRecyclerItemClickListener.onClickItem(it)
     }
 

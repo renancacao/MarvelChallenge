@@ -17,12 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.CharacterItemBinding
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
-import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @ActivityScoped
 class CharactersAdapter @Inject constructor(
     @ActivityContext private val context: Context,
@@ -33,7 +34,6 @@ class CharactersAdapter @Inject constructor(
 
     var itemSize: Int
     private val sharedViewModel: SharedViewModel by (context as ComponentActivity).viewModels()
-    private val charactersViewModel: CharactersViewModel by (context as ComponentActivity).viewModels()
 
     init {
         val displayMetrics = DisplayMetrics()
@@ -51,6 +51,13 @@ class CharactersAdapter @Inject constructor(
         getItem(position)?.let { holder.bindPost(it, position, this) }
     }
 
+    fun changeFav(position: Int, value: Boolean) {
+        getItem(position)?.let {
+            it.isFavorite = value
+            notifyItemChanged(position)
+        }
+    }
+
     inner class CharacterViewHolder(private val binding: CharacterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -62,7 +69,6 @@ class CharactersAdapter @Inject constructor(
             binding.imgChar.layoutParams.height = itemSize
             binding.imgChar.layoutParams.width = itemSize
             binding.sharedViewModel = sharedViewModel
-            binding.charactersViewModel = charactersViewModel
             binding.position = position
             binding.character = character
             binding.listener = listener
