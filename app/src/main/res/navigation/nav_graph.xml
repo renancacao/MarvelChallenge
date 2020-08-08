@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.rcacao.marvelchallenge.view.ui.details.DetailsFragment"
-        android:label=""
+        android:label="Character"
         tools:layout="@layout/fragment_details" />
 </navigation>

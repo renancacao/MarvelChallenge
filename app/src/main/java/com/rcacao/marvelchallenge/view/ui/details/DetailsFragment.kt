@@ -52,6 +52,10 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         binding()
+    }
+
+    override fun onImageLoad() {
+        startPostponedEnterTransition()
         setListeners()
         sharedViewModel.configureDetailsToolbar()
         charId = sharedViewModel.selectedCharacter.value?.id ?: ""
@@ -107,10 +111,6 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
     private fun binding() {
         binding.viewModel = sharedViewModel
         binding.onImageLoadListener = this
-    }
-
-    override fun onImageLoad() {
-        startPostponedEnterTransition()
     }
 
 
