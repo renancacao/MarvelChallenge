@@ -5,10 +5,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import com.rcacao.marvelchallenge.R
+import com.rcacao.marvelchallenge.view.model.NavigationEvent
 import com.rcacao.marvelchallenge.view.model.ToolbarState
 import com.rcacao.marvelchallenge.view.ui.details.DetailsFragment
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedListener {
 
     private var menu: Menu? = null
     private val sharedViewModel: SharedViewModel by viewModels()
@@ -26,15 +28,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(my_toolbar)
+        supportFragmentManager.addOnBackStackChangedListener(this)
         observeViewModel()
     }
 
-    fun navigateToDetails() {
+    override fun onBackStackChanged() {
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            setDefaultToolbar()
+        }
+    }
+
+    private fun navigateToDetails() {
         supportFragmentManager.commit {
-            // Replace whatever is in the fragment_container view with a new Fragment, generated
-            // from the FragmentFactory, and give it an argument for the selected article
-            replace<DetailsFragment>(R.id.fragment_container, null, null)
-            // add the transaction to the back stack so the user can navigate back
+            add<DetailsFragment>(R.id.fragment_container, null, null)
             addToBackStack(null)
         }
     }
@@ -45,10 +51,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return true
-    }
-
     private fun observeViewModel() {
         sharedViewModel.toolbarState.observe(this, Observer {
             handleToolbarState(it)
@@ -56,6 +58,15 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel.updateActionFav.observe(this, Observer { event ->
             event.getContentIfNotHandled()?.let { handleUpdateFavIcon(it) }
         })
+        sharedViewModel.navigationEvent.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let { handleNavigation(it) }
+        })
+    }
+
+    private fun handleNavigation(navigationEvent: NavigationEvent) {
+        when (navigationEvent) {
+            is NavigationEvent.NavigateToDetails -> navigateToDetails()
+        }
     }
 
     private fun handleUpdateFavIcon(isFav: Boolean) {
@@ -89,7 +100,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setDetailsToolbar(name: String, isFavorite: Boolean) {
         supportActionBar?.let {
-            supportActionBar?.title = name
+            it.title = name
+            it.setDisplayHomeAsUpEnabled(true)
         }
         menu?.let {
             val item: MenuItem = it.findItem(R.id.action_favorite)
@@ -105,16 +117,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setDefaultToolbar() {
+        supportActionBar?.let {
+            it.title = "MarvelChallenge"
+            it.setDisplayHomeAsUpEnabled(false)
+        }
         menu?.let {
             it.findItem(R.id.action_favorite)?.isVisible = false
         }
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            android.R.id.home ->
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        supportFragmentManager.popBackStack()
+        return true
+    }
 }
 

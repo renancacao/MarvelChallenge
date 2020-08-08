@@ -9,7 +9,7 @@
 
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <!-- Customize color of Toolbar -->
-        <item name="colorControlNormal">@color/ToolbarTextColor</item>
+        <item name="colorControlNormal">@color/toolbarTextColor</item>
     </style>
 
 </resources>

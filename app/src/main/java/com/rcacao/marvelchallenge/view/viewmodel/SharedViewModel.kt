@@ -10,6 +10,7 @@ import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.Event
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.usecases.UseCase
+import com.rcacao.marvelchallenge.view.model.NavigationEvent
 import com.rcacao.marvelchallenge.view.model.ToolbarState
 import com.rcacao.marvelchallenge.view.model.UpdateItemEvent
 import kotlinx.coroutines.launch
@@ -23,6 +24,10 @@ class SharedViewModel @ViewModelInject @Inject constructor(
     ViewModel() {
 
     var currentPosition: Int = 0
+
+    private val mutableNavigationEvent = MutableLiveData<Event<NavigationEvent>>()
+    val navigationEvent: LiveData<Event<NavigationEvent>>
+        get() = mutableNavigationEvent
 
     private val mutableUpdateItem = MutableLiveData<Event<UpdateItemEvent>>()
     val updateItem: LiveData<Event<UpdateItemEvent>>
@@ -47,6 +52,7 @@ class SharedViewModel @ViewModelInject @Inject constructor(
     fun selectCharacter(characterModel: CharacterModel, transitionName: String) {
         mutableTransitionName.value = transitionName
         mutableSelectedCharacter.value = characterModel
+        mutableNavigationEvent.value = Event(NavigationEvent.NavigateToDetails)
     }
 
     fun configureDefaultToolbar() {

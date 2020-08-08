@@ -69,8 +69,7 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
 @BindingAdapter(
     "sharedViewModel",
     "character",
-    "itemPosition",
-    "onItemClickListener"
+    "itemPosition"
 )
 fun setCallbacks(
     view: View,
