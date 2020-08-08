@@ -45,7 +45,7 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - Flow
 - Room
 - Paging 3 Library
-- Navigation
+- ViewPager2 + TabLayout
 - SafeArgs
 - PostponedEnterTransition
 - SharedElementTransition

@@ -5,11 +5,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.view.model.ToolbarState
+import com.rcacao.marvelchallenge.view.ui.details.DetailsFragment
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,8 +26,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(my_toolbar)
-        setupActionBarWithNavController(findNavController(R.id.nav_host_fragment))
         observeViewModel()
+    }
+
+    fun navigateToDetails() {
+        supportFragmentManager.commit {
+            // Replace whatever is in the fragment_container view with a new Fragment, generated
+            // from the FragmentFactory, and give it an argument for the selected article
+            replace<DetailsFragment>(R.id.fragment_container, null, null)
+            // add the transaction to the back stack so the user can navigate back
+            addToBackStack(null)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -36,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host_fragment).navigateUp()
+        return true
     }
 
     private fun observeViewModel() {

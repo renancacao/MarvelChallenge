@@ -172,4 +172,11 @@ class ListFragment : Fragment() {
         loadState.append is LoadState.Loading
                 || loadState.source.refresh is LoadState.Loading
 
+    companion object {
+        @JvmStatic
+        fun newInstance(): ListFragment {
+            return ListFragment()
+        }
+    }
+
 }
