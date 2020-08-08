@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.view.ui
+package com.rcacao.marvelchallenge.view.ui.pager
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +28,8 @@ class PagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        pagesAdapter = PagesAdapter(this)
+        pagesAdapter =
+            PagesAdapter(this)
         pager.adapter = pagesAdapter
         setupTabLayout()
     }

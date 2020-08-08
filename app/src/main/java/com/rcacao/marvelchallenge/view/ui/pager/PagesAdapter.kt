@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.view.ui
+package com.rcacao.marvelchallenge.view.ui.pager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
