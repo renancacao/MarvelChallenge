@@ -12,7 +12,6 @@ import com.rcacao.marvelchallenge.GlideApp
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.ui.details.OnImageLoadListener
-import com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
 @BindingAdapter("isFavorite")
@@ -77,13 +76,11 @@ fun setCallbacks(
     view: View,
     sharedViewModel: SharedViewModel,
     character: CharacterModel,
-    itemPosition: Int,
-    onRecyclerItemClickListener: OnRecyclerItemClickListener
+    itemPosition: Int
 ) {
     view.setOnClickListener {
-        sharedViewModel.selectCharacter(character, it.transitionName)
         sharedViewModel.currentPosition = itemPosition
-        onRecyclerItemClickListener.onClickItem(it)
+        sharedViewModel.selectCharacter(character, it.transitionName)
     }
 
 }

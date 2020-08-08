@@ -17,9 +17,6 @@
             name="position"
             type="Integer" />
 
-        <variable
-            name="listener"
-            type="com.rcacao.marvelchallenge.view.ui.list.OnRecyclerItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

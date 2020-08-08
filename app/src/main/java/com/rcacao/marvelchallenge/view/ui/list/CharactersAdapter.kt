@@ -4,14 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rcacao.marvelchallenge.R
@@ -29,8 +24,7 @@ class CharactersAdapter @Inject constructor(
     @ActivityContext private val context: Context,
     diffUtilCallBack: DiffUtilCallBack
 ) :
-    PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack),
-    OnRecyclerItemClickListener {
+    PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
 
     var itemSize: Int
     private val sharedViewModel: SharedViewModel by (context as ComponentActivity).viewModels()
@@ -48,7 +42,7 @@ class CharactersAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        getItem(position)?.let { holder.bindPost(it, position, this) }
+        getItem(position)?.let { holder.bindPost(it, position) }
     }
 
     fun changeFav(position: Int, value: Boolean) {
@@ -63,32 +57,14 @@ class CharactersAdapter @Inject constructor(
 
         fun bindPost(
             character: CharacterModel,
-            position: Int,
-            listener: OnRecyclerItemClickListener
+            position: Int
         ) {
             binding.imgChar.layoutParams.height = itemSize
             binding.imgChar.layoutParams.width = itemSize
             binding.sharedViewModel = sharedViewModel
             binding.position = position
             binding.character = character
-            binding.listener = listener
         }
     }
 
-    override fun onClickItem(view: View) {
-        navigateToDetails(view)
-    }
-
-    private fun navigateToDetails(view: View) {
-        val navController: NavController = view.findNavController()
-        if (navController.currentDestination?.id == R.id.listFragment) {
-            val extras =
-                FragmentNavigator.Extras.Builder()
-                    .addSharedElement(view, view.transitionName).build()
-            val action: NavDirections =
-                ListFragmentDirections.actionListFragmentToDetailFragment()
-
-            navController.navigate(action, extras)
-        }
-    }
 }
