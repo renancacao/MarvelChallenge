@@ -23,7 +23,7 @@ class FavoritesAdapter @Inject constructor(
     private var itemSize: Int = itemSizeHelper(context as Activity)
     private val sharedViewModel: SharedViewModel by (context as ComponentActivity).viewModels()
 
-    var data: List<CharacterModel>? = null
+    var data: ArrayList<CharacterModel>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val binding: FavoriteItemBinding =

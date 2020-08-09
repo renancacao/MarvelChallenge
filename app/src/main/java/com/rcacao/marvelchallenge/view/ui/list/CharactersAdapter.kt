@@ -38,11 +38,8 @@ class CharactersAdapter @Inject constructor(
         getItem(position)?.let { holder.bindPost(itemSize, sharedViewModel, it, position) }
     }
 
-    fun changeFav(position: Int, value: Boolean) {
-        getItem(position)?.let {
-            it.isFavorite = value
-            notifyItemChanged(position)
-        }
+    fun getItemData(pos: Int): CharacterModel? {
+        return getItem(pos)
     }
 
 }

@@ -77,8 +77,15 @@ class ListFragment : Fragment() {
 
     private fun handleListItemUpdate(event: UpdateCharactersEvent) {
         when (event) {
-            is UpdateCharactersEvent.UpdateItem -> adapter.changeFav(event.pos, event.value)
+            is UpdateCharactersEvent.UpdateItem -> changeFav(event.pos, event.value)
             is UpdateCharactersEvent.UpdateList -> updateRepoListFromInput()
+        }
+    }
+
+    private fun changeFav(position: Int, value: Boolean) {
+        adapter.getItemData(position)?.let {
+            it.isFavorite = value
+            adapter.notifyItemChanged(position)
         }
     }
 

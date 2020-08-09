@@ -16,6 +16,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.FragmentListBinding
+import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
+import com.rcacao.marvelchallenge.view.model.UpdateFavoriteEvent
 import com.rcacao.marvelchallenge.view.model.details.favorites.FavoritesStateUi
 import com.rcacao.marvelchallenge.view.viewmodel.FavoritesViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
@@ -50,21 +52,38 @@ class FavoritesListFragment : Fragment() {
         search(query)
         initSearchAndPosition(query)
         initSwipe()
-        observeViewModel()
+        observeViewModels()
     }
 
     private fun setListeners() {
         buttonRetry.setOnClickListener { updateRepoListFromInput() }
     }
 
-    private fun observeViewModel() {
+    private fun observeViewModels() {
         favoritesViewModel.favoritesList.observe(viewLifecycleOwner, Observer {
-            adapter.data = it
+            adapter.data = it as ArrayList<CharacterModel>?
             adapter.notifyDataSetChanged()
         })
         favoritesViewModel.favoritesStateUi.observe(viewLifecycleOwner, Observer {
             handleFavoritesUiState(it)
         })
+        sharedViewModel.favoriteEvent.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { handleEvent(it) }
+        })
+    }
+
+    private fun handleEvent(event: UpdateFavoriteEvent) {
+        when (event) {
+            is UpdateFavoriteEvent.FavoriteRemove -> removeItem(event.pos)
+            is UpdateFavoriteEvent.UpdateList -> updateRepoListFromInput()
+        }
+    }
+
+    private fun removeItem(pos: Int) {
+        adapter.data?.let {
+            it.removeAt(pos)
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun handleFavoritesUiState(state: FavoritesStateUi) {
