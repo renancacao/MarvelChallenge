@@ -1,7 +1,6 @@
 package com.rcacao.marvelchallenge.view.ui
 
 import android.graphics.drawable.Drawable
-import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.DataSource
@@ -10,9 +9,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.rcacao.marvelchallenge.GlideApp
 import com.rcacao.marvelchallenge.R
-import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.ui.details.OnImageLoadListener
-import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
 @BindingAdapter("isFavorite")
 fun isFavorite(view: ImageView, isFavorite: Boolean) {
@@ -63,23 +60,5 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
         .fitCenter()
         .listener(requestListener)
         .into(view)
-
-}
-
-@BindingAdapter(
-    "sharedViewModel",
-    "character",
-    "itemPosition"
-)
-fun setCallbacks(
-    view: View,
-    sharedViewModel: SharedViewModel,
-    character: CharacterModel,
-    itemPosition: Int
-) {
-    view.setOnClickListener {
-        sharedViewModel.currentPosition = itemPosition
-        sharedViewModel.selectCharacter(character, it.transitionName)
-    }
 
 }
