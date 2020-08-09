@@ -29,7 +29,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
-        android:name="com.rcacao.marvelchallenge.view.ui.PagerFragment"
+        android:name="com.rcacao.marvelchallenge.view.ui.pager.PagerFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
