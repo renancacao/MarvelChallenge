@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoritesViewModel @ViewModelInject @Inject constructor(
-    private val getFavoritesUseCase: UseCase<String, DataResult<List<CharacterModel>>>
+    private val getFavoritesUseCase: UseCase<String, DataResult<List<CharacterModel>>>,
+    private val textErrorHelper: TextErrorHelper
 ) :
     ViewModel() {
 
@@ -34,7 +35,7 @@ class FavoritesViewModel @ViewModelInject @Inject constructor(
             when (val result: DataResult<List<CharacterModel>> =
                 getFavoritesUseCase(queryString)) {
                 is DataResult.Success -> handleFavoritesListData(result.data)
-                is DataResult.Error -> handleFavoritesListError(result.exception.localizedMessage)
+                is DataResult.Error -> handleFavoritesListError(result.exception.message)
             }
         }
 
@@ -42,7 +43,7 @@ class FavoritesViewModel @ViewModelInject @Inject constructor(
 
     private fun handleFavoritesListError(error: String?) {
         mutableFavoritesList.value = emptyList()
-        mutableFavoritesStateUi.value = FavoritesStateUi.Error(error ?: "Error loading list")
+        mutableFavoritesStateUi.value = FavoritesStateUi.Error(textErrorHelper(error))
     }
 
     private fun handleFavoritesListData(data: List<CharacterModel>) {

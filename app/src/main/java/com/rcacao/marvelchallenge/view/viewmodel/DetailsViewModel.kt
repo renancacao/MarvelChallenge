@@ -16,7 +16,8 @@ import javax.inject.Inject
 
 class DetailsViewModel @ViewModelInject @Inject constructor(
     private val getComicsUseCase: UseCase<String, DataResult<List<ComicsModel>>>,
-    private val getSeriesUseCase: UseCase<String, DataResult<List<SeriesModel>>>
+    private val getSeriesUseCase: UseCase<String, DataResult<List<SeriesModel>>>,
+    private val textErrorHelper: TextErrorHelper
 ) :
     ViewModel() {
 
@@ -41,14 +42,14 @@ class DetailsViewModel @ViewModelInject @Inject constructor(
         viewModelScope.launch {
             when (val result: DataResult<List<ComicsModel>> = getComicsUseCase(charId)) {
                 is DataResult.Success -> handleComicsListData(result.data)
-                is DataResult.Error -> handleComicListError(result.exception.localizedMessage)
+                is DataResult.Error -> handleComicListError(result.exception.message)
             }
         }
     }
 
     private fun handleComicListError(error: String?) {
         mutableComicsList.value = emptyList()
-        mutableComicsStateUi.value = ComicsStateUi.Error(error ?: "Error loading list")
+        mutableComicsStateUi.value = ComicsStateUi.Error(textErrorHelper(error))
     }
 
     private fun handleComicsListData(data: List<ComicsModel>) {
@@ -72,7 +73,7 @@ class DetailsViewModel @ViewModelInject @Inject constructor(
 
     private fun handleSeriesListError(error: String?) {
         mutableSeriesList.value = emptyList()
-        mutableSeriesStateUi.value = SeriesStateUi.Error(error ?: "Error loading list")
+        mutableSeriesStateUi.value = SeriesStateUi.Error(textErrorHelper(error))
     }
 
     private fun handleSeriesListData(data: List<SeriesModel>) {
