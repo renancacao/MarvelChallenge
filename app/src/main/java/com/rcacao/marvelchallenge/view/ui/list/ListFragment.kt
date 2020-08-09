@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
@@ -17,7 +18,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.FragmentListBinding
-import com.rcacao.marvelchallenge.view.model.UpdateItemEvent
+import com.rcacao.marvelchallenge.view.model.UpdateCharactersEvent
 import com.rcacao.marvelchallenge.view.viewmodel.CharactersViewModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +37,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ListFragment : Fragment() {
 
-    private val charactersViewModel: CharactersViewModel by activityViewModels()
+    private val charactersViewModel: CharactersViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private var searchJob: Job? = null
@@ -56,8 +57,6 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedViewModel.configureDefaultToolbar()
-
         initAdapter()
         binding.buttonRetry.setOnClickListener { adapter.retry() }
 
@@ -76,8 +75,11 @@ class ListFragment : Fragment() {
             })
     }
 
-    private fun handleListItemUpdate(updateData: UpdateItemEvent) {
-        adapter.changeFav(updateData.pos, updateData.value)
+    private fun handleListItemUpdate(event: UpdateCharactersEvent) {
+        when (event) {
+            is UpdateCharactersEvent.UpdateItem -> adapter.changeFav(event.pos, event.value)
+            is UpdateCharactersEvent.UpdateList -> updateRepoListFromInput()
+        }
     }
 
     private fun initSwipe() {
