@@ -12,9 +12,9 @@ import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.usecases.UseCase
 import com.rcacao.marvelchallenge.view.model.NavigationEvent
 import com.rcacao.marvelchallenge.view.model.ToolbarState
-import com.rcacao.marvelchallenge.view.model.UpdateItemEvent
+import com.rcacao.marvelchallenge.view.model.UpdateCharactersEvent
+import com.rcacao.marvelchallenge.view.model.UpdateFavoriteEvent
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 class SharedViewModel @ViewModelInject @Inject constructor(
@@ -29,9 +29,13 @@ class SharedViewModel @ViewModelInject @Inject constructor(
     val navigationEvent: LiveData<Event<NavigationEvent>>
         get() = mutableNavigationEvent
 
-    private val mutableUpdateItem = MutableLiveData<Event<UpdateItemEvent>>()
-    val updateItem: LiveData<Event<UpdateItemEvent>>
-        get() = mutableUpdateItem
+    private val mutableFavoriteEvent = MutableLiveData<Event<UpdateFavoriteEvent>>()
+    val favoriteEvent: LiveData<Event<UpdateFavoriteEvent>>
+        get() = mutableFavoriteEvent
+
+    private val mutableCharactersEvent = MutableLiveData<Event<UpdateCharactersEvent>>()
+    val updateItem: LiveData<Event<UpdateCharactersEvent>>
+        get() = mutableCharactersEvent
 
     private val mutableUpdateActionFav = MutableLiveData<Event<Boolean>>()
     val updateActionFav: LiveData<Event<Boolean>>
@@ -49,14 +53,16 @@ class SharedViewModel @ViewModelInject @Inject constructor(
     val selectedCharacter: LiveData<CharacterModel>
         get() = mutableSelectedCharacter
 
-    fun selectCharacter(characterModel: CharacterModel, transitionName: String) {
+    fun selectCharacter(
+        fromFavorites: Boolean,
+        itemPosition: Int,
+        characterModel: CharacterModel,
+        transitionName: String
+    ) {
+        currentPosition = itemPosition
         mutableTransitionName.value = transitionName
         mutableSelectedCharacter.value = characterModel
-        mutableNavigationEvent.value = Event(NavigationEvent.NavigateToDetails)
-    }
-
-    fun configureDefaultToolbar() {
-        mutableToolbarState.value = ToolbarState.DefaultToolbar
+        mutableNavigationEvent.value = Event(NavigationEvent.NavigateToDetails(fromFavorites))
     }
 
     fun configureDetailsToolbar() {
@@ -66,28 +72,65 @@ class SharedViewModel @ViewModelInject @Inject constructor(
         }
     }
 
-    fun starCharacter(characterModel: CharacterModel, position: Int) {
-        val newValue: Boolean = !characterModel.isFavorite
-        val useCase: UseCase<CharacterModel, DataResult<Unit>> =
-            if (newValue) saveFavoriteUseCase else deleteFavoriteUseCase
+    fun starFromFavorite(
+        characterModel: CharacterModel,
+        pos: Int
+    ) {
         viewModelScope.launch {
-            when (useCase(characterModel)) {
+            when (deleteFavoriteUseCase(characterModel)) {
                 is DataResult.Success -> {
-                    updateFavUis(position, newValue)
+                    updateFavoritesUi(pos)
                 }
             }
-
         }
     }
 
-    private fun updateFavUis(
-        position: Int,
-        isFav: Boolean
-    ) {
-        val updateData = UpdateItemEvent(position, isFav)
-        mutableUpdateItem.value = Event(updateData)
-        Timber.d("FAV : $updateData")
-        mutableUpdateActionFav.value = Event(isFav)
+    fun starFromCharacters(characterModel: CharacterModel, pos: Int) {
+        val save: Boolean = !characterModel.isFavorite
+        val useCase: UseCase<CharacterModel, DataResult<Unit>> = getLocalAction(save)
+        viewModelScope.launch {
+            when (useCase(characterModel)) {
+                is DataResult.Success -> {
+                    updateCharactersUi(pos, save)
+                }
+            }
+        }
+    }
+
+    fun starFromToolbar(characterModel: CharacterModel, pos: Int, fromFavorites: Boolean) {
+        val save: Boolean = !characterModel.isFavorite
+        val useCase: UseCase<CharacterModel, DataResult<Unit>> = getLocalAction(save)
+        viewModelScope.launch {
+            when (useCase(characterModel)) {
+                is DataResult.Success -> {
+                    updateUi(save, fromFavorites, pos)
+                }
+            }
+        }
+    }
+
+    private fun getLocalAction(save: Boolean): UseCase<CharacterModel, DataResult<Unit>> {
+        return if (save) saveFavoriteUseCase else deleteFavoriteUseCase
+    }
+
+
+    private fun updateUi(save: Boolean, fromFavorites: Boolean, pos: Int) {
+        mutableUpdateActionFav.value = Event(save)
+        if (!fromFavorites) {
+            updateCharactersUi(pos, save)
+        } else {
+            updateFavoritesUi(pos)
+        }
+    }
+
+    private fun updateCharactersUi(pos: Int, save: Boolean) {
+        mutableCharactersEvent.value = Event(UpdateCharactersEvent.UpdateItem(pos, save))
+        mutableFavoriteEvent.value = Event(UpdateFavoriteEvent.UpdateList)
+    }
+
+    private fun updateFavoritesUi(pos: Int) {
+        mutableFavoriteEvent.value = Event(UpdateFavoriteEvent.FavoriteRemove(pos))
+        mutableCharactersEvent.value = Event(UpdateCharactersEvent.UpdateList)
     }
 
 }
