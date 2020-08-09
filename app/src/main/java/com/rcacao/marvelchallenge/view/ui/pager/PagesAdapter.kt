@@ -2,6 +2,7 @@ package com.rcacao.marvelchallenge.view.ui.pager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.rcacao.marvelchallenge.view.ui.favorites.FavoritesListFragment
 import com.rcacao.marvelchallenge.view.ui.list.ListFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -14,14 +15,13 @@ class PagesAdapter @Inject constructor(fragment: Fragment) : FragmentStateAdapte
     override fun getItemCount(): Int = 2
 
     private val listFragment: ListFragment = ListFragment.newInstance()
-
-    private val listFragment1: ListFragment = ListFragment.newInstance()
+    private val favoritesListFragment: FavoritesListFragment = FavoritesListFragment.newInstance()
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0) {
             listFragment
         } else {
-            listFragment1
+            favoritesListFragment
         }
     }
 }
