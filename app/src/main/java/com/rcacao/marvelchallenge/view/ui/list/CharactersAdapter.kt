@@ -2,16 +2,15 @@ package com.rcacao.marvelchallenge.view.ui.list
 
 import android.app.Activity
 import android.content.Context
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.CharacterItemBinding
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
+import com.rcacao.marvelchallenge.view.ui.CharacterViewHolder
+import com.rcacao.marvelchallenge.view.ui.ItemSizeHelper
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
@@ -22,18 +21,13 @@ import javax.inject.Inject
 @ActivityScoped
 class CharactersAdapter @Inject constructor(
     @ActivityContext private val context: Context,
+    itemSizeHelper: ItemSizeHelper,
     diffUtilCallBack: DiffUtilCallBack
 ) :
-    PagingDataAdapter<CharacterModel, CharactersAdapter.CharacterViewHolder>(diffUtilCallBack) {
+    PagingDataAdapter<CharacterModel, CharacterViewHolder>(diffUtilCallBack) {
 
-    var itemSize: Int
+    private var itemSize: Int = itemSizeHelper(context as Activity)
     private val sharedViewModel: SharedViewModel by (context as ComponentActivity).viewModels()
-
-    init {
-        val displayMetrics = DisplayMetrics()
-        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-        itemSize = displayMetrics.widthPixels / context.resources.getInteger(R.integer.item_columns)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding: CharacterItemBinding =
@@ -42,28 +36,13 @@ class CharactersAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        getItem(position)?.let { holder.bindPost(it, position) }
+        getItem(position)?.let { holder.bindPost(itemSize, sharedViewModel, it, position) }
     }
 
     fun changeFav(position: Int, value: Boolean) {
         getItem(position)?.let {
             it.isFavorite = value
             notifyItemChanged(position)
-        }
-    }
-
-    inner class CharacterViewHolder(private val binding: CharacterItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bindPost(
-            character: CharacterModel,
-            position: Int
-        ) {
-            binding.imgChar.layoutParams.height = itemSize
-            binding.imgChar.layoutParams.width = itemSize
-            binding.sharedViewModel = sharedViewModel
-            binding.position = position
-            binding.character = character
         }
     }
 
