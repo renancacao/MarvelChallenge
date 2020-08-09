@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
     private var menu: Menu? = null
     private val sharedViewModel: SharedViewModel by viewModels()
 
+    private var inDetailsFromFav: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,7 +40,8 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
         }
     }
 
-    private fun navigateToDetails() {
+    private fun navigateToDetails(fromFavorites: Boolean) {
+        inDetailsFromFav = fromFavorites
         supportFragmentManager.commit {
             add<DetailsFragment>(R.id.fragment_container, null, null)
             addToBackStack(null)
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
 
     private fun handleNavigation(navigationEvent: NavigationEvent) {
         when (navigationEvent) {
-            is NavigationEvent.NavigateToDetails -> navigateToDetails()
+            is NavigationEvent.NavigateToDetails -> navigateToDetails(navigationEvent.fromFavorites)
         }
     }
 
@@ -78,7 +81,6 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
 
     private fun handleToolbarState(toolbarState: ToolbarState) {
         when (toolbarState) {
-            is ToolbarState.DefaultToolbar -> setDefaultToolbar()
             is ToolbarState.DetailsToolbar -> setDetailsToolbar(
                 toolbarState.name,
                 toolbarState.isFavorite
@@ -90,7 +92,11 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
         return when (item.itemId) {
             R.id.action_favorite -> {
                 sharedViewModel.selectedCharacter.value?.let {
-                    sharedViewModel.starCharacter(it, sharedViewModel.currentPosition)
+                    sharedViewModel.starFromToolbar(
+                        it,
+                        sharedViewModel.currentPosition,
+                        inDetailsFromFav
+                    )
                 }
                 return true
             }
@@ -117,6 +123,7 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
     }
 
     private fun setDefaultToolbar() {
+        inDetailsFromFav = false
         supportActionBar?.let {
             it.title = "MarvelChallenge"
             it.setDisplayHomeAsUpEnabled(false)
