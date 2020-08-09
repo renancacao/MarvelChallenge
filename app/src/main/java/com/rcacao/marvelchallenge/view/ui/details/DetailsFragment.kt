@@ -55,6 +55,7 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
 
     override fun onImageLoad() {
         startPostponedEnterTransition()
+        binding.progresImage.isVisible = false
         setListeners()
         sharedViewModel.configureDetailsToolbar()
         charId = sharedViewModel.selectedCharacter.value?.id ?: ""

@@ -39,6 +39,16 @@
                 app:onImageLoad="@{onImageLoadListener}"
                 tools:src="@mipmap/ic_launcher" />
 
+
+            <ProgressBar
+                android:id="@+id/progresImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/imgDetails"
+                app:layout_constraintEnd_toEndOf="@+id/imgDetails"
+                app:layout_constraintStart_toStartOf="@+id/imgDetails"
+                app:layout_constraintTop_toTopOf="@+id/imgDetails" />
+
             <ImageView
                 android:id="@+id/imgFace"
                 android:layout_width="120dp"
