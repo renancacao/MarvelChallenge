@@ -23,7 +23,7 @@ class CharactersRepository @Inject constructor(
     private val apiHelper: ApiHelper,
     private val pagingConfig: PagingConfig,
     private val database: AppDatabase,
-    private val characterModelMapper: Mapper<List<Character>, List<CharacterModel>>,
+    private val listCharacterModelMapper: Mapper<List<Character>, ArrayList<CharacterModel>>,
     private val characterMapper: Mapper<CharacterModel, Character>,
     private val pagingCharacterModelMapper:
     Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>>,
@@ -95,9 +95,9 @@ class CharactersRepository @Inject constructor(
     }
 
 
-    suspend fun getFavorites(query: String): DataResult<List<CharacterModel>> {
+    suspend fun getFavorites(query: String): DataResult<ArrayList<CharacterModel>> {
         return try {
-            val list: List<CharacterModel> = characterModelMapper.map(
+            val list: ArrayList<CharacterModel> = listCharacterModelMapper.map(
                 database.characterDao().getCharacters("$query%")
             )
             DataResult.Success(list)

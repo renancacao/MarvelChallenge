@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.usecases.UseCase
+import com.rcacao.marvelchallenge.utils.EmptyListException
 import com.rcacao.marvelchallenge.view.model.details.favorites.FavoritesStateUi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,8 +25,8 @@ class FavoritesViewModel @ViewModelInject @Inject constructor(
     val favoritesStateUi: LiveData<FavoritesStateUi>
         get() = mutableFavoritesStateUi
 
-    private val mutableFavoritesList = MutableLiveData<List<CharacterModel>>()
-    val favoritesList: LiveData<List<CharacterModel>>
+    private val mutableFavoritesList = MutableLiveData<ArrayList<CharacterModel>>()
+    val favoritesList: LiveData<ArrayList<CharacterModel>>
         get() = mutableFavoritesList
 
     fun searchCharacter(queryString: String) {
@@ -34,7 +35,13 @@ class FavoritesViewModel @ViewModelInject @Inject constructor(
         viewModelScope.launch {
             when (val result: DataResult<List<CharacterModel>> =
                 getFavoritesUseCase(queryString)) {
-                is DataResult.Success -> handleFavoritesListData(result.data)
+                is DataResult.Success -> {
+                    if (result.data.isNotEmpty()) {
+                        handleFavoritesListData(result.data as ArrayList<CharacterModel>)
+                    } else {
+                        handleFavoritesListError(EmptyListException().message)
+                    }
+                }
                 is DataResult.Error -> handleFavoritesListError(result.exception.message)
             }
         }
@@ -42,11 +49,11 @@ class FavoritesViewModel @ViewModelInject @Inject constructor(
     }
 
     private fun handleFavoritesListError(error: String?) {
-        mutableFavoritesList.value = emptyList()
+        mutableFavoritesList.value = ArrayList()
         mutableFavoritesStateUi.value = FavoritesStateUi.Error(textErrorHelper(error))
     }
 
-    private fun handleFavoritesListData(data: List<CharacterModel>) {
+    private fun handleFavoritesListData(data: ArrayList<CharacterModel>) {
         mutableFavoritesStateUi.value = FavoritesStateUi.Loaded
         mutableFavoritesList.value = data
         if (data.isEmpty()) {

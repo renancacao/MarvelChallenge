@@ -5,9 +5,9 @@ import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import javax.inject.Inject
 
 class ListCharacterModelMapper @Inject constructor() :
-    Mapper<List<Character>, List<CharacterModel>> {
+    Mapper<List<Character>, ArrayList<CharacterModel>> {
 
-    override fun map(input: List<Character>): List<CharacterModel> =
+    override fun map(input: List<Character>): ArrayList<CharacterModel> =
         input.map {
             CharacterModel(
                 it.id,
@@ -17,6 +17,6 @@ class ListCharacterModelMapper @Inject constructor() :
                 it.description,
                 isFavorite = true
             )
-        }
+        } as ArrayList<CharacterModel>
 }
 

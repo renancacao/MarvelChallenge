@@ -39,7 +39,7 @@ object MappersModule {
 
     @Provides
     @Singleton
-    fun providesCharacterModelMapper(): Mapper<List<Character>, List<CharacterModel>> =
+    fun providesCharacterModelMapper(): Mapper<List<Character>, ArrayList<CharacterModel>> =
         ListCharacterModelMapper()
 
 

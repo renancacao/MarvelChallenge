@@ -7,6 +7,7 @@ import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
 import com.rcacao.marvelchallenge.domain.NoNetworkingException
 import com.rcacao.marvelchallenge.utils.ConnectionHelper
+import com.rcacao.marvelchallenge.utils.EmptyListException
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
@@ -37,6 +38,9 @@ class CharacterPagingSource(
             val response: CharactersDataResponse =
                 loadCharacters(ts, hash, offset, limit, orderBy, key, query)
             val characters: List<CharacterResponse> = response.data?.characters ?: emptyList()
+            if (characters.isEmpty()) {
+                return LoadResult.Error(EmptyListException())
+            }
             LoadResult.Page(
                 data = characters,
                 prevKey = if (offset == 0) null else offset - limit,
