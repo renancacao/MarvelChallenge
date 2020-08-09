@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class ItemSizeHelper @Inject constructor() {
     operator fun invoke(activity: Activity): Int {
-        val orientation = activity.resources.configuration.orientation
         val displayMetrics = DisplayMetrics()
         activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.widthPixels / activity.resources.getInteger(R.integer.item_columns)

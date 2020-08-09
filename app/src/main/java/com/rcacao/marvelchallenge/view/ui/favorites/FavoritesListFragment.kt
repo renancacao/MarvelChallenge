@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rcacao.marvelchallenge.R
 import com.rcacao.marvelchallenge.databinding.FragmentListBinding
-import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.model.UpdateFavoriteEvent
 import com.rcacao.marvelchallenge.view.model.details.favorites.FavoritesStateUi
 import com.rcacao.marvelchallenge.view.viewmodel.FavoritesViewModel
@@ -60,7 +59,7 @@ class FavoritesListFragment : Fragment() {
 
     private fun observeViewModels() {
         favoritesViewModel.favoritesList.observe(viewLifecycleOwner, Observer {
-            adapter.data = it as ArrayList<CharacterModel>?
+            adapter.data = it
             adapter.notifyDataSetChanged()
         })
         favoritesViewModel.favoritesStateUi.observe(viewLifecycleOwner, Observer {

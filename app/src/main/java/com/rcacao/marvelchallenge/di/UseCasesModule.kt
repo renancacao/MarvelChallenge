@@ -11,6 +11,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Qualifier
 
@@ -34,17 +35,21 @@ abstract class UseCasesModule {
     @Binds
     abstract fun bindSaveFavoriteUseCase(useCase: SaveFavoriteUseCase): UseCase<CharacterModel, DataResult<Unit>>
 
+    @ExperimentalCoroutinesApi
     @Binds
     abstract fun bindGetCharacterPagingUseCase(useCase: GetCharactersPagingUseCase):
             UseCase<CharacterPagingRequest, Flow<PagingData<CharacterModel>>>
 
     @Binds
-    abstract fun bindGetComicsUseCase(useCase: GetComicsUseCase): UseCase<String, DataResult<List<ComicsModel>>>
+    abstract fun bindGetComicsUseCase(useCase: GetComicsUseCase):
+            UseCase<String, DataResult<List<ComicsModel>>>
 
     @Binds
-    abstract fun bindGetSeriesUseCase(useCase: GetSeriesUseCase): UseCase<String, DataResult<List<SeriesModel>>>
+    abstract fun bindGetSeriesUseCase(useCase: GetSeriesUseCase):
+            UseCase<String, DataResult<List<SeriesModel>>>
 
     @Binds
-    abstract fun bindGetFavoritesUseCase(useCase: GetFavoritesUseCase): UseCase<String, DataResult<List<CharacterModel>>>
+    abstract fun bindGetFavoritesUseCase(useCase: GetFavoritesUseCase):
+            UseCase<String, DataResult<List<CharacterModel>>>
 }
 

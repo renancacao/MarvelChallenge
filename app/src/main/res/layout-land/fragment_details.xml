@@ -26,6 +26,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:importantForAccessibility="no"
                 android:id="@+id/imgDetails"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
@@ -50,6 +51,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imgDetails" />
 
             <ImageView
+                android:contentDescription="@{viewModel.selectedCharacter.name}"
                 android:id="@+id/imgFace"
                 android:layout_width="@dimen/image_face_size"
                 android:layout_height="@dimen/image_face_size"

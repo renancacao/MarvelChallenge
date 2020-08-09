@@ -24,6 +24,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:importantForAccessibility="no"
             android:id="@+id/imgChar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,6 +64,7 @@
                 tools:text="Capitão América" />
 
             <ImageView
+                android:contentDescription="@string/save_as_favorite"
                 android:id="@+id/imgStar"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"

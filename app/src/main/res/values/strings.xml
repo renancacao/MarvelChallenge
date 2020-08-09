@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">MarvelChallenge</string>
-    <string name="retry">Tentar Novamente</string>
-    <string name="search_hint">Nome do personagem</string>
+    <string name="retry">Retry</string>
+    <string name="search_hint">Character name</string>
     <string name="comics">Comics</string>
     <string name="series">Series</string>
-    <string name="favorite">Favoritar</string>
+    <string name="save_as_favorite">save as favorite</string>
 </resources>
