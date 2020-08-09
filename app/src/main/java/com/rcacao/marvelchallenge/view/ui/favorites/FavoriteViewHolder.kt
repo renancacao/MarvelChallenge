@@ -1,11 +1,11 @@
-package com.rcacao.marvelchallenge.view.ui
+package com.rcacao.marvelchallenge.view.ui.favorites
 
 import androidx.recyclerview.widget.RecyclerView
-import com.rcacao.marvelchallenge.databinding.CharacterItemBinding
+import com.rcacao.marvelchallenge.databinding.FavoriteItemBinding
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 
-class CharacterViewHolder(private val binding: CharacterItemBinding) :
+class FavoriteViewHolder(private val binding: FavoriteItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bindPost(
