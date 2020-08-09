@@ -64,15 +64,35 @@ class ListFragment : Fragment() {
         search(query)
         initSearchAndPosition(query)
         initSwipe()
-        observeListItemUpdate()
+        observeViewModel()
     }
 
-    private fun observeListItemUpdate() {
+    private fun observeViewModel() {
         sharedViewModel.updateItem.observe(
             viewLifecycleOwner,
             Observer { event ->
                 event.getContentIfNotHandled()?.let { handleListItemUpdate(it) }
             })
+
+        charactersViewModel.errorMessage.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { handleError(it) }
+        })
+
+        charactersViewModel.listVisibility.observe(viewLifecycleOwner, Observer {
+            binding.recyclerView.isVisible = it
+        })
+
+        charactersViewModel.loadingVisibility.observe(viewLifecycleOwner, Observer {
+            binding.progressBar.isVisible = it
+        })
+
+        charactersViewModel.retryVisibility.observe(viewLifecycleOwner, Observer {
+            binding.buttonRetry.isVisible = it
+        })
+    }
+
+    private fun handleError(errorMessage: String) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     private fun handleListItemUpdate(event: UpdateCharactersEvent) {
@@ -155,31 +175,11 @@ class ListFragment : Fragment() {
     private fun initAdapter() {
         binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
         adapter.addLoadStateListener { loadState: CombinedLoadStates ->
-            binding.recyclerView.isVisible = isSuccess(loadState) && !isError(loadState)
-            binding.progressBar.isVisible = isLoading(loadState)
-            binding.buttonRetry.isVisible = isError(loadState)
-
-            val errorState: LoadState.Error? = loadState.source.append as? LoadState.Error
-                ?: loadState.source.prepend as? LoadState.Error
-                ?: loadState.append as? LoadState.Error
-                ?: loadState.prepend as? LoadState.Error
-            errorState?.let {
-                Toast.makeText(context, "\uD83D\uDE28 Wooops ${it.error}", Toast.LENGTH_LONG).show()
-            }
+            charactersViewModel.stateChange(loadState)
         }
         binding.recyclerView.adapter = adapter
     }
 
-    private fun isSuccess(loadState: CombinedLoadStates) =
-        loadState.source.refresh is LoadState.NotLoading
-
-    private fun isError(loadState: CombinedLoadStates) =
-        loadState.append is LoadState.Error
-                || loadState.source.refresh is LoadState.Error
-
-    private fun isLoading(loadState: CombinedLoadStates): Boolean =
-        loadState.append is LoadState.Loading
-                || loadState.source.refresh is LoadState.Loading
 
     companion object {
         @JvmStatic
