@@ -10,12 +10,14 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import com.rcacao.marvelchallenge.R
+import com.rcacao.marvelchallenge.utils.ConnectionHelper
 import com.rcacao.marvelchallenge.view.model.NavigationEvent
 import com.rcacao.marvelchallenge.view.model.ToolbarState
 import com.rcacao.marvelchallenge.view.ui.details.DetailsFragment
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -26,9 +28,13 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
 
     private var inDetailsFromFav: Boolean = false
 
+    @Inject
+    lateinit var connectionHelper: ConnectionHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        connectionHelper.registerNetworkCallback()
         setSupportActionBar(my_toolbar)
         supportFragmentManager.addOnBackStackChangedListener(this)
         observeViewModel()

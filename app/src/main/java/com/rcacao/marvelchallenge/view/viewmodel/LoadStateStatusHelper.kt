@@ -21,6 +21,7 @@ class LoadStateStatusHelper @Inject constructor(private val textErrorHelper: Tex
         val errorState: LoadState.Error? = loadState.source.append as? LoadState.Error
             ?: loadState.source.prepend as? LoadState.Error
             ?: loadState.append as? LoadState.Error
+            ?: loadState.refresh as? LoadState.Error
             ?: loadState.prepend as? LoadState.Error
         return errorState?.let {
             return textErrorHelper(it.error.message)

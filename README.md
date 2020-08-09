@@ -20,7 +20,10 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [X] Barra de busca para filtrar lista por nome.
 - [X] Pull-to-refresh para atualizar a lista.
 - [X] Paginação na lista: Carregar 20 personagens por vez, baixando a próxima página ao chegar no fim da lista.
-- [ ] Interface de lista vazia, erro ou sem internet.
+- [ ] Interface de lista vazia.
+- [X] Interface de erro.
+- [X] Interface de sem internet.
+
 
 ## Requisitos Tela Detalhes
 - [X] Botão de favorito.
@@ -33,7 +36,8 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 ## Requisitos Tela Favoritos
 - [X] Listagem dos personagens favoritados pelo usuário.
 - [X] Favoritos devem ser persistidos para serem acessados offline.
-- [ ] Interface de lista vazia ou erro.
+- [ ] Interface de lista vazia.
+- [X] Interface de erro.
 
 ## Outras libs usadas e bônus
 

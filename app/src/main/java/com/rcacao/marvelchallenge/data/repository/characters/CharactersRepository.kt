@@ -3,6 +3,7 @@ package com.rcacao.marvelchallenge.data.repository.characters
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.rcacao.marvelchallenge.data.ApiHelper
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.database.AppDatabase
 import com.rcacao.marvelchallenge.data.database.Character
@@ -11,7 +12,7 @@ import com.rcacao.marvelchallenge.data.mapper.Merger
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
-import com.rcacao.marvelchallenge.utils.ApiHelper
+import com.rcacao.marvelchallenge.utils.ConnectionHelper
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,7 +26,8 @@ class CharactersRepository @Inject constructor(
     private val characterModelMapper: Mapper<List<Character>, List<CharacterModel>>,
     private val characterMapper: Mapper<CharacterModel, Character>,
     private val pagingCharacterModelMapper:
-    Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>>
+    Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>>,
+    private val connectionHelper: ConnectionHelper
 ) {
 
     private var ids: List<String>? = null
@@ -65,7 +67,8 @@ class CharactersRepository @Inject constructor(
                 CharacterPagingSource(
                     query,
                     webService,
-                    apiHelper
+                    apiHelper,
+                    connectionHelper
                 )
             }
         ).flow

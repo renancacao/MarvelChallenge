@@ -1,4 +1,4 @@
-package com.rcacao.marvelchallenge.utils
+package com.rcacao.marvelchallenge.data
 
 interface ApiHelper {
     fun getTimeStamp(): String

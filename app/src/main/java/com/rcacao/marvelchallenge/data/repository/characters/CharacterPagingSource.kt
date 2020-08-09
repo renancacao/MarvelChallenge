@@ -1,10 +1,12 @@
 package com.rcacao.marvelchallenge.data.repository.characters
 
 import androidx.paging.PagingSource
+import com.rcacao.marvelchallenge.data.ApiHelper
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
-import com.rcacao.marvelchallenge.utils.ApiHelper
+import com.rcacao.marvelchallenge.domain.NoNetworkingException
+import com.rcacao.marvelchallenge.utils.ConnectionHelper
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
@@ -12,7 +14,8 @@ import java.io.IOException
 class CharacterPagingSource(
     private val query: String,
     private val webService: MarvelWebService,
-    private val apiHelper: ApiHelper
+    private val apiHelper: ApiHelper,
+    private val connectionHelper: ConnectionHelper
 ) :
     PagingSource<Int, CharacterResponse>() {
 
@@ -28,6 +31,9 @@ class CharacterPagingSource(
 
         return try {
             Timber.d("Chamada de API")
+            if (!connectionHelper.isConnected()) {
+                return LoadResult.Error(NoNetworkingException())
+            }
             val response: CharactersDataResponse =
                 loadCharacters(ts, hash, offset, limit, orderBy, key, query)
             val characters: List<CharacterResponse> = response.data?.characters ?: emptyList()

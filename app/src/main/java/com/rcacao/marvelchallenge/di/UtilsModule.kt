@@ -1,7 +1,7 @@
 package com.rcacao.marvelchallenge.di
 
-import com.rcacao.marvelchallenge.utils.ApiHelper
-import com.rcacao.marvelchallenge.utils.ApiHelperImpl
+import com.rcacao.marvelchallenge.data.ApiHelper
+import com.rcacao.marvelchallenge.data.ApiHelperImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

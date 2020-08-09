@@ -1,10 +1,11 @@
-package com.rcacao.marvelchallenge.utils
+package com.rcacao.marvelchallenge.data
 
 import com.rcacao.marvelchallenge.BuildConfig
 import java.security.MessageDigest
 import javax.inject.Inject
 
-class ApiHelperImpl @Inject constructor() : ApiHelper {
+class ApiHelperImpl @Inject constructor() :
+    ApiHelper {
 
     private val privateKey: String = BuildConfig.PRIVATE_APIKEY
 

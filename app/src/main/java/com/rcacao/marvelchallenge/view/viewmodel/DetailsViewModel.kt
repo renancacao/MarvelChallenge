@@ -66,7 +66,7 @@ class DetailsViewModel @ViewModelInject @Inject constructor(
         viewModelScope.launch {
             when (val result: DataResult<List<SeriesModel>> = getSeriesUseCase(charId)) {
                 is DataResult.Success -> handleSeriesListData(result.data)
-                is DataResult.Error -> handleSeriesListError(result.exception.localizedMessage)
+                is DataResult.Error -> handleSeriesListError(result.exception.message)
             }
         }
     }

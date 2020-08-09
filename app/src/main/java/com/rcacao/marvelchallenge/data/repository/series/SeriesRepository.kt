@@ -1,11 +1,11 @@
 package com.rcacao.marvelchallenge.data.repository.series
 
+import com.rcacao.marvelchallenge.data.ApiHelper
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.mapper.Mapper
 import com.rcacao.marvelchallenge.data.model.series.SeriesDataResponse
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.series.SeriesModel
-import com.rcacao.marvelchallenge.utils.ApiHelper
 import javax.inject.Inject
 
 class SeriesRepository @Inject constructor(
