@@ -6,7 +6,7 @@ import com.rcacao.marvelchallenge.domain.model.series.SeriesModel
 import javax.inject.Inject
 
 class GetSeriesUseCase @Inject constructor(private val repository: SeriesRepository) :
-    UseCase<String, DataResult<@JvmSuppressWildcards List<  SeriesModel>>> {
+    UseCase<String, DataResult<@JvmSuppressWildcards List<SeriesModel>>> {
     override suspend operator fun invoke(requestData: String): DataResult<List<SeriesModel>> =
         repository.getSeries(requestData)
 }
