@@ -12,19 +12,17 @@ import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.utils.ApiHelper
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@ExperimentalCoroutinesApi
 @Singleton
 class CharactersRepository @Inject constructor(
     private val webService: MarvelWebService,
     private val apiHelper: ApiHelper,
     private val pagingConfig: PagingConfig,
     private val database: AppDatabase,
-    private val characterModelMapper: Mapper<Character, CharacterModel>,
+    private val characterModelMapper: Mapper<List<Character>, List<CharacterModel>>,
     private val characterMapper: Mapper<CharacterModel, Character>,
     private val pagingCharacterModelMapper:
     Merger<Flow<PagingData<CharacterResponse>>, String, Flow<PagingData<CharacterModel>>>
@@ -93,6 +91,17 @@ class CharactersRepository @Inject constructor(
         }
     }
 
-    private suspend fun getLocalIds(): List<String> = database.characterDao().getIds()
 
+    suspend fun getFavorites(query: String): DataResult<List<CharacterModel>> {
+        return try {
+            val list: List<CharacterModel> = characterModelMapper.map(
+                database.characterDao().getCharacters("$query%")
+            )
+            DataResult.Success(list)
+        } catch (ex: Exception) {
+            DataResult.Error(ex)
+        }
+    }
+
+    private suspend fun getLocalIds(): List<String> = database.characterDao().getIds()
 }
