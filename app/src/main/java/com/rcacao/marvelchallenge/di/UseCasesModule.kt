@@ -43,5 +43,8 @@ abstract class UseCasesModule {
 
     @Binds
     abstract fun bindGetSeriesUseCase(useCase: GetSeriesUseCase): UseCase<String, DataResult<List<SeriesModel>>>
+
+    @Binds
+    abstract fun bindGetFavoritesUseCase(useCase: GetFavoritesUseCase): UseCase<String, DataResult<List<CharacterModel>>>
 }
 
