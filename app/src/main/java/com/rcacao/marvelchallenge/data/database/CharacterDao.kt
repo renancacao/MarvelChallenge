@@ -7,7 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface CharacterDao {
-    @Query("SELECT id FROM Character order by id")
+    @Query("SELECT id FROM Character ORDER BY id")
     suspend fun getIds(): List<String>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -15,4 +15,8 @@ interface CharacterDao {
 
     @Query("DELETE FROM character where id = :id")
     suspend fun deleteById(id: String)
+
+    @Query("SELECT * FROM Character where name LIKE :query ORDER BY name")
+    suspend fun getCharacters(query: String): List<Character>
+
 }
