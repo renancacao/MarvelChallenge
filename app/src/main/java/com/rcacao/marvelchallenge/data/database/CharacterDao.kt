@@ -19,4 +19,7 @@ interface CharacterDao {
     @Query("SELECT * FROM Character where name LIKE :query ORDER BY name")
     suspend fun getCharacters(query: String): List<Character>
 
+    @Query("SELECT * FROM Character where id = :id")
+    suspend fun getCharacterById(id: String): Character
+
 }
