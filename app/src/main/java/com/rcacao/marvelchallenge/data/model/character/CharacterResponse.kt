@@ -9,13 +9,13 @@ class CharacterResponse {
     var id: String = ""
 
     @SerializedName("name")
-    val name: String = ""
+    var name: String = ""
 
     @SerializedName("thumbnail")
-    val thumbnail: ThumbnailResponse =
+    var thumbnail: ThumbnailResponse =
         ThumbnailResponse()
 
     @SerializedName("description")
-    val description: String = ""
+    var description: String = ""
 
 }

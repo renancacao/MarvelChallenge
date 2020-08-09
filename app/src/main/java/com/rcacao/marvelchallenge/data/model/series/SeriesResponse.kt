@@ -9,9 +9,9 @@ class SeriesResponse {
     var id: String = ""
 
     @SerializedName("title")
-    val title: String = ""
+    var title: String = ""
 
     @SerializedName("thumbnail")
-    val thumbnail: ThumbnailResponse = ThumbnailResponse()
+    var thumbnail: ThumbnailResponse = ThumbnailResponse()
 
 }

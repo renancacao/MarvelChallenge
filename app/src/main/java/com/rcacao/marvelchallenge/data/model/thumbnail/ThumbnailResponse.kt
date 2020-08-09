@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 class ThumbnailResponse {
 
     @SerializedName("path")
-    val path: String = ""
+    var path: String = ""
 
     @SerializedName("extension")
-    val extension: String = ""
+    var extension: String = ""
 
 }

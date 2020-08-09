@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 class SeriesListResponse {
 
     @SerializedName("results")
-    val comics: List<SeriesResponse> = emptyList()
+    var series: List<SeriesResponse> = emptyList()
 }

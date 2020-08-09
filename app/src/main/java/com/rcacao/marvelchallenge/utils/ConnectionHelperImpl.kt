@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class ConnectionHelperImpl @Inject constructor(@ApplicationContext private val context: Context) :
     ConnectionHelper {
 
-    override var isNetworkConnected = false
+    private var isNetworkConnected = false
 
     override fun isConnected(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
