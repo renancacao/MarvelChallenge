@@ -97,6 +97,11 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
             state !is ComicsStateUi.Loading && state !is ComicsStateUi.Loaded
         binding.layoutComics.isGone = state is ComicsStateUi.Empty
         binding.buttonRetryComics.isVisible = state is ComicsStateUi.Error
+        binding.textMessageComics.isVisible = state is ComicsStateUi.Error
+
+        if (state is ComicsStateUi.Error) {
+            binding.textMessageComics.text = state.errorMsg
+        }
     }
 
     private fun handleSeriesUiState(state: SeriesStateUi) {
@@ -105,6 +110,11 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
             state !is SeriesStateUi.Loading && state !is SeriesStateUi.Loaded
         binding.layoutSeries.isGone = state is SeriesStateUi.Empty
         binding.buttonRetrySeries.isVisible = state is SeriesStateUi.Error
+        binding.textMessageSeries.isVisible = state is SeriesStateUi.Error
+
+        if (state is SeriesStateUi.Error) {
+            binding.textMessageSeries.text = state.errorMsg
+        }
     }
 
     private fun binding() {

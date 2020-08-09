@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -94,8 +93,6 @@ class ListFragment : Fragment() {
 
     private fun handleError(errorMessage: String) {
         binding.textMessage.text = errorMessage
-
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     private fun handleListItemUpdate(event: UpdateCharactersEvent) {

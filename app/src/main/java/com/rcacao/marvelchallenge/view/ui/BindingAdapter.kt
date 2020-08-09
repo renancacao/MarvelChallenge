@@ -56,6 +56,7 @@ fun imageRes(view: ImageView, url: String, listener: OnImageLoadListener) {
     }
     GlideApp.with(view.context)
         .load(url)
+        .placeholder(R.drawable.ic_baseline_broken_image_24)
         .error(R.drawable.ic_baseline_broken_image_24)
         .fitCenter()
         .listener(requestListener)

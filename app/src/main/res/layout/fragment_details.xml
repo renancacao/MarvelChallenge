@@ -105,16 +105,30 @@
                     app:layout_constraintStart_toStartOf="@+id/recyclerComics"
                     app:layout_constraintTop_toTopOf="@+id/recyclerComics" />
 
+                <TextView
+                    android:id="@+id/textMessageComics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerComics"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerComics"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerComics"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate"
+                    tools:visibility="visible" />
+
                 <Button
                     android:id="@+id/buttonRetryComics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="@string/retry"
                     android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/recyclerComics"
                     app:layout_constraintEnd_toEndOf="@+id/recyclerComics"
                     app:layout_constraintStart_toStartOf="@+id/recyclerComics"
-                    app:layout_constraintTop_toTopOf="@+id/recyclerComics" />
+                    app:layout_constraintTop_toBottomOf="@+id/textMessageComics" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -158,16 +172,31 @@
                     app:layout_constraintStart_toStartOf="@+id/recyclerSeries"
                     app:layout_constraintTop_toTopOf="@+id/recyclerSeries" />
 
+                <TextView
+                    android:id="@+id/textMessageSeries"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerSeries"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerSeries"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerSeries"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate"
+                    tools:visibility="visible" />
+
                 <Button
                     android:id="@+id/buttonRetrySeries"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/retry"
                     android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/recyclerSeries"
+                    android:layout_margin="4dp"
                     app:layout_constraintEnd_toEndOf="@+id/recyclerSeries"
+                    app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="@+id/recyclerSeries"
-                    app:layout_constraintTop_toTopOf="@+id/recyclerSeries" />
+                    app:layout_constraintTop_toBottomOf="@+id/textMessageSeries" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

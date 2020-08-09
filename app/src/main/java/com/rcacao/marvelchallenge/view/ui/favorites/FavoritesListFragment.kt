@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -91,9 +90,10 @@ class FavoritesListFragment : Fragment() {
         binding.recyclerView.isInvisible =
             state !is FavoritesStateUi.Loading && state !is FavoritesStateUi.Loaded
         binding.buttonRetry.isVisible = state is FavoritesStateUi.Error
+        binding.textMessage.isVisible = state is FavoritesStateUi.Error
+
         if (state is FavoritesStateUi.Error) {
-            Toast.makeText(context, "\uD83D\uDE28 Wooops ${state.errorMsg}", Toast.LENGTH_LONG)
-                .show()
+            binding.textMessage.text = state.errorMsg
         }
     }
 
