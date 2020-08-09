@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.paging.PagingDataAdapter
 import com.rcacao.marvelchallenge.databinding.CharacterItemBinding
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
-import com.rcacao.marvelchallenge.view.ui.CharacterViewHolder
 import com.rcacao.marvelchallenge.view.ui.ItemSizeHelper
 import com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
