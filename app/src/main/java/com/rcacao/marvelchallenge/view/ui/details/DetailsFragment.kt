@@ -1,7 +1,6 @@
 package com.rcacao.marvelchallenge.view.ui.details
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,19 +41,15 @@ class DetailsFragment : Fragment(), OnImageLoadListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
         binding()
     }
 
     override fun onImageLoad() {
-        startPostponedEnterTransition()
         binding.progresImage.isVisible = false
         setListeners()
         sharedViewModel.configureDetailsToolbar()

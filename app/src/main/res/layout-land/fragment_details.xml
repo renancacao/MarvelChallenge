@@ -27,13 +27,13 @@
 
             <ImageView
                 android:id="@+id/imgDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:adjustViewBounds="false"
                 android:alpha=".7"
+                android:scaleType="centerCrop"
                 app:glideSrc="@{viewModel.selectedCharacter.imageDetailsUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:onImageLoad="@{onImageLoadListener}"
@@ -53,23 +53,24 @@
                 android:id="@+id/imgFace"
                 android:layout_width="@dimen/image_face_size"
                 android:layout_height="@dimen/image_face_size"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimary"
                 android:elevation="10dp"
                 app:glideSrc="@{viewModel.selectedCharacter.imageListUrl}"
                 app:layout_constraintBottom_toBottomOf="@+id/imgDetails"
                 app:layout_constraintStart_toStartOf="@id/imgDetails"
-                app:layout_constraintTop_toBottomOf="@id/imgDetails"
+                app:layout_constraintTop_toBottomOf="@+id/imgDetails"
                 tools:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/txtDetails"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:gravity="center_vertical"
                 android:text="@{viewModel.selectedCharacter.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +81,9 @@
                 android:id="@+id/layoutComics"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_margin="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/txtDetails"
-                app:layout_constraintStart_toStartOf="@+id/txtDetails"
+                app:layout_constraintStart_toStartOf="@+id/imgDetails"
                 app:layout_constraintTop_toBottomOf="@+id/txtDetails">
 
                 <TextView
@@ -211,6 +212,15 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent=".5"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

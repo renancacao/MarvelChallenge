@@ -173,7 +173,8 @@ class ListFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
+        binding.recyclerView.layoutManager =
+            GridLayoutManager(context, resources.getInteger(R.integer.item_columns))
         adapter.addLoadStateListener { loadState: CombinedLoadStates ->
             charactersViewModel.stateChange(loadState)
         }

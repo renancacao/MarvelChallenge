@@ -45,10 +45,6 @@ class SharedViewModel @ViewModelInject @Inject constructor(
     val toolbarState: LiveData<ToolbarState>
         get() = mutableToolbarState
 
-    private val mutableTransitionName = MutableLiveData<String>()
-    val transitionName: LiveData<String>
-        get() = mutableTransitionName
-
     private val mutableSelectedCharacter = MutableLiveData<CharacterModel>()
     val selectedCharacter: LiveData<CharacterModel>
         get() = mutableSelectedCharacter
@@ -56,11 +52,9 @@ class SharedViewModel @ViewModelInject @Inject constructor(
     fun selectCharacter(
         fromFavorites: Boolean,
         itemPosition: Int,
-        characterModel: CharacterModel,
-        transitionName: String
+        characterModel: CharacterModel
     ) {
         currentPosition = itemPosition
-        mutableTransitionName.value = transitionName
         mutableSelectedCharacter.value = characterModel
         mutableNavigationEvent.value = Event(NavigationEvent.NavigateToDetails(fromFavorites))
     }

@@ -4,6 +4,5 @@
     <string name="search_hint">Nome do personagem</string>
     <string name="comics">Comics</string>
     <string name="series">Series</string>
-    <string name="item_transition">item</string>
     <string name="favorite">Favoritar</string>
 </resources>
