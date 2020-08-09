@@ -86,12 +86,15 @@ class ListFragment : Fragment() {
             binding.progressBar.isVisible = it
         })
 
-        charactersViewModel.retryVisibility.observe(viewLifecycleOwner, Observer {
+        charactersViewModel.errorVisibility.observe(viewLifecycleOwner, Observer {
             binding.buttonRetry.isVisible = it
+            binding.textMessage.isVisible = it
         })
     }
 
     private fun handleError(errorMessage: String) {
+        binding.textMessage.text = errorMessage
+
         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 

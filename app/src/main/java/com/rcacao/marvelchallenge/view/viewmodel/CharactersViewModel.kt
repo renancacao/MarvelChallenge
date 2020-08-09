@@ -37,9 +37,9 @@ class CharactersViewModel @ViewModelInject @Inject constructor(
     val loadingVisibility: LiveData<Boolean>
         get() = mutableLoadingVisibility
 
-    private val mutableRetryVisibility = MutableLiveData<Boolean>()
-    val retryVisibility: LiveData<Boolean>
-        get() = mutableRetryVisibility
+    private val mutableErrorVisibility = MutableLiveData<Boolean>()
+    val errorVisibility: LiveData<Boolean>
+        get() = mutableErrorVisibility
 
     suspend fun searchCharacter(queryString: String): Flow<PagingData<CharacterModel>> {
         val sameQuery: Boolean = queryString == currentQuery
@@ -73,7 +73,7 @@ class CharactersViewModel @ViewModelInject @Inject constructor(
     }
 
     private fun setRetryVisibility(loadState: CombinedLoadStates) {
-        mutableRetryVisibility.value = loadStateStatusHelper.isError(loadState)
+        mutableErrorVisibility.value = loadStateStatusHelper.isError(loadState)
     }
 
 
