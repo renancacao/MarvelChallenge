@@ -56,9 +56,6 @@ class FavoritesViewModel @ViewModelInject @Inject constructor(
     private fun handleFavoritesListData(data: ArrayList<CharacterModel>) {
         mutableFavoritesStateUi.value = FavoritesStateUi.Loaded
         mutableFavoritesList.value = data
-        if (data.isEmpty()) {
-            mutableFavoritesStateUi.value = FavoritesStateUi.Empty
-        }
     }
 
 }

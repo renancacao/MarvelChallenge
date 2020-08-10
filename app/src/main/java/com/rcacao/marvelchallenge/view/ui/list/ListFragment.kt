@@ -67,7 +67,7 @@ class ListFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        sharedViewModel.updateItem.observe(
+        sharedViewModel.characterEvent.observe(
             viewLifecycleOwner,
             Observer { event ->
                 event.getContentIfNotHandled()?.let { handleListItemUpdate(it) }

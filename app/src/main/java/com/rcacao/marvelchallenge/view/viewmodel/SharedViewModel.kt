@@ -34,7 +34,7 @@ class SharedViewModel @ViewModelInject @Inject constructor(
         get() = mutableFavoriteEvent
 
     private val mutableCharactersEvent = MutableLiveData<Event<UpdateCharactersEvent>>()
-    val updateItem: LiveData<Event<UpdateCharactersEvent>>
+    val characterEvent: LiveData<Event<UpdateCharactersEvent>>
         get() = mutableCharactersEvent
 
     private val mutableUpdateActionFav = MutableLiveData<Event<Boolean>>()
