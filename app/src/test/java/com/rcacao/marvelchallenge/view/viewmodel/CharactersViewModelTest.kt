@@ -10,7 +10,6 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.rcacao.marvelchallenge.domain.model.Event
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.usecases.GetCharactersPagingUseCase
 import com.rcacao.marvelchallenge.domain.usecases.UseCase
@@ -18,7 +17,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -41,7 +39,6 @@ class CharactersViewModelTest {
         mock()
 
     private var observerVisibility: Observer<Boolean> = mock()
-    private var observerString: Observer<Event<String>> = mock()
 
     private lateinit var viewModel: CharactersViewModel
 
@@ -60,7 +57,7 @@ class CharactersViewModelTest {
     fun getCurrentQuery() {
         viewModel.currentQuery = "query"
 
-        Assert.assertEquals("query", viewModel.currentQuery)
+        assertEquals("query", viewModel.currentQuery)
     }
 
     @Test

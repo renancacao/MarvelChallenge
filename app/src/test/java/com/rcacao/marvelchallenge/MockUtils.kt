@@ -1,14 +1,8 @@
 package com.rcacao.marvelchallenge
 
-import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.rcacao.marvelchallenge.data.ApiHelperImpl
-import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.database.Character
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
-import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
-import com.rcacao.marvelchallenge.data.model.character.CharactersListResponse
 import com.rcacao.marvelchallenge.data.model.comics.ComicsDataResponse
 import com.rcacao.marvelchallenge.data.model.comics.ComicsListResponse
 import com.rcacao.marvelchallenge.data.model.comics.ComicsResponse
@@ -16,12 +10,9 @@ import com.rcacao.marvelchallenge.data.model.series.SeriesDataResponse
 import com.rcacao.marvelchallenge.data.model.series.SeriesListResponse
 import com.rcacao.marvelchallenge.data.model.series.SeriesResponse
 import com.rcacao.marvelchallenge.data.model.thumbnail.ThumbnailResponse
-import com.rcacao.marvelchallenge.data.repository.characters.CharacterPagingSource
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import com.rcacao.marvelchallenge.domain.model.comics.ComicsModel
 import com.rcacao.marvelchallenge.domain.model.series.SeriesModel
-import com.rcacao.marvelchallenge.utils.ConnectionHelper
-import kotlinx.coroutines.flow.Flow
 
 class MockUtils {
     companion object {
@@ -35,13 +26,6 @@ class MockUtils {
                     2
                 )
             )
-
-        fun getCharactersDataResponse(list: List<CharacterResponse>): CharactersDataResponse {
-            val response = CharactersDataResponse()
-            response.data = CharactersListResponse()
-            response.data!!.characters = list
-            return response
-        }
 
         private fun getSeriesResponse(id: Int): SeriesResponse {
             val response = SeriesResponse()
@@ -122,16 +106,6 @@ class MockUtils {
             arrayListOf(getCharacterModel(1), getCharacterModel(2))
 
 
-        fun getCharacterResponseList(): List<CharacterResponse> =
-            listOf(
-                getCharacterResponse(
-                    1
-                ),
-                getCharacterResponse(
-                    2
-                )
-            )
-
         private fun getCharacterResponse(id: Int): CharacterResponse {
             val response = CharacterResponse()
             response.id = id.toString()
@@ -142,8 +116,6 @@ class MockUtils {
             return response
         }
 
-        fun getListLocalIds(): List<String> = listOf("1")
-
         fun getImageUrl(
             thumbnail: ThumbnailResponse,
             path: String
@@ -151,23 +123,6 @@ class MockUtils {
             return (thumbnail.path
                     + "/" + path + "."
                     + thumbnail.extension)
-        }
-
-        fun getFlow(
-            webService: MarvelWebService,
-            connectionHelper: ConnectionHelper
-        ): Flow<PagingData<CharacterResponse>> {
-            return Pager(
-                getPageConfig(),
-                pagingSourceFactory = {
-                    CharacterPagingSource(
-                        "",
-                        webService,
-                        ApiHelperImpl(),
-                        connectionHelper
-                    )
-                }
-            ).flow
         }
 
         private fun getPageConfig() = PagingConfig(
