@@ -5,9 +5,9 @@ import com.rcacao.marvelchallenge.data.ApiHelper
 import com.rcacao.marvelchallenge.data.api.MarvelWebService
 import com.rcacao.marvelchallenge.data.model.character.CharacterResponse
 import com.rcacao.marvelchallenge.data.model.character.CharactersDataResponse
-import com.rcacao.marvelchallenge.domain.NoNetworkingException
 import com.rcacao.marvelchallenge.utils.ConnectionHelper
 import com.rcacao.marvelchallenge.utils.EmptyListException
+import com.rcacao.marvelchallenge.utils.NoNetworkingException
 import retrofit2.HttpException
 import java.io.IOException
 

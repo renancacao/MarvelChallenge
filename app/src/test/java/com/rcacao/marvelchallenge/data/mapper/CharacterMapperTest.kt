@@ -1,6 +1,6 @@
 package com.rcacao.marvelchallenge.data.mapper
 
-import com.rcacao.marvelchallenge.data.MockUtils
+import com.rcacao.marvelchallenge.MockUtils
 import com.rcacao.marvelchallenge.data.database.Character
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import org.junit.Assert
@@ -12,7 +12,7 @@ class CharacterMapperTest {
     fun testMapWithData() {
 
         val mapper = CharacterMapper()
-        val characterModel: CharacterModel = MockUtils.getCharacterModel()
+        val characterModel: CharacterModel = MockUtils.getCharacterModel(1)
         val character: Character = mapper.map(characterModel)
 
         Assert.assertEquals(characterModel.id, character.id)

@@ -1,6 +1,6 @@
 package com.rcacao.marvelchallenge.data.mapper
 
-import com.rcacao.marvelchallenge.data.MockUtils
+import com.rcacao.marvelchallenge.MockUtils
 import com.rcacao.marvelchallenge.data.database.Character
 import com.rcacao.marvelchallenge.domain.model.character.CharacterModel
 import org.junit.Assert

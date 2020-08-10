@@ -1,6 +1,6 @@
 package com.rcacao.marvelchallenge.data.mapper
 
-import com.rcacao.marvelchallenge.data.MockUtils
+import com.rcacao.marvelchallenge.MockUtils
 import com.rcacao.marvelchallenge.data.model.series.SeriesDataResponse
 import com.rcacao.marvelchallenge.data.model.series.SeriesListResponse
 import com.rcacao.marvelchallenge.domain.model.series.SeriesModel
