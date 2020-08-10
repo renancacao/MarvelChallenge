@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.rcacao.marvelchallenge.view.viewmodel.SharedViewModel" />
+
+        <variable
+            name="onImageLoadListener"
+            type="com.rcacao.marvelchallenge.view.ui.details.OnImageLoadListener" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backGroundColor"
+        tools:context=".view.ui.details.DetailsFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:importantForAccessibility="no"
+                android:id="@+id/imgDetails"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:adjustViewBounds="false"
+                android:alpha=".7"
+                android:scaleType="centerCrop"
+                app:glideSrc="@{viewModel.selectedCharacter.imageDetailsUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:onImageLoad="@{onImageLoadListener}"
+                tools:src="@mipmap/ic_launcher" />
+
+
+            <ProgressBar
+                android:id="@+id/progresImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/imgDetails"
+                app:layout_constraintEnd_toEndOf="@+id/imgDetails"
+                app:layout_constraintStart_toStartOf="@+id/imgDetails"
+                app:layout_constraintTop_toTopOf="@+id/imgDetails" />
+
+            <ImageView
+                android:contentDescription="@{viewModel.selectedCharacter.name}"
+                android:id="@+id/imgFace"
+                android:layout_width="@dimen/image_face_size"
+                android:layout_height="@dimen/image_face_size"
+                android:layout_marginStart="16dp"
+                android:adjustViewBounds="true"
+                android:background="@color/colorPrimary"
+                android:elevation="10dp"
+                app:glideSrc="@{viewModel.selectedCharacter.imageListUrl}"
+                app:layout_constraintBottom_toBottomOf="@+id/imgDetails"
+                app:layout_constraintStart_toStartOf="@id/imgDetails"
+                app:layout_constraintTop_toBottomOf="@+id/imgDetails"
+                tools:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/txtDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_vertical"
+                android:text="@{viewModel.selectedCharacter.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgFace"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate, nibh dui convallis mauris, in sollicitudin lacus ipsum non eros. Proin cursus iaculis mauris. Nam mauris quam, scelerisque nec placerat rutrum, ultricies nec justo. Duis dictum convallis ante sit amet rhoncus. Cras pharetra diam felis, eu dictum libero pharetra in. Nulla sed erat et eros facilisis eleifend. Vivamus nec varius tellus. Nam justo mauris, rhoncus nec risus quis, imperdiet auctor metus. Donec feugiat urna ut lectus lacinia dictum. Vivamus ultrices id dolor sit amet pretium. Duis auctor, nunc et tempus ornare, est leo cursus lorem, sit amet rhoncus ante tellus sed orci. Aenean aliquet tempor dictum." />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutComics"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/txtDetails"
+                app:layout_constraintStart_toStartOf="@+id/imgDetails"
+                app:layout_constraintTop_toBottomOf="@+id/txtDetails">
+
+                <TextView
+                    android:id="@+id/txtComics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comics"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerComics"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/comics_height"
+                    android:layout_marginTop="8dp"
+                    android:minHeight="@dimen/comics_height"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtComics"
+                    tools:layout_height="100dp" />
+
+                <ProgressBar
+                    android:id="@+id/progressComics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/recyclerComics"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerComics"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerComics"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerComics" />
+
+                <TextView
+                    android:id="@+id/textMessageComics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerComics"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerComics"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerComics"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/buttonRetryComics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/retry"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerComics"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerComics"
+                    app:layout_constraintTop_toBottomOf="@+id/textMessageComics" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSeries"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/layoutComics"
+                app:layout_constraintStart_toStartOf="@+id/layoutComics"
+                app:layout_constraintTop_toBottomOf="@+id/layoutComics">
+
+                <TextView
+                    android:id="@+id/txtSeries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/series"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerSeries"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/series_height"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:minHeight="@dimen/comics_height"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSeries"
+                    tools:layout_height="100dp" />
+
+                <ProgressBar
+                    android:id="@+id/progressSeries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/recyclerSeries"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerSeries"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerSeries"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerSeries" />
+
+                <TextView
+                    android:id="@+id/textMessageSeries"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerSeries"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerSeries"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerSeries"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet magna tortor. Sed pulvinar, ligula et aliquet vulputate"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/buttonRetrySeries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="@string/retry"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerSeries"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerSeries"
+                    app:layout_constraintTop_toBottomOf="@+id/textMessageSeries" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent=".5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

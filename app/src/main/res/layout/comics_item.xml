@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="comics"
+            type="com.rcacao.marvelchallenge.domain.model.comics.ComicsModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <ImageView
+            android:id="@+id/imgComics"
+            android:layout_width="@dimen/comics_width"
+            android:layout_height="@dimen/comics_height"
+            android:importantForAccessibility="no"
+            app:glideSrc="@{comics.imageUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_height="160dp"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_name"
+            android:maxLines="4"
+            android:paddingStart="4dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:text="@{comics.title}"
+            android:textColor="@color/charTextColor"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imgComics"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Capitão América" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
