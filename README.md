@@ -11,8 +11,9 @@ Utilizar a API Marvel para criar um app que liste os personagens e seus dados, e
 - [X] App universal, desenvolva uma interface que se adapte a telas maiores.
 - [X] Tratamento para falha de conexão.
 - [X] Desenvolver o App em uma arquitetura robusta.
-- [ ] O teste não pode apresenter crash.
-- [ ] Testes unitários e interface.
+- [X] O teste não pode apresenter crash.
+- [X] Testes unitários 
+- [ ]  Testes interface. (pendente)
 
 ## Requisitos Tela Personagens
 - [X] Listagem dos personagens ordenados por nome.
