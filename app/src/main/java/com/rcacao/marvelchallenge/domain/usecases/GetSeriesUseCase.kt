@@ -1,10 +1,10 @@
 package com.rcacao.marvelchallenge.domain.usecases
 
 import com.rcacao.marvelchallenge.data.repository.series.SeriesRepository
-import com.rcacao.marvelchallenge.domain.NoNetworkingException
 import com.rcacao.marvelchallenge.domain.model.DataResult
 import com.rcacao.marvelchallenge.domain.model.series.SeriesModel
 import com.rcacao.marvelchallenge.utils.ConnectionHelper
+import com.rcacao.marvelchallenge.utils.NoNetworkingException
 import javax.inject.Inject
 
 class GetSeriesUseCase @Inject constructor(
